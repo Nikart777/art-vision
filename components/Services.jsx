@@ -1,72 +1,106 @@
 'use client';
-import { useState } from 'react';
+import { useRef } from 'react';
 
 const services = [
   { 
     id: "01", 
     title: "Разработка", 
-    desc: "Frontend / Backend / Highload / 3D Web",
-    image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGZ4eThlMXJ4bnJ4bnJ4bnJ4bnJ4bnJ4bnJ4bnJ4bnJ4bnJ4bnJ4YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L8K62iTDkzGX6/giphy.gif"
+    description: "Полный цикл создания цифровых продуктов. От одностраничных сайтов до сложных WebGL-систем.",
+    tags: ["Frontend", "Backend", "WebGL / Three.js", "React & Next.js", "Highload", "CMS Integration"]
   },
   { 
     id: "02", 
-    title: "Веб-Дизайн", 
-    desc: "UI/UX / Анимации / Прототипирование",
-    image: "https://media.giphy.com/media/26tn33aiTi1jkl6VU6/giphy.gif"
+    title: "UI/UX Дизайн", 
+    description: "Проектируем интерфейсы, которые удерживают внимание. Логика, помноженная на эмоции.",
+    tags: ["Art Direction", "Prototyping", "Mobile Apps", "Design Systems", "Motion Design", "3D Assets"]
   },
   { 
     id: "03", 
     title: "Брендинг", 
-    desc: "Айдентика / Логотипы / Гайдлайны",
-    image: "https://media.giphy.com/media/3o7TKsAds5T6lD6f4y/giphy.gif"
+    description: "Упаковка смыслов в визуальные образы. Создаем бренды, которые хочется носить на себе.",
+    tags: ["Strategy", "Logo & Identity", "Brandbook", "Merch Design", "Social Media", "Naming"]
   },
+  { 
+    id: "04", 
+    title: "Маркетинг", 
+    description: "Не просто запускаем сайт, а делаем так, чтобы о нем узнали. Аналитика и трафик.",
+    tags: ["SEO Optimization", "Performance", "Analytics", "Copywriting", "Strategy", "Launch"]
+  }
 ];
 
 export default function Services() {
-  const [activeImage, setActiveImage] = useState(null);
-
   return (
     <section className="relative w-full py-32 bg-[#050505] text-white z-30">
       <div className="max-w-7xl mx-auto px-4 md:px-12">
+        
+        {/* Заголовок */}
         <div className="mb-20 border-b border-white/20 pb-8 flex justify-between items-end">
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
             Наши Услуги
           </h2>
-          <span className="font-mono text-purple-500 hidden md:block">/// SYSTEM_OFFER</span>
+          <span className="font-mono text-purple-500 hidden md:block">/// SYSTEM_CAPABILITIES</span>
         </div>
 
-        <div className="relative">
+        {/* Список услуг */}
+        <div className="flex flex-col">
           {services.map((service) => (
             <div 
               key={service.id}
-              className="group relative border-b border-white/10 py-12 cursor-pointer transition-colors hover:bg-white/5"
-              onMouseEnter={() => setActiveImage(service.image)}
-              onMouseLeave={() => setActiveImage(null)}
+              className="group relative border-b border-white/10 transition-colors hover:border-purple-500/50"
             >
-              <div className="flex flex-col md:flex-row md:items-center justify-between relative z-10 mix-blend-difference">
-                <span className="text-purple-500 font-mono text-xl mb-4 md:mb-0 mr-8">
-                  ({service.id})
-                </span>
-                <h3 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter group-hover:translate-x-4 transition-transform duration-300">
-                  {service.title}
-                </h3>
-                <p className="mt-4 md:mt-0 font-mono text-gray-400 text-sm md:text-right w-64 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {service.desc}
-                </p>
+              {/* Верхняя часть (Всегда видна) */}
+              <div className="py-10 cursor-pointer flex flex-col md:flex-row md:items-baseline justify-between gap-6">
+                
+                {/* ID и Заголовок */}
+                <div className="flex items-baseline gap-8 md:gap-16 transition-transform duration-500 group-hover:translate-x-4">
+                  <span className="text-gray-600 font-mono text-xl group-hover:text-purple-500 transition-colors duration-300">
+                    ({service.id})
+                  </span>
+                  <h3 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter group-hover:text-purple-400 transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                </div>
+
+                {/* Стрелка-индикатор */}
+                <div className="hidden md:block pr-4">
+                  <span className="inline-block text-2xl text-gray-600 group-hover:text-white group-hover:rotate-45 transition-all duration-300">
+                    ↗
+                  </span>
+                </div>
               </div>
+
+              {/* Скрытая часть (Раскрывается при наведении) */}
+              {/* max-h-0 -> max-h-[300px] обеспечивает плавную анимацию высоты на CSS */}
+              <div className="max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:max-h-[400px] opacity-0 group-hover:opacity-100">
+                <div className="pb-10 pl-0 md:pl-[120px] flex flex-col md:flex-row gap-8 md:gap-16">
+                  
+                  {/* Описание */}
+                  <p className="font-mono text-gray-400 text-sm leading-relaxed max-w-sm">
+                    {service.description}
+                  </p>
+
+                  {/* Теги (Полезный интерактив) */}
+                  <div className="flex flex-wrap gap-2 max-w-xl">
+                    {service.tags.map((tag, i) => (
+                      <span 
+                        key={i} 
+                        className="px-3 py-1 border border-white/20 rounded-full text-xs font-mono uppercase tracking-wider text-gray-300 hover:bg-white hover:text-black hover:border-white transition-colors cursor-default"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                </div>
+              </div>
+              
+              {/* Фоновая подсветка при наведении */}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
             </div>
           ))}
-
-          {/* Фоновая картинка */}
-          <div 
-            className="pointer-events-none fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] z-0 opacity-20 md:opacity-40 mix-blend-screen transition-opacity duration-500"
-            style={{ opacity: activeImage ? 0.4 : 0 }}
-          >
-             {activeImage && (
-               <img src={activeImage} alt="Preview" className="w-full h-full object-cover grayscale contrast-125" />
-             )}
-          </div>
         </div>
+
       </div>
     </section>
   );
