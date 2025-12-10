@@ -10,25 +10,25 @@ export default function Footer({ calculatorData }) {
     e.preventDefault();
     setFormState('sending');
     
-    const formData = new FormData(e.target);
-    // В реальном проекте здесь будет отправка на project@art-vision.online
-    
+    // В реальном проекте здесь будет отправка
     setTimeout(() => {
       setFormState('success');
     }, 2000);
   };
 
   return (
-    <footer id="contact-form" className="relative w-full bg-[#050505] text-white pt-32 pb-12 px-4 md:px-12 z-30 border-t border-white/10 overflow-hidden">
+    <footer id="contact-form" className="relative w-full bg-[#050505] text-white pt-24 md:pt-32 pb-12 px-4 md:px-12 z-30 border-t border-white/10 overflow-hidden">
       
       {/* Фоновый шум */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
         
-        {/* --- ЛЕВАЯ КОЛОНКА: Инфо --- */}
-        <div className="flex flex-col justify-between">
-          <div>
+        {/* --- ЛЕВАЯ КОЛОНКА (На мобильном уходит ВНИЗ благодаря order-last) --- */}
+        <div className="flex flex-col justify-between order-last md:order-first">
+          
+          {/* Заголовок виден только на десктопе в этой колонке */}
+          <div className="hidden md:block">
             <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-8 leading-[0.8]">
               Let's <br/>
               <span className="text-purple-500">Talk</span>
@@ -38,11 +38,12 @@ export default function Footer({ calculatorData }) {
             </p>
           </div>
 
-          <div className="mt-16 space-y-6 font-mono text-sm text-gray-500 uppercase">
+          {/* Контакты (Email & Socials) */}
+          <div className="mt-8 md:mt-16 space-y-8 font-mono text-sm text-gray-500 uppercase">
             
             {/* Email */}
             <div className="flex flex-col">
-              <span className="text-purple-500 text-xs mb-1">Email:</span>
+              <span className="text-purple-500 text-xs mb-2">Email:</span>
               <a 
                 href="mailto:project@art-vision.online" 
                 className="text-white hover:text-purple-400 transition-colors text-xl md:text-2xl font-bold tracking-tight"
@@ -51,22 +52,32 @@ export default function Footer({ calculatorData }) {
               </a>
             </div>
 
-            {/* Socials (Только Telegram) */}
-            <div className="flex flex-col pt-4">
+            {/* Socials (Telegram) */}
+            <div className="flex flex-col">
                <span className="text-purple-500 text-xs mb-2">Socials:</span>
                <div className="flex gap-6 text-white">
-                  <a href="#" className="hover:text-purple-400 transition-colors flex items-center gap-2">
-                    Telegram <span className="text-purple-500">↗</span>
+                  <a href="#" className="hover:text-purple-400 transition-colors flex items-center gap-2 border border-white/10 px-4 py-2 rounded-full hover:bg-white/5">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    Telegram
                   </a>
                </div>
             </div>
-
           </div>
         </div>
 
-        {/* --- ПРАВАЯ КОЛОНКА: Форма (Бриф) --- */}
-        <div className="relative bg-white/5 p-8 md:p-12 rounded-2xl border border-white/10 backdrop-blur-sm shadow-2xl">
+        {/* --- ПРАВАЯ КОЛОНКА: Форма (На мобильном идет ПЕРВОЙ) --- */}
+        <div className="relative bg-white/5 p-6 md:p-12 rounded-2xl border border-white/10 backdrop-blur-sm shadow-2xl order-first md:order-last">
           
+          {/* Заголовок для мобилок внутри блока формы */}
+          <div className="block md:hidden mb-8 text-center">
+            <h2 className="text-5xl font-black uppercase tracking-tighter leading-none mb-2">
+              Let's <span className="text-purple-500">Talk</span>
+            </h2>
+            <p className="font-mono text-xs text-gray-400">
+              Заполните бриф и мы свяжемся с вами
+            </p>
+          </div>
+
           <AnimatePresence mode='wait'>
             {formState === 'success' ? (
               // ЭКРАН УСПЕХА
@@ -75,17 +86,17 @@ export default function Footer({ calculatorData }) {
                 animate={{ opacity: 1, y: 0 }}
                 className="h-full flex flex-col items-center justify-center text-center py-20"
               >
-                <div className="w-24 h-24 bg-gradient-to-tr from-green-400 to-green-600 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(34,197,94,0.4)]">
-                  <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
+                <div className="w-20 h-20 bg-gradient-to-tr from-green-400 to-green-600 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(34,197,94,0.4)]">
+                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <h3 className="text-3xl font-bold uppercase mb-2">Заявка принята</h3>
-                <p className="font-mono text-gray-400 max-w-xs mx-auto">
-                  Мы получили ваш запрос на 
-                  <span className="text-white block mt-1 font-bold">project@art-vision.online</span>
+                <h3 className="text-2xl font-bold uppercase mb-2">Заявка принята</h3>
+                <p className="font-mono text-gray-400 text-sm max-w-xs mx-auto mb-6">
+                  Мы получили ваш запрос на <br/>
+                  <span className="text-white font-bold">project@art-vision.online</span>
                 </p>
                 <button 
                   onClick={() => setFormState('idle')}
-                  className="mt-8 text-xs font-bold uppercase tracking-widest border-b border-purple-500 text-purple-500 hover:text-white transition-colors pb-1"
+                  className="text-xs font-bold uppercase tracking-widest border-b border-purple-500 text-purple-500 hover:text-white transition-colors pb-1"
                 >
                   Отправить еще
                 </button>
@@ -97,9 +108,9 @@ export default function Footer({ calculatorData }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onSubmit={handleSubmit} 
-                className="space-y-8"
+                className="space-y-6 md:space-y-8"
               >
-                {/* --- СКРЫТОЕ ПОЛЕ С ДАННЫМИ КАЛЬКУЛЯТОРА --- */}
+                {/* --- СКРЫТОЕ ПОЛЕ --- */}
                 <input 
                   type="hidden" 
                   name="calculator_details" 
@@ -113,7 +124,7 @@ export default function Footer({ calculatorData }) {
                     name="name"
                     required
                     placeholder="Ваше Имя / Компания" 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
@@ -123,8 +134,8 @@ export default function Footer({ calculatorData }) {
                     type="email" 
                     name="email"
                     required
-                    placeholder="Email или Telegram для связи" 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
+                    placeholder="Email или Telegram" 
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
@@ -134,7 +145,7 @@ export default function Footer({ calculatorData }) {
                     name="message"
                     rows="2"
                     placeholder="Пара слов о задаче..." 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors resize-none text-white"
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors resize-none text-white"
                   ></textarea>
                 </div>
 
@@ -143,50 +154,50 @@ export default function Footer({ calculatorData }) {
                   <input 
                     type="text" 
                     name="references"
-                    placeholder="Ссылка на сайт / пример (если есть)" 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
+                    placeholder="Ссылка на пример (если есть)" 
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
-                {/* Визуальная индикация прикрепленного расчета */}
+                {/* Индикация расчета */}
                 {calculatorData && calculatorData.total > 0 && (
                    <motion.div 
                      initial={{ opacity: 0, height: 0 }}
                      animate={{ opacity: 1, height: 'auto' }}
-                     className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-xl p-4 overflow-hidden"
+                     className="bg-purple-900/20 border border-purple-500/30 rounded-xl p-4 overflow-hidden"
                    >
                      <div className="flex items-center gap-2 mb-1">
                        <span className="text-green-400 bg-green-400/10 rounded-full w-5 h-5 flex items-center justify-center text-xs">✓</span>
                        <span className="text-[10px] font-bold text-purple-200 uppercase tracking-widest">Расчет прикреплен</span>
                      </div>
                      <div className="text-xs text-gray-400 font-mono pl-7">
-                       Предварительная смета: <span className="text-white font-bold">{calculatorData.total.toLocaleString()} ₽</span>
+                       Смета: <span className="text-white font-bold">{calculatorData.total.toLocaleString()} ₽</span>
                      </div>
                    </motion.div>
                 )}
 
-                {/* КНОПКА ОТПРАВКИ (Дизайнерская) */}
-                <div className="pt-6">
+                {/* КНОПКА ОТПРАВКИ */}
+                <div className="pt-4">
                   <button 
                     type="submit"
                     disabled={formState === 'sending'}
-                    className="group relative w-full overflow-hidden rounded-xl bg-white p-[1px] focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+                    className="group relative w-full overflow-hidden rounded-xl bg-white p-[1px]"
                   >
                     <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                    <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-xl bg-black px-8 py-6 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-3xl transition-all duration-300 group-hover:bg-black/80">
+                    <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-xl bg-black px-6 py-4 md:px-8 md:py-6 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-3xl transition-all duration-300 group-hover:bg-black/80">
                       
                       {formState === 'sending' ? (
                         <span className="flex items-center gap-3">
-                           <svg className="animate-spin h-5 w-5 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                           <svg className="animate-spin h-4 w-4 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                            </svg>
                            Отправка...
                         </span>
                       ) : (
-                        <span className="flex items-center gap-3 group-hover:gap-6 transition-all">
+                        <span className="flex items-center gap-3">
                            Отправить Бриф
-                           <svg className="w-5 h-5 text-purple-500 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <svg className="w-4 h-4 text-purple-500 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                            </svg>
                         </span>
@@ -202,21 +213,40 @@ export default function Footer({ calculatorData }) {
         </div>
       </div>
 
-      {/* Копирайт и Реквизиты */}
-      <div className="mt-32 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center text-[10px] uppercase text-gray-600 font-mono gap-6">
+      {/* --- НИЖНИЙ БЛОК: Копирайт и Реквизиты --- */}
+      <div className="mt-20 md:mt-32 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center text-[10px] uppercase text-gray-600 font-mono gap-8 md:gap-6">
          
          <div className="flex flex-col gap-1">
             <span className="text-gray-500 font-bold">© 2025 Art.Vision</span>
             <span>All rights reserved.</span>
          </div>
          
-         {/* РЕКВИЗИТЫ КОМПАНИИ */}
-         <div className="flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
-            <span className="text-gray-400">ООО "ГУДЛАБ"</span>
-            <span>ИНН: 5041209522</span>
-            <span>КПП: 504101001</span>
-            <span>ОГРН: 1195081060580</span>
-            <a href="#" className="hover:text-purple-500 transition-colors ml-auto md:ml-0">Политика Конфиденциальности</a>
+         {/* РЕКВИЗИТЫ (Оптимизированы для мобилок) */}
+         <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-wrap gap-x-8 gap-y-4 w-full md:w-auto md:justify-end">
+            
+            <div className="flex flex-col">
+              <span className="text-[8px] text-gray-700 mb-0.5">Организация</span>
+              <span className="text-gray-400 font-bold">ООО "ГУДЛАБ"</span>
+            </div>
+            
+            <div className="flex flex-col">
+              <span className="text-[8px] text-gray-700 mb-0.5">ИНН</span>
+              <span className="text-gray-400">5041209522</span>
+            </div>
+
+            <div className="flex flex-col">
+              <span className="text-[8px] text-gray-700 mb-0.5">КПП</span>
+              <span className="text-gray-400">504101001</span>
+            </div>
+
+            <div className="flex flex-col">
+              <span className="text-[8px] text-gray-700 mb-0.5">ОГРН</span>
+              <span className="text-gray-400">1195081060580</span>
+            </div>
+
+            <a href="#" className="flex items-end hover:text-purple-500 transition-colors mt-2 md:mt-0 underline decoration-white/10 underline-offset-4">
+              Политика Конфиденциальности
+            </a>
          </div>
 
       </div>
