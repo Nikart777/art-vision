@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Footer() {
+export default function Footer({ calculatorData }) {
   // Состояния формы
   const [formState, setFormState] = useState('idle'); // 'idle' | 'sending' | 'success'
 
@@ -10,16 +10,16 @@ export default function Footer() {
     e.preventDefault();
     setFormState('sending');
     
-    // Имитация отправки на сервер (2 секунды)
-    // Позже сюда подключим реальный сервис
+    const formData = new FormData(e.target);
+    // В реальном проекте здесь будет отправка на project@art-vision.online
+    
     setTimeout(() => {
       setFormState('success');
     }, 2000);
   };
 
   return (
-    <footer className="relative w-full bg-[#050505] text-white pt-32 pb-12 px-4 md:px-12 z-30 border-t border-white/10 overflow-hidden">
-      <footer id="contact-form" className="relative w-full bg-[#050505] text-white pt-32 pb-12 px-4 md:px-12 z-30 border-t border-white/10 overflow-hidden"></footer>
+    <footer id="contact-form" className="relative w-full bg-[#050505] text-white pt-32 pb-12 px-4 md:px-12 z-30 border-t border-white/10 overflow-hidden">
       
       {/* Фоновый шум */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none"></div>
@@ -38,25 +38,34 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="mt-16 space-y-4 font-mono text-sm text-gray-500 uppercase">
+          <div className="mt-16 space-y-6 font-mono text-sm text-gray-500 uppercase">
+            
+            {/* Email */}
             <div className="flex flex-col">
               <span className="text-purple-500 text-xs mb-1">Email:</span>
-              <a href="mailto:hello@art.vision" className="text-white hover:text-purple-400 transition-colors text-lg">hello@art.vision</a>
+              <a 
+                href="mailto:project@art-vision.online" 
+                className="text-white hover:text-purple-400 transition-colors text-xl md:text-2xl font-bold tracking-tight"
+              >
+                project@art-vision.online
+              </a>
             </div>
-            <div className="flex flex-col">
-              <span className="text-purple-500 text-xs mb-1">Location:</span>
-              <span className="text-white">Moscow, Tverskaya 12</span>
+
+            {/* Socials (Только Telegram) */}
+            <div className="flex flex-col pt-4">
+               <span className="text-purple-500 text-xs mb-2">Socials:</span>
+               <div className="flex gap-6 text-white">
+                  <a href="#" className="hover:text-purple-400 transition-colors flex items-center gap-2">
+                    Telegram <span className="text-purple-500">↗</span>
+                  </a>
+               </div>
             </div>
-            <div className="flex gap-6 pt-4 text-white">
-              <a href="#" className="hover:text-purple-400 transition-colors">Telegram</a>
-              <a href="#" className="hover:text-purple-400 transition-colors">Behance</a>
-              <a href="#" className="hover:text-purple-400 transition-colors">Instagram</a>
-            </div>
+
           </div>
         </div>
 
         {/* --- ПРАВАЯ КОЛОНКА: Форма (Бриф) --- */}
-        <div className="relative bg-white/5 p-8 md:p-12 rounded-2xl border border-white/10 backdrop-blur-sm">
+        <div className="relative bg-white/5 p-8 md:p-12 rounded-2xl border border-white/10 backdrop-blur-sm shadow-2xl">
           
           <AnimatePresence mode='wait'>
             {formState === 'success' ? (
@@ -66,14 +75,17 @@ export default function Footer() {
                 animate={{ opacity: 1, y: 0 }}
                 className="h-full flex flex-col items-center justify-center text-center py-20"
               >
-                <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(34,197,94,0.5)]">
+                <div className="w-24 h-24 bg-gradient-to-tr from-green-400 to-green-600 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(34,197,94,0.4)]">
                   <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <h3 className="text-3xl font-bold uppercase mb-2">Запрос Принят</h3>
-                <p className="font-mono text-gray-400">Мы уже изучаем ваши референсы.</p>
+                <h3 className="text-3xl font-bold uppercase mb-2">Заявка принята</h3>
+                <p className="font-mono text-gray-400 max-w-xs mx-auto">
+                  Мы получили ваш запрос на 
+                  <span className="text-white block mt-1 font-bold">project@art-vision.online</span>
+                </p>
                 <button 
                   onClick={() => setFormState('idle')}
-                  className="mt-8 text-sm uppercase border-b border-purple-500 text-purple-500 hover:text-white transition-colors"
+                  className="mt-8 text-xs font-bold uppercase tracking-widest border-b border-purple-500 text-purple-500 hover:text-white transition-colors pb-1"
                 >
                   Отправить еще
                 </button>
@@ -87,13 +99,21 @@ export default function Footer() {
                 onSubmit={handleSubmit} 
                 className="space-y-8"
               >
+                {/* --- СКРЫТОЕ ПОЛЕ С ДАННЫМИ КАЛЬКУЛЯТОРА --- */}
+                <input 
+                  type="hidden" 
+                  name="calculator_details" 
+                  value={calculatorData ? calculatorData.summary : ''} 
+                />
+
                 {/* Имя */}
                 <div className="group">
                   <input 
                     type="text" 
+                    name="name"
                     required
                     placeholder="Ваше Имя / Компания" 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors"
+                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
@@ -101,18 +121,20 @@ export default function Footer() {
                 <div className="group">
                   <input 
                     type="email" 
+                    name="email"
                     required
-                    placeholder="Email или Telegram" 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors"
+                    placeholder="Email или Telegram для связи" 
+                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
                 {/* О проекте */}
                 <div className="group">
                   <textarea 
+                    name="message"
                     rows="2"
-                    placeholder="О чем проект? (Пара слов)" 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors resize-none"
+                    placeholder="Пара слов о задаче..." 
+                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors resize-none text-white"
                   ></textarea>
                 </div>
 
@@ -120,25 +142,57 @@ export default function Footer() {
                 <div className="group">
                   <input 
                     type="text" 
-                    placeholder="Ссылка на референс (Behance/Site)" 
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors"
+                    name="references"
+                    placeholder="Ссылка на сайт / пример (если есть)" 
+                    className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
-                {/* Кнопка отправки */}
-                <div className="pt-4">
+                {/* Визуальная индикация прикрепленного расчета */}
+                {calculatorData && calculatorData.total > 0 && (
+                   <motion.div 
+                     initial={{ opacity: 0, height: 0 }}
+                     animate={{ opacity: 1, height: 'auto' }}
+                     className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-xl p-4 overflow-hidden"
+                   >
+                     <div className="flex items-center gap-2 mb-1">
+                       <span className="text-green-400 bg-green-400/10 rounded-full w-5 h-5 flex items-center justify-center text-xs">✓</span>
+                       <span className="text-[10px] font-bold text-purple-200 uppercase tracking-widest">Расчет прикреплен</span>
+                     </div>
+                     <div className="text-xs text-gray-400 font-mono pl-7">
+                       Предварительная смета: <span className="text-white font-bold">{calculatorData.total.toLocaleString()} ₽</span>
+                     </div>
+                   </motion.div>
+                )}
+
+                {/* КНОПКА ОТПРАВКИ (Дизайнерская) */}
+                <div className="pt-6">
                   <button 
+                    type="submit"
                     disabled={formState === 'sending'}
-                    className="w-full bg-white text-black font-bold uppercase tracking-widest py-6 hover:bg-purple-500 hover:text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="group relative w-full overflow-hidden rounded-xl bg-white p-[1px] focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-slate-50"
                   >
-                    {formState === 'sending' ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <span className="animate-spin h-4 w-4 border-2 border-black border-t-transparent rounded-full"></span>
-                        Transmitting...
-                      </span>
-                    ) : (
-                      "Отправить Бриф"
-                    )}
+                    <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                    <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-xl bg-black px-8 py-6 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-3xl transition-all duration-300 group-hover:bg-black/80">
+                      
+                      {formState === 'sending' ? (
+                        <span className="flex items-center gap-3">
+                           <svg className="animate-spin h-5 w-5 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                           </svg>
+                           Отправка...
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-3 group-hover:gap-6 transition-all">
+                           Отправить Бриф
+                           <svg className="w-5 h-5 text-purple-500 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                           </svg>
+                        </span>
+                      )}
+
+                    </span>
                   </button>
                 </div>
               </motion.form>
@@ -149,16 +203,22 @@ export default function Footer() {
       </div>
 
       {/* Копирайт и Реквизиты */}
-      <div className="mt-32 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase text-gray-700 font-mono gap-4">
-         <span>© 2025 Art.Vision Inc.</span>
+      <div className="mt-32 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center text-[10px] uppercase text-gray-600 font-mono gap-6">
          
-         {/* ВАЖНО ДЛЯ ЯНДЕКСА: */}
-         <div className="flex gap-4">
-            <span>ИП Иванов И.И.</span>
-            <span>ИНН 1234567890</span>
-            <span>ОГРНИП 123456789012345</span>
-            <a href="#" className="hover:text-purple-500">Политика Конфиденциальности</a>
+         <div className="flex flex-col gap-1">
+            <span className="text-gray-500 font-bold">© 2025 Art.Vision</span>
+            <span>All rights reserved.</span>
          </div>
+         
+         {/* РЕКВИЗИТЫ КОМПАНИИ */}
+         <div className="flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
+            <span className="text-gray-400">ООО "ГУДЛАБ"</span>
+            <span>ИНН: 5041209522</span>
+            <span>КПП: 504101001</span>
+            <span>ОГРН: 1195081060580</span>
+            <a href="#" className="hover:text-purple-500 transition-colors ml-auto md:ml-0">Политика Конфиденциальности</a>
+         </div>
+
       </div>
     </footer>
   );
