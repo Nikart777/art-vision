@@ -10,7 +10,7 @@ const projects = [
     title: "Sim Racing Club",
     category: "Immersive Website",
     description: "Цифровой пит-стоп для фанатов скорости. Мы разработали высокотехнологичную платформу, передающую драйв, адреналин и атмосферу профессиональных гоночных симуляторов прямо с экрана.",
-    image: "/sim-racing.jpg",
+    image: "/art-vision.online/images/sim-racing.jpg",
     link: "https://cyberx.moscow/cyberracing", // ✅ Обновил ссылку
     stat: "Броней: +210%",
     statDesc: "рост посещаемости"
@@ -20,7 +20,7 @@ const projects = [
     title: "Hosta Tea",
     category: "E-commerce Redesign",
     description: "Полный редизайн магазина премиального чая. Акцент на атмосферу чайной церемонии через UI, упрощение воронки продаж и 'вкусная' подача товара.",
-    image: "/tea.jpg",
+    image: "/art-vision.online/images/tea.jpg",
     link: "https://hosta-tea-redesign.vercel.app/",
     stat: "Заказов: +145%",
     statDesc: "рост конверсии"
@@ -30,7 +30,7 @@ const projects = [
     title: "Fashion Photographer", // ✅ Обобщенное название
     category: "Portfolio / Personal Brand",
     description: "Минималистичный сайт для fashion-фотографа (RU/USA). Чистый 'воздух', адаптивная галерея высокого разрешения и фокус на визуальном контенте для западного рынка.",
-    image: "/photo-yaroshevich.jpg",
+    image: "/art-vision.online/images/photo-yaroshevich.jpg",
     link: "https://photo-yaroshevich.vercel.app/",
     stat: "Клиентов: +12", // ✅ Реалистичная цифра
     statDesc: "новых заявок"
