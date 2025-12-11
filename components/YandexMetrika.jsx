@@ -1,24 +1,35 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 
-export default function YandexMetrika() {
+// 1. Компонент, который отслеживает переходы по страницам (SPA)
+// Next.js не перезагружает страницу, поэтому мы должны "стучать" Яндексу вручную при смене URL
+function MetrikaTracking() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Отправляем "хит" (просмотр) при смене страницы
     const url = `${pathname}?${searchParams}`;
     if (typeof window !== 'undefined' && window.ym) {
       window.ym(105786115, 'hit', url);
     }
   }, [pathname, searchParams]);
 
+  return null;
+}
+
+// 2. Основной компонент
+export default function YandexMetrika() {
   return (
     <>
-      {/* Основной код Метрики */}
+      {/* 🛡️ ВАЖНО: Suspense лечит ошибку сборки "missing-suspense-with-csr-bailout" */}
+      <Suspense fallback={null}>
+        <MetrikaTracking />
+      </Suspense>
+
+      {/* Скрипт инициализации (Твой код + оптимизация Next.js) */}
       <Script id="yandex-metrika" strategy="afterInteractive">
         {`
           (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -28,15 +39,15 @@ export default function YandexMetrika() {
           (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
           ym(105786115, "init", {
-               clickmap:true,
-               trackLinks:true,
-               accurateTrackBounce:true,
-               webvisor:true
+               ssr: true,              // <--- Добавили твой параметр
+               clickmap: true,
+               trackLinks: true,
+               accurateTrackBounce: true,
+               webvisor: true
           });
         `}
       </Script>
 
-      {/* Пиксель для тех, у кого отключен JS */}
       <noscript>
         <div>
           <img 
