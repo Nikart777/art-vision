@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const team = [
   {
-    name: "Владимир Коротеев",
+    name: "Максим Песов",
     role: "Founder & Art Director",
     // Замени на свои фото
     image: "/images/seo.webp?q=80&w=1887&auto=format&fit=crop", 
