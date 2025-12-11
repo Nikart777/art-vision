@@ -226,22 +226,22 @@ export default function Footer({ calculatorData }) {
             
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">Организация</span>
-              <span className="text-gray-400 font-bold">ООО "ГУДЛАБ"</span>
+              <span className="text-gray-400 font-bold">ООО "АТИМ"</span>
             </div>
             
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">ИНН</span>
-              <span className="text-gray-400">5041209522</span>
+              <span className="text-gray-400">504226843290</span>
             </div>
 
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">КПП</span>
-              <span className="text-gray-400">504101001</span>
+              <span className="text-gray-400">770901001</span>
             </div>
 
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">ОГРН</span>
-              <span className="text-gray-400">1195081060580</span>
+              <span className="text-gray-400">1227700259863</span>
             </div>
 
             <a href="#" className="flex items-end hover:text-purple-500 transition-colors mt-2 md:mt-0 underline decoration-white/10 underline-offset-4">
