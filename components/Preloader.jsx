@@ -8,60 +8,47 @@ export default function Preloader({ onComplete }) {
   const [percentage, setPercentage] = useState(0);
   const containerRef = useRef(null);
   const textRef = useRef(null);
-  const [isFinished, setIsFinished] = useState(false); // Флаг завершения
+  const barRef = useRef(null); 
+  const [isFinished, setIsFinished] = useState(false);
 
-  // 1. Анимация цифр
+  // 1. Плавная интерполяция (Математика загрузки)
   useEffect(() => {
-    // Если загрузка реально завершена (active=false) или progress=100
-    if (progress === 100 || !active) {
-      setPercentage(100);
-      return;
-    }
-
-    // Плавный рост цифр
+    const targetProgress = !active ? 100 : progress;
+    
     const timer = setInterval(() => {
       setPercentage((prev) => {
-        // Если мы близко к цели, просто прыгаем туда
-        if (progress - prev < 1) return progress;
-        return Math.ceil(prev + (progress - prev) * 0.1);
+        const diff = targetProgress - prev;
+        if (diff === 0) return prev;
+        return Math.min(prev + Math.ceil(diff * 0.1), 100); 
       });
-    }, 50);
+    }, 20);
 
     return () => clearInterval(timer);
   }, [progress, active]);
 
 
-  // 2. FAIL-SAFE TIMEOUT (Предохранитель)
-  // Если через 3.5 секунды мы всё еще грузимся — принудительно открываем сайт.
+  // 2. Анимация выхода (Шторка)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (percentage < 100) {
-        console.warn("Loader timed out, forcing open.");
-        setPercentage(100);
-      }
-    }, 3500);
-    return () => clearTimeout(timer);
-  }, [percentage]);
-
-
-  // 3. Логика исчезновения (Exit Animation)
-  useEffect(() => {
-    // Запускаем анимацию выхода только ОДИН раз, когда стало 100%
     if (percentage === 100 && !isFinished) {
-      setIsFinished(true); // Блокируем повторный запуск
+      setIsFinished(true);
       
       const tl = gsap.timeline({
-        onComplete: onComplete // Сигнал в page.js
+        onComplete: onComplete,
+        defaults: { ease: "power4.inOut" }
       });
 
-      // Цифры исчезают
-      tl.to(textRef.current, { opacity: 0, duration: 0.5, delay: 0.2 });
+      // Текст уходит вверх
+      tl.to(textRef.current, { y: -50, opacity: 0, duration: 0.8 });
       
-      // Шторка улетает
+      // Полоска вспыхивает на всю ширину и гаснет
+      tl.to(barRef.current, { width: '100vw', height: '2px', duration: 0.5 }, "-=0.5")
+        .to(barRef.current, { opacity: 0, duration: 0.2 });
+
+      // Шторка открывает сайт (Clip Path Reveal)
       tl.to(containerRef.current, { 
-        y: '-100%', 
-        duration: 0.8, 
-        ease: "power4.inOut" 
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)", 
+        duration: 1.2, 
+        delay: 0.1 
       });
     }
   }, [percentage, isFinished, onComplete]);
@@ -69,22 +56,42 @@ export default function Preloader({ onComplete }) {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#050505] text-white"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505] text-white overflow-hidden"
+      style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
     >
-      <div ref={textRef} className="text-center font-mono">
-        <div className="mb-4 text-xs uppercase tracking-[0.5em] text-gray-500 animate-pulse">
-          System Initialization
+      {/* Фоновый шум (Grain) для премиум эффекта */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+
+      <div ref={textRef} className="text-center font-mono relative z-10 mix-blend-difference px-4">
+        
+        {/* Статус загрузки */}
+        <div className="flex items-center justify-center gap-3 mb-4 md:mb-8 opacity-60">
+           <span className={`w-2 h-2 rounded-full ${percentage < 100 ? 'bg-purple-500 animate-pulse' : 'bg-green-500 shadow-[0_0_10px_#22c55e]'}`}></span>
+           <span className="text-[10px] md:text-xs uppercase tracking-[0.3em]">
+             {percentage < 100 ? "Синхронизация..." : "Доступ Разрешен"}
+           </span>
         </div>
         
-        {/* Цифры */}
-        <div className="text-9xl font-black tracking-tighter tabular-nums text-white">
-          {Math.round(percentage)}%
+        {/* Огромные цифры с градиентом */}
+        <div className="text-[18vw] md:text-[12rem] font-black leading-none tracking-tighter tabular-nums select-none text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600">
+          {Math.round(percentage)}
         </div>
 
-        {/* Логи */}
-        <div className="mt-4 text-xs text-purple-500 font-mono h-6 overflow-hidden">
-          {percentage < 100 ? "Loading Assets..." : "System Ready."}
+        {/* Техническая строка */}
+        <div className="mt-4 md:mt-8 text-[10px] text-gray-500 font-mono uppercase tracking-widest h-4 overflow-hidden flex justify-center">
+           <span className="inline-block min-w-[200px] text-center animate-pulse">
+             {active ? `Загрузка модулей` : 'Система готова к запуску'}
+           </span>
         </div>
+      </div>
+
+      {/* Тонкий прогресс-бар внизу (Неоновый) */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/5">
+        <div 
+           ref={barRef}
+           className="h-full bg-purple-600 shadow-[0_0_40px_#9333ea] transition-[width] duration-75 ease-linear"
+           style={{ width: `${percentage}%` }}
+        />
       </div>
     </div>
   );
