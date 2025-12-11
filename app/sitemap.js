@@ -1,11 +1,11 @@
 export default function sitemap() {
   return [
     {
-      url: 'https://artvision.pro', // ТВОЙ ДОМЕН
+      url: 'https://art-vision.online', // <--- ВАЖНО
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
-    // Если будут другие страницы, добавь их сюда
+    // ...
   ]
 }

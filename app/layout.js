@@ -19,7 +19,7 @@ const geistMono = localFont({
 // --- ПРОФЕССИОНАЛЬНОЕ SEO ---
 export const metadata = {
   // Базовый URL для всех относительных ссылок (важно для OG картинок)
-  metadataBase: new URL('https://artvision.pro'), 
+  metadataBase: new URL('https://art-vision.online'), 
 
   // Заголовок: Шаблон позволяет легко менять названия внутренних страниц
   title: {
@@ -34,14 +34,14 @@ export const metadata = {
   keywords: ["разработка сайтов", "веб-дизайн", "Next.js", "React", "создание сайтов москва", "digital agency", "3D сайты", "дорогой сайт"],
   
   // Авторы и создатель
-  authors: [{ name: 'Art.Vision Team', url: 'https://artvision.pro' }],
+  authors: [{ name: 'Art.Vision Team', url: 'https://art-vision.online' }],
   creator: 'Art.Vision',
   
   // Open Graph — как ссылка выглядит в Facebook/LinkedIn/Telegram/WhatsApp
   openGraph: {
     type: 'website',
     locale: 'ru_RU',
-    url: 'https://artvision.pro',
+    url: 'https://art-vision.online',
     siteName: 'Art.Vision Digital Agency',
     title: 'Art.Vision | Цифровое превосходство',
     description: 'Мы не просто кодим. Мы строим цифровые активы. Узнайте стоимость разработки сайта нового поколения.',
@@ -71,7 +71,7 @@ export const metadata = {
   
   // Каноническая ссылка (защита от дублей контента)
   alternates: {
-    canonical: 'https://artvision.pro',
+    canonical: 'https://art-vision.online',
   },
 };
 
