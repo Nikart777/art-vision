@@ -10,7 +10,7 @@ const projects = [
     title: "Sim Racing Club",
     category: "Immersive Website",
     description: "Цифровой пит-стоп для фанатов скорости. Мы разработали высокотехнологичную платформу, передающую драйв, адреналин и атмосферу профессиональных гоночных симуляторов прямо с экрана.",
-    image: "/images/sim-racing.jpg",
+    image: "/images/cyberx.jpg",
     link: "https://cyberx.moscow/cyberracing",
     stat: "Броней: +210%",
     statDesc: "рост посещаемости"
