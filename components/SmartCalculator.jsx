@@ -4,14 +4,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // --- БАЗОВЫЕ ЦЕНЫ И КОНФИГ ---
 const PRICES = {
+  // Типы проектов
+  mobile_app: { base: 90000, design: 45000, support: 10000 }, // Новый тип
   landing: { base: 19000, design: 20000, support: 2000 },
   corporate: { base: 34000, design: 25000, support: 3500 },
   shop: { base: 55000, design: 30000, support: 9000 },
+
+  // Доп. услуги
   seo: 2900,
   admin: 5000,
   calculator: 3500,
   crm: 3500,
   mobile: 0, 
+  
+  // Новые услуги
+  acquiring: 3900,
+  ai_consultant: 4900,
+  content: 1900,
 };
 
 export default function SmartCalculator({ onUpdate }) {
@@ -20,30 +29,35 @@ export default function SmartCalculator({ onUpdate }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const [discountActive, setDiscountActive] = useState(false);
   
-  // Реф для контроля скролла
   const containerRef = useRef(null);
 
-  // --- ФУНКЦИЯ АВТО-ФОКУСА (Fix Mobile Scroll) ---
   const scrollToContainer = () => {
     if (containerRef.current) {
-      // Плавный скролл к началу калькулятора с небольшим отступом сверху
-      const y = containerRef.current.getBoundingClientRect().top + window.scrollY - 100; // -100px отступ
+      const y = containerRef.current.getBoundingClientRect().top + window.scrollY - 100;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
   // --- ДИНАМИЧЕСКИЕ ВОПРОСЫ ---
   const questions = useMemo(() => {
+    // Если тип не выбран, берем дефолт, но стараемся определить текущий
     const selectedType = selections['type'] || 'landing'; 
-    const typeConfig = PRICES[selectedType];
+    const typeConfig = PRICES[selectedType] || PRICES.landing;
 
     return [
       {
         id: 'type',
         title: 'Тип проекта',
-        subtitle: 'Выберите базу',
+        subtitle: 'Что будем разрабатывать?',
         multi: false,
         options: [
+          // 1. Мобильное приложение (В самом начале)
+          { 
+            id: 'mobile_app', 
+            label: 'Мобильное приложение', 
+            price: PRICES.mobile_app.base, 
+            desc: 'iOS и Android (React Native / Swift)' 
+          },
           { id: 'landing', label: 'Лендинг', price: PRICES.landing.base, desc: 'Быстрый старт: одностраничный сайт' },
           { id: 'corporate', label: 'Многостраничный', price: PRICES.corporate.base, desc: 'Компания, Услуги, Блог' },
           { id: 'shop', label: 'E-Commerce', price: PRICES.shop.base, desc: 'Магазин с корзиной и оплатой' },
@@ -72,14 +86,37 @@ export default function SmartCalculator({ onUpdate }) {
       {
         id: 'addons',
         title: 'Функционал',
-        subtitle: 'Можно выбрать несколько', // Явная подсказка
-        multi: true, // Множественный выбор
+        subtitle: 'Можно выбрать несколько', 
+        multi: true, 
         options: [
+          // 2. AI Консультант (Выделен особо)
           { 
+            id: 'ai_consultant', 
+            label: 'AI Консультант', 
+            price: PRICES.ai_consultant, 
+            desc: 'Нейросеть (не бот), ведет живой диалог с клиентом',
+            highlight: true // Флаг для подсветки
+          },
+          // Исключаем "Мобильную версию" для мобильных приложений (она там по умолчанию)
+          ...(selectedType !== 'mobile_app' ? [{ 
             id: 'mobile', 
-            label: 'Мобильная версия', 
+            label: 'Адаптив под Mobile', 
             price: PRICES.mobile, 
-            desc: 'Адаптация под все экраны' 
+            desc: 'Корректная работа на телефонах' 
+          }] : []),
+          // 3. Интернет эквайринг
+          { 
+            id: 'acquiring', 
+            label: 'Прием платежей', 
+            price: PRICES.acquiring, 
+            desc: 'Интеграция эквайринга (карты, SberPay)' 
+          },
+          // 4. Наполнение контентом
+          { 
+            id: 'content', 
+            label: 'Наполнение', 
+            price: PRICES.content, 
+            desc: 'Загрузка ваших текстов и фото' 
           },
           { 
             id: 'seo', 
@@ -93,7 +130,8 @@ export default function SmartCalculator({ onUpdate }) {
             price: PRICES.crm, 
             desc: 'Заявки в мессенджер' 
           },
-          ...(selectedType !== 'shop' ? [{ 
+          // Админка не нужна для магазина (она там встроенная обычно) и может быть не нужна для простого app
+          ...((selectedType !== 'shop' && selectedType !== 'mobile_app') ? [{ 
             id: 'admin', 
             label: 'Админка', 
             price: PRICES.admin, 
@@ -111,6 +149,14 @@ export default function SmartCalculator({ onUpdate }) {
             price: 0, 
             desc: `Технический контроль 24/7` 
           },
+          // 5. Поле "Не знаю"
+          {
+            id: 'dont_know',
+            label: 'Не знаю / Посоветуйте',
+            price: 0,
+            desc: 'Обсудим детали лично',
+            isNeutral: true // Флаг для спокойного стиля
+          }
         ]
       }
     ];
@@ -118,8 +164,16 @@ export default function SmartCalculator({ onUpdate }) {
 
   const total = useMemo(() => {
     let sum = 0;
-    if (selections.type) sum += PRICES[selections.type].base;
-    if (selections.type && selections.design === 'need_design') sum += PRICES[selections.type].design;
+    // Базовая цена типа
+    if (selections.type && PRICES[selections.type]) {
+      sum += PRICES[selections.type].base;
+      // Цена дизайна
+      if (selections.design === 'need_design') {
+        sum += PRICES[selections.type].design;
+      }
+    }
+    
+    // Цена опций
     if (selections.addons) {
       const addonsQ = questions.find(q => q.id === 'addons');
       selections.addons.forEach(addonId => {
@@ -127,6 +181,7 @@ export default function SmartCalculator({ onUpdate }) {
         if (option) sum += option.price;
       });
     }
+
     if (discountActive) sum = Math.round(sum * 0.9);
     return sum;
   }, [selections, discountActive, questions]);
@@ -156,17 +211,15 @@ export default function SmartCalculator({ onUpdate }) {
           ? { ...prev, [questionId]: current.filter(id => id !== optionId) }
           : { ...prev, [questionId]: [...current, optionId] };
       });
-      // Не скроллим автоматически при мульти-выборе, даем пользователю выбрать все
     } else {
       setSelections(prev => ({ ...prev, [questionId]: optionId }));
       setTimeout(() => {
         if (step < questions.length - 1) {
           setStep(s => s + 1);
-          // Auto-scroll только на мобильных, если шаг меняется
           if (window.innerWidth < 768) scrollToContainer();
         } else {
           setIsCompleted(true);
-          scrollToContainer(); // Скролл к результату
+          scrollToContainer();
         }
       }, 250);
     }
@@ -202,22 +255,19 @@ export default function SmartCalculator({ onUpdate }) {
   return (
     <section className="relative w-full py-24 md:py-32 bg-[#050505] text-white overflow-hidden font-sans">
       
-      {/* ФОНОВЫЕ ЭФФЕКТЫ ДЛЯ ВЫДЕЛЕНИЯ БЛОКА */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.05),transparent_70%)] pointer-events-none"></div>
 
       <div className="max-w-5xl mx-auto px-4 md:px-12 relative z-10">
         
-        {/* ЗАГОЛОВОК СЕКЦИИ */}
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-3">
-            Сколько стоит <span className="text-purple-500">Сайт?</span>
+            Сколько стоит <span className="text-purple-500">Проект?</span>
           </h2>
           <p className="font-mono text-gray-500 text-xs uppercase tracking-widest bg-white/5 inline-block px-3 py-1 rounded-full border border-white/10">
             /// Калькулятор разработки
           </p>
         </div>
 
-        {/* --- КОНТЕЙНЕР КАЛЬКУЛЯТОРА (С НОВЫМ ДИЗАЙНОМ) --- */}
         <div 
           ref={containerRef}
           className="
@@ -226,13 +276,11 @@ export default function SmartCalculator({ onUpdate }) {
             md:p-12 p-6
           "
           style={{
-            boxShadow: '0 0 50px -10px rgba(126, 34, 206, 0.15)' // Фиолетовое свечение
+            boxShadow: '0 0 50px -10px rgba(126, 34, 206, 0.15)'
           }}
         >
-          {/* СТЕКЛЯННЫЙ БЛИК СВЕРХУ */}
           <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
 
-          {/* PROGRESS BAR */}
           {!isCompleted && (
             <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
               <motion.div 
@@ -244,10 +292,8 @@ export default function SmartCalculator({ onUpdate }) {
             </div>
           )}
 
-          {/* HEADER ВНУТРИ КАЛЬКУЛЯТОРА */}
           <div className="flex justify-between items-start mb-8 md:mb-12 relative z-20 border-b border-white/5 pb-6">
             <div className="flex flex-col">
-               {/* СТЕППЕР */}
                {!isCompleted && (
                  <span className="text-purple-500 font-mono text-xs font-bold uppercase tracking-widest mb-1">
                    Шаг {step + 1} / {questions.length}
@@ -311,43 +357,66 @@ export default function SmartCalculator({ onUpdate }) {
                       ? selections[currentQ.id]?.includes(opt.id)
                       : selections[currentQ.id] === opt.id;
 
+                    // Определение классов стилей в зависимости от флагов (highlight, neutral)
+                    let borderClass = 'border-white/5 hover:border-purple-500/50';
+                    let bgClass = 'bg-[#151515] hover:bg-[#1a1a1a]';
+                    let shadowClass = '';
+
+                    if (isSelected) {
+                        borderClass = 'border-purple-500';
+                        bgClass = 'bg-purple-600/20';
+                        shadowClass = 'shadow-[inset_0_0_20px_rgba(168,85,247,0.2)]';
+                    } else if (opt.highlight) {
+                        // Особый стиль для AI
+                        borderClass = 'border-purple-500/40 hover:border-purple-400';
+                        bgClass = 'bg-gradient-to-br from-[#1a1025] to-[#0f0f0f] hover:bg-[#1f1230]';
+                        shadowClass = 'shadow-[0_0_15px_rgba(168,85,247,0.1)]';
+                    } else if (opt.isNeutral) {
+                        borderClass = 'border-white/5 hover:border-white/20';
+                        bgClass = 'bg-transparent hover:bg-white/5';
+                    }
+
                     return (
                       <div 
                         key={opt.id}
                         onClick={() => handleSelect(currentQ.id, opt.id, currentQ.multi)}
                         className={`
                           group relative p-6 border rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between min-h-[140px]
-                          ${isSelected 
-                            ? 'bg-purple-600/20 border-purple-500 shadow-[inset_0_0_20px_rgba(168,85,247,0.2)]' 
-                            : 'bg-[#151515] border-white/5 hover:border-purple-500/50 hover:bg-[#1a1a1a]'
-                          }
+                          ${borderClass} ${bgClass} ${shadowClass}
                         `}
                       >
+                        {/* Бейдж для важных элементов */}
+                        {opt.highlight && (
+                            <div className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase tracking-widest shadow-lg">
+                                New Gen
+                            </div>
+                        )}
+
                         <div>
                           <div className="flex justify-between items-start mb-2">
-                            <span className={`text-lg font-bold uppercase leading-tight transition-colors ${isSelected ? 'text-white' : 'text-gray-300 group-hover:text-white'}`}>
+                            <span className={`text-lg font-bold uppercase leading-tight transition-colors ${isSelected ? 'text-white' : (opt.highlight ? 'text-purple-300 group-hover:text-white' : 'text-gray-300 group-hover:text-white')}`}>
                               {opt.label}
                             </span>
-                            {/* Checkbox circle */}
+                            
                             <div className={`
-                              w-5 h-5 rounded-full border flex items-center justify-center transition-all
+                              w-5 h-5 rounded-full border flex items-center justify-center transition-all flex-shrink-0 ml-2
                               ${isSelected ? 'bg-purple-500 border-purple-500' : 'border-white/20 group-hover:border-purple-500'}
                             `}>
                                {isSelected && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"/></svg>}
                             </div>
                           </div>
-                          <p className="font-mono text-xs text-gray-500 leading-relaxed max-w-[90%]">
+                          
+                          <p className={`font-mono text-xs leading-relaxed max-w-[95%] ${opt.highlight ? 'text-purple-200/70' : 'text-gray-500'}`}>
                             {opt.desc}
                           </p>
                         </div>
                         
-                        {/* ЦЕНА ВНУТРИ КАРТОЧКИ */}
                         <div className="mt-4 pt-3 border-t border-white/5 flex justify-between items-center">
                            <span className={`text-sm font-bold font-mono ${opt.price === 0 ? 'text-green-400' : 'text-gray-400 group-hover:text-white'}`}>
                              {opt.price === 0 
-                               ? 'Включено' 
+                               ? (opt.id === 'dont_know' ? 'Бесплатно' : 'Включено')
                                : (currentQ.id === 'type' 
-                                   ? `${opt.price.toLocaleString()} ₽` 
+                                   ? `от ${opt.price.toLocaleString()} ₽` 
                                    : `+ ${opt.price.toLocaleString()} ₽`
                                  )
                              }
@@ -358,7 +427,6 @@ export default function SmartCalculator({ onUpdate }) {
                   })}
                 </div>
 
-                {/* --- КНОПКИ УПРАВЛЕНИЯ (ТОЛЬКО ДЛЯ MULTI) --- */}
                 {currentQ.multi && (
                   <div className="mt-8 flex justify-end">
                     <button 
@@ -370,7 +438,6 @@ export default function SmartCalculator({ onUpdate }) {
                   </div>
                 )}
                 
-                {/* --- ПРЕДЛОЖЕНИЕ СКИДКИ --- */}
                 {step === questions.length - 1 && !discountActive && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
@@ -391,7 +458,6 @@ export default function SmartCalculator({ onUpdate }) {
 
               </motion.div>
             ) : (
-              // --- ФИНАЛЬНЫЙ ЭКРАН ---
               <motion.div
                 key="result"
                 initial={{ opacity: 0, scale: 0.95 }}
