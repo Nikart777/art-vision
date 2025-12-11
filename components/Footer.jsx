@@ -3,39 +3,31 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Footer({ calculatorData }) {
-  // Состояния формы
-  const [formState, setFormState] = useState('idle'); // 'idle' | 'sending' | 'success'
+  const [formState, setFormState] = useState('idle');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormState('sending');
 
-    // Собираем данные формы автоматически
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
     try {
-      // Отправляем запрос на наш API
       const response = await fetch('/api/send', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
         setFormState('success');
-        // Очистка формы (опционально)
         e.target.reset();
       } else {
-        console.error('Ошибка сервера');
-        // Здесь можно добавить состояние 'error' и показать уведомление
-        setFormState('idle'); 
-        alert('Произошла ошибка при отправке. Попробуйте позже.');
+        setFormState('idle');
+        alert('Ошибка при отправке. Попробуйте позже.');
       }
     } catch (error) {
-      console.error('Ошибка сети', error);
+      console.error(error);
       setFormState('idle');
       alert('Ошибка соединения.');
     }
@@ -44,29 +36,26 @@ export default function Footer({ calculatorData }) {
   return (
     <footer id="contact-form" className="relative w-full bg-[#050505] text-white pt-24 md:pt-32 pb-12 px-4 md:px-12 z-30 border-t border-white/10 overflow-hidden">
       
-      {/* Фоновый шум */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
         
-        {/* --- ЛЕВАЯ КОЛОНКА (На мобильном уходит ВНИЗ благодаря order-last) --- */}
+        {/* ЛЕВАЯ КОЛОНКА */}
         <div className="flex flex-col justify-between order-last md:order-first">
           
-          {/* Заголовок виден только на десктопе в этой колонке */}
           <div className="hidden md:block">
-            <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-8 leading-[0.8]">
-              Let's <br/>
-              <span className="text-purple-500">Talk</span>
+            {/* РУСИФИКАЦИЯ ЗАГОЛОВКА */}
+            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+              Обсудим <br/>
+              <span className="text-purple-500">Проект?</span>
             </h2>
             <p className="font-mono text-gray-400 max-w-sm">
               Готовы превратить вашу идею в цифровую реальность? Заполните бриф, и мы выйдем на связь в течение 24 часов.
             </p>
           </div>
 
-          {/* Контакты (Email & Socials) */}
           <div className="mt-8 md:mt-16 space-y-8 font-mono text-sm text-gray-500 uppercase">
             
-            {/* Email */}
             <div className="flex flex-col">
               <span className="text-purple-500 text-xs mb-2">Email:</span>
               <a 
@@ -77,9 +66,8 @@ export default function Footer({ calculatorData }) {
               </a>
             </div>
 
-            {/* Socials (Telegram) */}
             <div className="flex flex-col">
-               <span className="text-purple-500 text-xs mb-2">Socials:</span>
+               <span className="text-purple-500 text-xs mb-2">Соцсети:</span>
                <div className="flex gap-6 text-white">
                   <a href="#" className="hover:text-purple-400 transition-colors flex items-center gap-2 border border-white/10 px-4 py-2 rounded-full hover:bg-white/5">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
@@ -90,22 +78,20 @@ export default function Footer({ calculatorData }) {
           </div>
         </div>
 
-        {/* --- ПРАВАЯ КОЛОНКА: Форма (На мобильном идет ПЕРВОЙ) --- */}
+        {/* ПРАВАЯ КОЛОНКА: ФОРМА */}
         <div className="relative bg-white/5 p-6 md:p-12 rounded-2xl border border-white/10 backdrop-blur-sm shadow-2xl order-first md:order-last">
           
-          {/* Заголовок для мобилок внутри блока формы */}
           <div className="block md:hidden mb-8 text-center">
-            <h2 className="text-5xl font-black uppercase tracking-tighter leading-none mb-2">
-              Let's <span className="text-purple-500">Talk</span>
+            <h2 className="text-4xl font-black uppercase tracking-tighter leading-none mb-2">
+              Начать <span className="text-purple-500">Проект</span>
             </h2>
             <p className="font-mono text-xs text-gray-400">
-              Заполните бриф и мы свяжемся с вами
+              Заполните форму ниже
             </p>
           </div>
 
           <AnimatePresence mode='wait'>
             {formState === 'success' ? (
-              // ЭКРАН УСПЕХА
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -116,8 +102,7 @@ export default function Footer({ calculatorData }) {
                 </div>
                 <h3 className="text-2xl font-bold uppercase mb-2">Заявка принята</h3>
                 <p className="font-mono text-gray-400 text-sm max-w-xs mx-auto mb-6">
-                  Мы получили ваш запрос на <br/>
-                  <span className="text-white font-bold">project@art-vision.online</span>
+                  Мы свяжемся с вами в ближайшее время.
                 </p>
                 <button 
                   onClick={() => setFormState('idle')}
@@ -127,7 +112,6 @@ export default function Footer({ calculatorData }) {
                 </button>
               </motion.div>
             ) : (
-              // ФОРМА
               <motion.form 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -135,12 +119,7 @@ export default function Footer({ calculatorData }) {
                 onSubmit={handleSubmit} 
                 className="space-y-6 md:space-y-8"
               >
-                {/* --- СКРЫТОЕ ПОЛЕ --- */}
-                <input 
-                  type="hidden" 
-                  name="calculator_details" 
-                  value={calculatorData ? calculatorData.summary : ''} 
-                />
+                <input type="hidden" name="calculator_details" value={calculatorData ? calculatorData.summary : ''} />
 
                 {/* Имя */}
                 <div className="group">
@@ -148,8 +127,19 @@ export default function Footer({ calculatorData }) {
                     type="text" 
                     name="name"
                     required
-                    placeholder="Ваше Имя / Компания" 
-                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
+                    placeholder="Ваше Имя" 
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
+                  />
+                </div>
+
+                {/* --- НОВОЕ ПОЛЕ: ТЕЛЕФОН --- */}
+                <div className="group">
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    required
+                    placeholder="+7 (999) 000-00-00" 
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
@@ -159,32 +149,30 @@ export default function Footer({ calculatorData }) {
                     type="email" 
                     name="email"
                     required
-                    placeholder="Email или Telegram" 
-                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
+                    placeholder="Email" 
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
-                {/* О проекте */}
+                {/* Сообщение */}
                 <div className="group">
                   <textarea 
                     name="message"
                     rows="2"
-                    placeholder="Пара слов о задаче..." 
-                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors resize-none text-white"
+                    placeholder="Описание задачи..." 
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors resize-none text-white"
                   ></textarea>
                 </div>
 
-                {/* Референсы */}
                 <div className="group">
                   <input 
                     type="text" 
                     name="references"
-                    placeholder="Ссылка на пример (если есть)" 
-                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg md:text-xl outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
+                    placeholder="Ссылка на пример (необязательно)" 
+                    className="w-full bg-transparent border-b border-white/20 py-3 md:py-4 text-lg outline-none placeholder:text-gray-600 focus:border-purple-500 transition-colors text-white"
                   />
                 </div>
 
-                {/* Индикация расчета */}
                 {calculatorData && calculatorData.total > 0 && (
                    <motion.div 
                      initial={{ opacity: 0, height: 0 }}
@@ -201,7 +189,6 @@ export default function Footer({ calculatorData }) {
                    </motion.div>
                 )}
 
-                {/* КНОПКА ОТПРАВКИ */}
                 <div className="pt-4">
                   <button 
                     type="submit"
@@ -221,7 +208,7 @@ export default function Footer({ calculatorData }) {
                         </span>
                       ) : (
                         <span className="flex items-center gap-3">
-                           Отправить Бриф
+                           Отправить Заявку
                            <svg className="w-4 h-4 text-purple-500 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                            </svg>
@@ -238,42 +225,33 @@ export default function Footer({ calculatorData }) {
         </div>
       </div>
 
-      {/* --- НИЖНИЙ БЛОК: Копирайт и Реквизиты --- */}
       <div className="mt-20 md:mt-32 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center text-[10px] uppercase text-gray-600 font-mono gap-8 md:gap-6">
-         
          <div className="flex flex-col gap-1">
             <span className="text-gray-500 font-bold">© 2025 Art.Vision</span>
             <span>All rights reserved.</span>
          </div>
          
-         {/* РЕКВИЗИТЫ (Оптимизированы для мобилок) */}
          <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-wrap gap-x-8 gap-y-4 w-full md:w-auto md:justify-end">
-            
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">Организация</span>
               <span className="text-gray-400 font-bold">ООО "АТИМ"</span>
             </div>
-            
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">ИНН</span>
               <span className="text-gray-400">504226843290</span>
             </div>
-
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">КПП</span>
               <span className="text-gray-400">770901001</span>
             </div>
-
             <div className="flex flex-col">
               <span className="text-[8px] text-gray-700 mb-0.5">ОГРН</span>
               <span className="text-gray-400">1227700259863</span>
             </div>
-
             <a href="#" className="flex items-end hover:text-purple-500 transition-colors mt-2 md:mt-0 underline decoration-white/10 underline-offset-4">
               Политика Конфиденциальности
             </a>
          </div>
-
       </div>
     </footer>
   );
