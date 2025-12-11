@@ -45,15 +45,6 @@ export const metadata = {
     siteName: 'Art.Vision Digital Agency',
     title: 'Art.Vision | Цифровое превосходство',
     description: 'Мы не просто кодим. Мы строим цифровые активы. Узнайте стоимость разработки сайта нового поколения.',
-    // Картинка подтянется автоматически, если положить файл opengraph-image.png в папку app/ (см. ниже)
-    images: [
-      {
-        url: '/og-image.jpg', 
-        width: 1200,
-        height: 630,
-        alt: 'Art.Vision Hero Screen',
-      },
-    ],
   },
 
   // Twitter Card — для X (Twitter)
@@ -64,12 +55,6 @@ export const metadata = {
     images: ['/og-image.jpg'],
   },
 
-  // Иконки и манифест (для установки как приложение)
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
   
   // Инструкции для роботов (индексировать всё)
   robots: {
