@@ -3,16 +3,16 @@ import Image from 'next/image';
 
 const team = [
   {
-    name: "Alex N.",
+    name: "Владимир Коротеев",
     role: "Founder & Art Director",
     // Замени на свои фото
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1887&auto=format&fit=crop", 
+    image: "/images/seo.webp?q=80&w=1887&auto=format&fit=crop", 
     quote: "Дизайн — это не как оно выглядит, а как оно работает."
   },
   {
-    name: "Maria K.",
+    name: "Анастасия Никульская",
     role: "Lead Developer",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop",
+    image: "/images/developer.webp",
     quote: "Код должен быть таким же чистым, как и совесть."
   }
 ];
