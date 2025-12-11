@@ -4,32 +4,36 @@ import { useEffect, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 
-// 1. Компонент, который отслеживает переходы по страницам (SPA)
-// Next.js не перезагружает страницу, поэтому мы должны "стучать" Яндексу вручную при смене URL
+// Внутренний компонент отслеживания
 function MetrikaTracking() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const url = `${pathname}?${searchParams}`;
+    // Эта функция сработает при первой загрузке (Mount) 
+    // И при каждом изменении пути или параметров (Navigation)
     if (typeof window !== 'undefined' && window.ym) {
-      window.ym(105786115, 'hit', url);
+      const url = window.location.href; // Берем полный URL
+      
+      // Отправляем HIT (просмотр) вручную, так как defer: true
+      window.ym(105786115, 'hit', url, {
+        title: document.title // Передаем заголовок страницы
+      });
     }
   }, [pathname, searchParams]);
 
   return null;
 }
 
-// 2. Основной компонент
 export default function YandexMetrika() {
   return (
     <>
-      {/* 🛡️ ВАЖНО: Suspense лечит ошибку сборки "missing-suspense-with-csr-bailout" */}
+      {/* Suspense защищает от ошибок сборки в Next.js 14 */}
       <Suspense fallback={null}>
         <MetrikaTracking />
       </Suspense>
 
-      {/* Скрипт инициализации (Твой код + оптимизация Next.js) */}
+      {/* Инициализация счетчика по правилам SPA */}
       <Script id="yandex-metrika" strategy="afterInteractive">
         {`
           (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -39,11 +43,11 @@ export default function YandexMetrika() {
           (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
           ym(105786115, "init", {
-               ssr: true,              // <--- Добавили твой параметр
-               clickmap: true,
-               trackLinks: true,
-               accurateTrackBounce: true,
-               webvisor: true
+               defer: true,            // <--- ГЛАВНОЕ: Отключаем авто-отправку
+               clickmap: true,         // Карта кликов
+               trackLinks: true,       // Карта ссылок
+               accurateTrackBounce: true, // Точный показатель отказов
+               webvisor: true          // Вебвизор
           });
         `}
       </Script>
