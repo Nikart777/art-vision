@@ -5,14 +5,13 @@ const team = [
   {
     name: "Максим Песов",
     role: "Founder & Art Director",
-    // Замени на свои фото
     image: "/images/seo.webp?q=80&w=1887&auto=format&fit=crop", 
     quote: "Дизайн — это не как оно выглядит, а как оно работает."
   },
   {
     name: "Анастасия Никульская",
     role: "Lead Developer",
-    image: "/images/developer.webp",
+    image: "/images/developer.webp?q=80&w=1964&auto=format&fit=crop",
     quote: "Код должен быть таким же чистым, как и совесть."
   }
 ];
@@ -28,30 +27,38 @@ export default function Team() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* Сетка: На десктопе 4 колонки, чтобы фото были не огромными, или 2 узкие */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {team.map((member, i) => (
             <div key={i} className="group relative">
-              <div className="relative h-[400px] w-full overflow-hidden rounded-xl grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
+              
+              {/* FIX: Заменили h-[400px] на aspect-[3/4].
+                 Теперь блок всегда держит пропорцию вертикального фото.
+              */}
+              <div className="relative w-full aspect-[3/4] overflow-hidden rounded-xl grayscale hover:grayscale-0 transition-all duration-700 ease-in-out border border-white/10">
                 <Image
                   src={member.image}
                   alt={member.name}
                   fill
-                  className="object-cover object-center transform group-hover:scale-105 transition-transform duration-700"
+                  // object-top гарантирует, что лицо (верх фото) не обрежется
+                  className="object-cover object-top transform group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80"></div>
                 
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <div className="flex justify-between items-end border-b border-white/20 pb-4 mb-4">
-                    <div>
-                      <h3 className="text-3xl font-bold text-white uppercase">{member.name}</h3>
-                      <p className="text-purple-400 font-mono text-xs tracking-widest uppercase">{member.role}</p>
-                    </div>
+                {/* Градиент снизу, чтобы текст читался на любом фоне */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-90"></div>
+                
+                {/* Текст поверх фото */}
+                <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full z-10">
+                  <div className="border-l-2 border-purple-500 pl-4 mb-4">
+                    <h3 className="text-2xl font-bold text-white uppercase leading-none mb-1">{member.name}</h3>
+                    <p className="text-gray-300 font-mono text-[10px] tracking-widest uppercase">{member.role}</p>
                   </div>
-                  <p className="font-mono text-xs text-gray-400 italic">
+                  <p className="font-mono text-xs text-gray-400 italic opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
                     "{member.quote}"
                   </p>
                 </div>
               </div>
+
             </div>
           ))}
         </div>
