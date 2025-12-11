@@ -6,14 +6,39 @@ export default function Footer({ calculatorData }) {
   // Состояния формы
   const [formState, setFormState] = useState('idle'); // 'idle' | 'sending' | 'success'
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormState('sending');
-    
-    // В реальном проекте здесь будет отправка
-    setTimeout(() => {
-      setFormState('success');
-    }, 2000);
+
+    // Собираем данные формы автоматически
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      // Отправляем запрос на наш API
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setFormState('success');
+        // Очистка формы (опционально)
+        e.target.reset();
+      } else {
+        console.error('Ошибка сервера');
+        // Здесь можно добавить состояние 'error' и показать уведомление
+        setFormState('idle'); 
+        alert('Произошла ошибка при отправке. Попробуйте позже.');
+      }
+    } catch (error) {
+      console.error('Ошибка сети', error);
+      setFormState('idle');
+      alert('Ошибка соединения.');
+    }
   };
 
   return (
