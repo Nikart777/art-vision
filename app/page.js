@@ -5,15 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ReactLenis, useLenis } from '@studio-freight/react-lenis';
+import { AnimatePresence } from 'framer-motion';
 
 // --- 2. COMPONENT IMPORTS ---
-// Динамическая загрузка тяжелой 3D-сцены (отключаем SSR)
 const Scene = dynamic(() => import('@/components/Scene'), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-black" />
+  loading: () => null
 });
 
-// Существующие блоки
 import Manifesto from '@/components/Manifesto';
 import SelectedWorks from '@/components/SelectedWorks';
 import Services from '@/components/Services';
@@ -25,208 +24,194 @@ import MagneticCTA from '@/components/MagneticCTA';
 import Preloader from '@/components/Preloader';
 import FAQ from '@/components/FAQ';
 import SmartCalculator from '@/components/SmartCalculator';
-
-// НОВЫЕ блоки (Trust & Process)
 import Process from '@/components/Process';
 import Clients from '@/components/Clients';
 import Team from '@/components/Team';
 
 export default function Home() {
-  const [isReady, setIsReady] = useState(false); // Флаг: Прелоадер закончил работу
-  const [calcData, setCalcData] = useState(null); // Данные из калькулятора для футера
+  const [isReady, setIsReady] = useState(false);
+  const [calcData, setCalcData] = useState(null); 
   
-  // Хук для управления плавным скроллом
   const lenis = useLenis();
+  const titleRef = useRef(null); 
+  const bottomBarRef = useRef(null); 
 
-  // Refs для анимации Hero-секции
-  const titleRef = useRef(null);
-  const sloganRef = useRef(null);
-  const locationRef = useRef(null);
-
-  // --- 3. LOGIC: SCROLL LOCK ---
-  // Блокируем скролл, пока сайт не готов
+  // --- 3. SCROLL LOCK ---
   useEffect(() => {
     if (!isReady) {
-      if (lenis) lenis.stop(); // Останавливаем Lenis
-      document.body.style.overflow = 'hidden'; // Блокируем нативный скролл
+      if (lenis) lenis.stop();
+      document.body.style.overflow = 'hidden';
     } else {
-      if (lenis) lenis.start(); // Запускаем Lenis
-      document.body.style.overflow = 'auto'; // Разблокируем
+      if (lenis) lenis.start();
+      document.body.style.overflow = 'auto';
     }
   }, [isReady, lenis]);
 
-  // --- 4. LOGIC: HERO ANIMATION ---
-  // Запускаем GSAP только когда прелоадер исчез
+  // --- 4. HERO ANIMATION (GSAP) ---
   useEffect(() => {
     if (!isReady) return;
-    // Защита от краша, если рефы еще не привязались
-    if (!titleRef.current || !sloganRef.current) return;
+    if (!titleRef.current || !bottomBarRef.current) return;
 
-    const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    // Появление заголовка снизу
-    tl.fromTo(titleRef.current, 
-      { y: 100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.5, delay: 0.5 } 
+    tl.fromTo(titleRef.current.children, 
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.1, delay: 0.2 } 
     );
     
-    // Появление слогана сбоку
-    tl.fromTo(sloganRef.current, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1 }, "-=1");
-    
-    // Появление локации (если она есть в DOM)
-    if (locationRef.current) {
-        tl.fromTo(locationRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.5");
-    }
+    tl.fromTo(bottomBarRef.current, 
+      { opacity: 0, y: 20 }, 
+      { opacity: 1, y: 0, duration: 1 }, 
+      "-=0.5"
+    );
 
-    return () => tl.kill(); // Очистка при размонтировании
+    return () => tl.kill(); 
   }, [isReady]);
 
-  // --- 5. SEO DATA (JSON-LD) ---
+  // --- 5. SEO DATA ---
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'Art.Vision',
     image: 'https://artvision.pro/og-image.jpg',
-    description: 'Агентство разработки цифровых экосистем. Мы делаем сайты, которые продают.',
+    description: 'Разработка сайтов премиум-класса по доступным ценам. Next.js, WebGL и AI-технологии.',
+    url: 'https://artvision.pro',
+    priceRange: '$$', // Показываем, что цена средняя, не $$$$
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Тверская ул.',
       addressLocality: 'Москва',
       addressCountry: 'RU'
     },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 55.7558,
-      longitude: 37.6173
-    },
-    url: 'https://artvision.pro',
-    priceRange: '$$$',
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '10:00',
-        closes: '19:00'
-      }
-    ]
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Услуги разработки',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Разработка сайтов' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Веб-дизайн UI/UX' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Создание интернет-магазинов' } }
+      ]
+    }
+  };
+
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <ReactLenis root options={{ lerp: 0.08 }}>
-      
-      {/* Вставка микроразметки */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* ПРЕЛОАДЕР: Блокирует экран до полной загрузки */}
-      <Preloader onComplete={() => setIsReady(true)} />
+      {/* === ПРЕЛОАДЕР === */}
+      <AnimatePresence mode='wait'>
+        {!isReady && (
+          <Preloader key="preloader" onComplete={() => setIsReady(true)} />
+        )}
+      </AnimatePresence>
 
-      {/* ОБЕРТКА КОНТЕНТА */}
-      {/* opacity-0 скрывает верстку, пока сайт грузится (защита от мигания шрифтов/картинок) */}
-      <div 
-        className={`transition-opacity duration-1000 ease-in-out ${isReady ? 'opacity-100' : 'opacity-0'}`}
-      >
+      {/* === КОНТЕНТ === */}
+      <div className={`transition-opacity duration-700 ease-in-out ${isReady ? 'opacity-100' : 'opacity-0'}`}>
         
-        {/* === 1. HERO SECTION (ATTENTION) === */}
-        <main className="relative w-full h-screen bg-black overflow-hidden">
+        {/* === HERO SECTION === */}
+        <main className="relative w-full h-screen bg-black overflow-hidden flex flex-col justify-center items-center">
            
-           {/* 3D Сцена (Грузится скрытно) */}
-           <div className="absolute inset-0 z-10">
+           {/* 3D Фон */}
+           <div className="absolute inset-0 z-10 opacity-60">
               <Scene start={isReady} /> 
            </div>
            
-           {/* Градиент снизу для читаемости текста */}
-           <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/60 to-transparent z-10 pointer-events-none" />
+           {/* Градиенты */}
+           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 z-10 pointer-events-none" />
 
-           {/* Контент Hero */}
-           <div className="relative z-20 w-full h-full flex flex-col justify-end p-6 md:p-12 pointer-events-none text-white">
-             
-             {/* Главный Заголовок */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center mix-blend-difference">
-                <div ref={titleRef} className="opacity-0 translate-y-24">
-                   <h1 className="text-[13vw] leading-[0.8] font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60">
-                       Art.Vision
-                   </h1>
-                </div>
+           {/* ЦЕНТРАЛЬНЫЙ БЛОК */}
+           <div 
+             ref={titleRef} 
+             className="relative z-20 max-w-6xl mx-auto px-4 text-center flex flex-col items-center gap-6 md:gap-8 mt-[-5vh]"
+           >
+              
+              {/* БЕЙДЖ: Акцент на честность и адекватность */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:border-purple-500/50 transition-colors cursor-default">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#22c55e]"></span>
+                <span className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-gray-200">
+                  Честные цены и прозрачные сметы
+                </span>
+              </div>
+
+              {/* ЗАГОЛОВОК H1 */}
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9] text-white mix-blend-screen">
+                Разработка Сайтов <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-white to-purple-400 animate-gradient-x">
+                  Премиум Класса
+                </span>
+              </h1>
+
+              {/* ПОДЗАГОЛОВОК: Рационализация цены */}
+              <p className="max-w-3xl text-sm md:text-lg text-gray-300 font-mono leading-relaxed md:leading-relaxed">
+                Мы используем современные технологии (AI & Next.js), чтобы сократить время разработки в 2 раза. 
+                Вы получаете <span className="text-white font-bold">визуально дорогой проект</span> по комфортной рыночной цене, без переплат за "воздух".
+              </p>
+
+              {/* КНОПКИ */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
+                <button 
+                  onClick={() => scrollTo('works')}
+                  className="px-8 py-4 bg-white text-black font-bold uppercase text-xs tracking-widest rounded-full hover:bg-gray-200 transition-all transform hover:scale-105"
+                >
+                  Смотреть Кейсы
+                </button>
+                <button 
+                  onClick={() => scrollTo('calculator')}
+                  className="px-8 py-4 border border-white/20 text-white font-bold uppercase text-xs tracking-widest rounded-full hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2 group"
+                >
+                  Узнать Стоимость
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </button>
+              </div>
+
+           </div>
+
+           {/* НИЖНЯЯ ПАНЕЛЬ */}
+           <div 
+             ref={bottomBarRef}
+             className="absolute bottom-8 w-full max-w-7xl px-6 flex justify-between items-end z-20 mix-blend-difference text-white/60 font-mono text-[10px] uppercase tracking-widest"
+           >
+             {/* Слева: Бренд */}
+             <div className="hidden md:block text-left space-y-1">
+               <p className="text-white font-bold">Art.Vision Digital Agency</p>
+               <p>Полный цикл производства</p>
              </div>
-             
-             {/* Нижняя панель */}
-             <div className="flex flex-col md:flex-row justify-between items-end gap-6 md:gap-8 pb-4 md:pb-0">
-               {/* Слоган */}
-               <div ref={sloganRef} className="max-w-lg opacity-0 -translate-x-12 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-6 md:bg-transparent md:backdrop-blur-none md:border-none md:p-0">
-                  <h2 className="text-xl md:text-2xl font-medium leading-tight mb-4">
-                    Ваш сайт — это зеркало вашего бизнеса.<br/>
-                    <span className="text-purple-400 font-bold">Мы создаем цифровое превосходство.</span>
-                  </h2>
-                  <div className="h-[1px] w-24 bg-white/50 mb-4"></div>
-                  <p className="text-xs font-mono text-gray-300 uppercase tracking-widest leading-relaxed">
-                    Внимание к деталям рождает доверие.<br/> Превращаем посетителей в клиентов.
-                  </p>
-               </div>
-               
-               {/* Локация */}
-               <div ref={locationRef} className="text-right font-mono text-xs text-gray-400 space-y-2 opacity-0 hidden sm:block mix-blend-difference">
-                 <p className="uppercase tracking-widest text-white">Moscow, Russia [HQ]</p>
-                 <p>55.7558° N, 37.6173° E</p>
-                 <div className="mt-4 flex justify-end items-center gap-2 text-white">
-                    <span>SCROLL TO EXPLORE</span>
-                    <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                 </div>
-               </div>
+
+             {/* Центр: Навигация */}
+             <div className="flex items-center gap-4 mx-auto md:mx-0 opacity-80">
+                <span className="animate-bounce">Листайте вниз</span>
+                <div className="h-8 w-[1px] bg-white/30"></div>
+             </div>
+
+             {/* Справа: Цена ОТ (Якорь) */}
+             <div className="hidden md:block text-right space-y-1">
+               <p>Москва / РФ / Мир</p>
+               <p className="text-green-400 font-bold">Projects from 50k ₽</p> {/* Триггер доступности */}
              </div>
            </div>
+
         </main>
 
-        {/* === 2. IMPACT (INTEREST: Numbers) === */}
+        {/* Остальные блоки */}
         <Impact />
-        
-        {/* === 3. WORKS (DESIRE: Visuals) === */}
-        <section id="works">
-          <SelectedWorks />
-        </section>
-
-        {/* === 4. SERVICES (LOGIC: What we do) === */}
-        <section id="services">
-          <Services />
-        </section>
-
-        {/* === 5. TECH STACK (LOGIC: Justification) === */}
-        <section id="tech">
-          <TechStack />
-        </section>
-
-        {/* === 6. SECTORS (RELEVANCE) === */}
+        <section id="works"><SelectedWorks /></section>
+        <section id="services"><Services /></section>
+        <section id="tech"><TechStack /></section>
         <Sectors />
-        
-        {/* === 7. PROCESS (TRUST: No black box) === */}
         <Process />
-        
-        {/* === 8. CLIENTS (TRUST: Social Proof) === */}
         <Clients />
-        
-        {/* === 9. TEAM (TRUST: Humanize) === */}
         <Team />
-        
-        {/* === 10. CALCULATOR (ACTION: Engagement) === */}
-        <section id="calculator">
-          <SmartCalculator onUpdate={setCalcData} />
-        </section>
-        
-        {/* === 11. MANIFESTO (EMOTION: Philosophy) === */}
+        <section id="calculator"><SmartCalculator onUpdate={setCalcData} /></section>
         <Manifesto />
-        
-        {/* === 12. MAGNETIC CTA (TRIGGER) === */}
         <MagneticCTA />
-        
-        {/* === 13. FAQ (OBJECTIONS) === */}
-        <section id="faq">
-          <FAQ />
-        </section>
-        
-        {/* === 14. FOOTER (FINAL ACTION) === */}
+        <section id="faq"><FAQ /></section>
         <Footer calculatorData={calcData} />
 
       </div>
-
     </ReactLenis>
   );
 }
