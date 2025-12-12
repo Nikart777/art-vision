@@ -28,13 +28,13 @@ export const metadata = {
   },
   
   // Описание: Продающий текст, который виден в Google (сниппет)
-  description: "Разработка премиальных сайтов и цифровых экосистем на Next.js. Мы создаем веб-продукты, которые повышают продажи, скорость и доверие к бренду. Москва.",
+  description: "Разработка премиальных сайтов и цифровых экосистем. Мы создаем веб-продукты, которые повышают продажи, скорость и доверие к бренду. Москва.",
   
   // Ключевые слова (хотя Google их игнорирует, Яндекс и другие учитывают)
   keywords: ["разработка сайтов", "веб-дизайн", "Next.js", "React", "создание сайтов москва", "digital agency", "3D сайты", "дорогой сайт"],
   
   // Авторы и создатель
-  authors: [{ name: 'Art.Vision Team', url: 'https://art-vision.online' }],
+  authors: [{ name: 'Art.Vision studio', url: 'https://art-vision.online' }],
   creator: 'Art.Vision',
   
   // Open Graph — как ссылка выглядит в Facebook/LinkedIn/Telegram/WhatsApp
@@ -45,6 +45,15 @@ export const metadata = {
     siteName: 'Art.Vision Digital Agency',
     title: 'Art.Vision | Цифровое превосходство',
     description: 'Мы не просто кодим. Мы строим цифровые активы. Узнайте стоимость разработки сайта нового поколения.',
+    // Явно указываем массив картинок
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Art.Vision Cover',
+        },
+      ],
   },
 
   // Twitter Card — для X (Twitter)
@@ -52,7 +61,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Art.Vision | Разработка сайтов',
     description: 'Премиальная разработка на Next.js. Скорость, Дизайн, Конверсия.',
-    images: ['/og-image.jpg'],
+    images: ['/opengraph-image.jpg'],
   },
 
   
