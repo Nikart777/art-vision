@@ -54,11 +54,13 @@ export default function Home() {
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+    // Анимируем появление текста
     tl.fromTo(titleRef.current.children, 
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, stagger: 0.1, delay: 0.2 } 
     );
     
+    // Анимируем нижнюю панель
     tl.fromTo(bottomBarRef.current, 
       { opacity: 0, y: 20 }, 
       { opacity: 1, y: 0, duration: 1 }, 
@@ -73,10 +75,11 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'Art.Vision',
-    image: 'https://artvision.pro/og-image.jpg',
-    description: 'Разработка сайтов премиум-класса по доступным ценам. Next.js, WebGL и AI-технологии.',
-    url: 'https://artvision.pro',
-    priceRange: '$$', // Показываем, что цена средняя, не $$$$
+    image: 'https://art-vision.online/opengraph-image.jpg',
+    // В description максимально плотно используем ключи
+    description: 'Профессиональная разработка сайтов, интернет-магазинов и веб-сервисов в Москве. Стеке технологий: Next.js, React, WebGL. Премиум качество по рыночной цене.',
+    url: 'https://art-vision.online/',
+    priceRange: '$$', 
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Москва',
@@ -84,11 +87,11 @@ export default function Home() {
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Услуги разработки',
+      name: 'Услуги веб-студии',
       itemListElement: [
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Разработка сайтов' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Веб-дизайн UI/UX' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Создание интернет-магазинов' } }
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Разработка корпоративных сайтов' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Создание интернет-магазинов (E-commerce)' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Разработка веб-сервисов и SPA' } }
       ]
     }
   };
@@ -129,15 +132,15 @@ export default function Home() {
              className="relative z-20 max-w-6xl mx-auto px-4 text-center flex flex-col items-center gap-6 md:gap-8 mt-[-5vh]"
            >
               
-              {/* БЕЙДЖ: Акцент на честность и адекватность */}
+              {/* БЕЙДЖ: Высокочастотный LSI запрос */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:border-purple-500/50 transition-colors cursor-default">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#22c55e]"></span>
                 <span className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-gray-200">
-                  Честные цены и прозрачные сметы
+                  Разработка веб-сайтов и ПО
                 </span>
               </div>
 
-              {/* ЗАГОЛОВОК H1 */}
+              {/* ЗАГОЛОВОК H1: Главный ключ + УТП */}
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9] text-white mix-blend-screen">
                 Разработка Сайтов <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-white to-purple-400 animate-gradient-x">
@@ -145,10 +148,12 @@ export default function Home() {
                 </span>
               </h1>
 
-              {/* ПОДЗАГОЛОВОК: Рационализация цены */}
-              <p className="max-w-3xl text-sm md:text-lg text-gray-300 font-mono leading-relaxed md:leading-relaxed">
-                Мы используем современные технологии (AI & Next.js), чтобы сократить время разработки в 2 раза. 
-                Вы получаете <span className="text-white font-bold">визуально дорогой проект</span> по комфортной рыночной цене, без переплат за "воздух".
+              {/* ПОДЗАГОЛОВОК: Стек + Ключи (Магазины/Сервисы) + Цена */}
+              <p className="max-w-4xl text-sm md:text-lg text-gray-300 font-mono leading-relaxed md:leading-relaxed">
+                Применяем <strong>новейшие технологии</strong> (Next.js, WebGL, AI) для создания 
+                <span className="text-white"> сайтов, интернет-магазинов</span> и 
+                <span className="text-white"> сложных веб-сервисов</span>. 
+                Гарантируем вам <strong>лучшую цену</strong> на рынке за продукт высокого уровня.
               </p>
 
               {/* КНОПКИ */}
@@ -157,40 +162,40 @@ export default function Home() {
                   onClick={() => scrollTo('works')}
                   className="px-8 py-4 bg-white text-black font-bold uppercase text-xs tracking-widest rounded-full hover:bg-gray-200 transition-all transform hover:scale-105"
                 >
-                  Смотреть Кейсы
+                  Смотреть Портфолио
                 </button>
                 <button 
                   onClick={() => scrollTo('calculator')}
                   className="px-8 py-4 border border-white/20 text-white font-bold uppercase text-xs tracking-widest rounded-full hover:bg-white/10 backdrop-blur-md transition-all flex items-center justify-center gap-2 group"
                 >
-                  Узнать Стоимость
+                  Рассчитать Бюджет
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </button>
               </div>
 
            </div>
 
-           {/* НИЖНЯЯ ПАНЕЛЬ */}
+           {/* НИЖНЯЯ ПАНЕЛЬ: Техническое SEO и Гео */}
            <div 
              ref={bottomBarRef}
              className="absolute bottom-8 w-full max-w-7xl px-6 flex justify-between items-end z-20 mix-blend-difference text-white/60 font-mono text-[10px] uppercase tracking-widest"
            >
-             {/* Слева: Бренд */}
+             {/* Слева */}
              <div className="hidden md:block text-left space-y-1">
                <p className="text-white font-bold">Art.Vision Digital Agency</p>
-               <p>Полный цикл производства</p>
+               <p>Создание сайтов под ключ</p>
              </div>
 
-             {/* Центр: Навигация */}
+             {/* Центр */}
              <div className="flex items-center gap-4 mx-auto md:mx-0 opacity-80">
                 <span className="animate-bounce">Листайте вниз</span>
                 <div className="h-8 w-[1px] bg-white/30"></div>
              </div>
 
-             {/* Справа: Цена ОТ (Якорь) */}
+             {/* Справа: Стек и Якорь цены */}
              <div className="hidden md:block text-right space-y-1">
-               <p>Москва / РФ / Мир</p>
-               <p className="text-green-400 font-bold">Projects from 50k ₽</p> {/* Триггер доступности */}
+               <p>Москва / Санкт-Петербург / РФ</p>
+               <p className="text-purple-300 font-bold">Stack: Next.js 14, React, AI, Cloud</p> 
              </div>
            </div>
 
