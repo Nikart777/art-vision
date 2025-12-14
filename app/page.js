@@ -4,7 +4,6 @@
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
-import { ReactLenis, useLenis } from '@studio-freight/react-lenis';
 import { AnimatePresence } from 'framer-motion';
 
 // --- 2. COMPONENT IMPORTS ---
@@ -24,28 +23,33 @@ import MagneticCTA from '@/components/MagneticCTA';
 import Preloader from '@/components/Preloader';
 import FAQ from '@/components/FAQ';
 import SmartCalculator from '@/components/SmartCalculator';
-import Process from '@/components/Process';
-import Clients from '@/components/Clients';
 import Team from '@/components/Team';
 
 export default function Home() {
   const [isReady, setIsReady] = useState(false);
-  const [calcData, setCalcData] = useState(null); 
-  
-  const lenis = useLenis();
-  const titleRef = useRef(null); 
-  const bottomBarRef = useRef(null); 
+  const [showScene, setShowScene] = useState(false);
+  const [calcData, setCalcData] = useState(null);
 
-  // --- 3. SCROLL LOCK ---
+  const titleRef = useRef(null);
+  const bottomBarRef = useRef(null);
+
   useEffect(() => {
-    if (!isReady) {
-      if (lenis) lenis.stop();
-      document.body.style.overflow = 'hidden';
-    } else {
-      if (lenis) lenis.start();
-      document.body.style.overflow = 'auto';
-    }
-  }, [isReady, lenis]);
+    if (!isReady || showScene) return;
+
+    const scheduler =
+      typeof window !== 'undefined' && 'requestIdleCallback' in window
+        ? window.requestIdleCallback
+        : (fn) => setTimeout(fn, 300);
+
+    const cancelScheduler =
+      typeof window !== 'undefined' && 'cancelIdleCallback' in window
+        ? window.cancelIdleCallback
+        : clearTimeout;
+
+    const handle = scheduler(() => setShowScene(true));
+
+    return () => cancelScheduler(handle);
+  }, [isReady, showScene]);
 
   // --- 4. HERO ANIMATION (GSAP) ---
   useEffect(() => {
@@ -102,7 +106,7 @@ export default function Home() {
   };
 
   return (
-    <ReactLenis root options={{ lerp: 0.08 }}>
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* === ПРЕЛОАДЕР === */}
@@ -119,9 +123,11 @@ export default function Home() {
         <main className="relative w-full h-screen bg-black overflow-hidden flex flex-col justify-center items-center">
            
            {/* 3D Фон */}
-           <div className="absolute inset-0 z-10 opacity-60">
-              <Scene start={isReady} /> 
-           </div>
+           {showScene && (
+             <div className="absolute inset-0 z-10 opacity-60">
+                <Scene start={isReady} />
+             </div>
+           )}
            
            {/* Градиенты */}
            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 z-10 pointer-events-none" />
@@ -207,8 +213,6 @@ export default function Home() {
         <section id="services"><Services /></section>
         <section id="tech"><TechStack /></section>
         <Sectors />
-        <Process />
-        <Clients />
         <Team />
         <section id="calculator"><SmartCalculator onUpdate={setCalcData} /></section>
         <Manifesto />
@@ -217,6 +221,6 @@ export default function Home() {
         <Footer calculatorData={calcData} />
 
       </div>
-    </ReactLenis>
+    </>
   );
 }
