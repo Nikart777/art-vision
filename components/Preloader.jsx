@@ -7,10 +7,8 @@ export default function Preloader({ onComplete }) {
   // 1. entry: Буквы выезжают
   // 2. exit: Шторки открываются
   const [phase, setPhase] = useState('entry');
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    setDimension({ width: window.innerWidth, height: window.innerHeight });
     document.body.style.cursor = 'wait';
 
     // ТАЙМИНГ ШОУ (Фиксированный, чтобы не зависало)
