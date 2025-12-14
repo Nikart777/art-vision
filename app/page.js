@@ -37,13 +37,21 @@ export default function Home() {
 
   // --- 3. SCROLL LOCK ---
   useEffect(() => {
+    if (!lenis) return;
+
     if (!isReady) {
-      if (lenis) lenis.stop();
-      document.body.style.overflow = 'hidden';
+      lenis.stop();
     } else {
-      if (lenis) lenis.start();
-      document.body.style.overflow = 'auto';
+      lenis.start();
     }
+
+    // Всегда держим body в режиме overflow hidden, чтобы исключить
+    // двойной скролл (нативный + Lenis) на десктопе.
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isReady, lenis]);
 
   useEffect(() => {
@@ -119,7 +127,15 @@ export default function Home() {
   };
 
   return (
-    <ReactLenis root options={{ lerp: 0.08 }}>
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.08,
+        smoothWheel: true,
+        wheelMultiplier: 0.95,
+        smoothTouch: false
+      }}
+    >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* === ПРЕЛОАДЕР === */}
