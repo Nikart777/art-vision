@@ -24,8 +24,6 @@ import MagneticCTA from '@/components/MagneticCTA';
 import Preloader from '@/components/Preloader';
 import FAQ from '@/components/FAQ';
 import SmartCalculator from '@/components/SmartCalculator';
-import Process from '@/components/Process';
-import Clients from '@/components/Clients';
 import Team from '@/components/Team';
 
 export default function Home() {
@@ -228,8 +226,6 @@ export default function Home() {
         <section id="services"><Services /></section>
         <section id="tech"><TechStack /></section>
         <Sectors />
-        <Process />
-        <Clients />
         <Team />
         <section id="calculator"><SmartCalculator onUpdate={setCalcData} /></section>
         <Manifesto />
