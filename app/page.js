@@ -30,7 +30,8 @@ import Team from '@/components/Team';
 
 export default function Home() {
   const [isReady, setIsReady] = useState(false);
-  const [calcData, setCalcData] = useState(null); 
+  const [showScene, setShowScene] = useState(false);
+  const [calcData, setCalcData] = useState(null);
   
   const lenis = useLenis();
   const titleRef = useRef(null); 
@@ -46,6 +47,24 @@ export default function Home() {
       document.body.style.overflow = 'auto';
     }
   }, [isReady, lenis]);
+
+  useEffect(() => {
+    if (!isReady || showScene) return;
+
+    const scheduler =
+      typeof window !== 'undefined' && 'requestIdleCallback' in window
+        ? window.requestIdleCallback
+        : (fn) => setTimeout(fn, 300);
+
+    const cancelScheduler =
+      typeof window !== 'undefined' && 'cancelIdleCallback' in window
+        ? window.cancelIdleCallback
+        : clearTimeout;
+
+    const handle = scheduler(() => setShowScene(true));
+
+    return () => cancelScheduler(handle);
+  }, [isReady, showScene]);
 
   // --- 4. HERO ANIMATION (GSAP) ---
   useEffect(() => {
@@ -119,9 +138,11 @@ export default function Home() {
         <main className="relative w-full h-screen bg-black overflow-hidden flex flex-col justify-center items-center">
            
            {/* 3D Фон */}
-           <div className="absolute inset-0 z-10 opacity-60">
-              <Scene start={isReady} /> 
-           </div>
+           {showScene && (
+             <div className="absolute inset-0 z-10 opacity-60">
+                <Scene start={isReady} />
+             </div>
+           )}
            
            {/* Градиенты */}
            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 z-10 pointer-events-none" />
