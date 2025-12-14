@@ -4,7 +4,6 @@
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
-import { ReactLenis, useLenis } from '@studio-freight/react-lenis';
 import { AnimatePresence } from 'framer-motion';
 
 // --- 2. COMPONENT IMPORTS ---
@@ -30,29 +29,10 @@ export default function Home() {
   const [isReady, setIsReady] = useState(false);
   const [showScene, setShowScene] = useState(false);
   const [calcData, setCalcData] = useState(null);
-  
-  const lenis = useLenis();
-  const titleRef = useRef(null); 
-  const bottomBarRef = useRef(null); 
 
-  // --- 3. SCROLL LOCK ---
+
   useEffect(() => {
-    if (!lenis) return;
 
-    if (!isReady) {
-      lenis.stop();
-    } else {
-      lenis.start();
-    }
-
-    // Всегда держим body в режиме overflow hidden, чтобы исключить
-    // двойной скролл (нативный + Lenis) на десктопе.
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isReady, lenis]);
 
   useEffect(() => {
     if (!isReady || showScene) return;
@@ -127,15 +107,7 @@ export default function Home() {
   };
 
   return (
-    <ReactLenis
-      root
-      options={{
-        lerp: 0.08,
-        smoothWheel: true,
-        wheelMultiplier: 0.95,
-        smoothTouch: false
-      }}
-    >
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* === ПРЕЛОАДЕР === */}
@@ -250,6 +222,6 @@ export default function Home() {
         <Footer calculatorData={calcData} />
 
       </div>
-    </ReactLenis>
+    </>
   );
 }
