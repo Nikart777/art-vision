@@ -2,7 +2,7 @@
 
 import { useRef, useLayoutEffect, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { MeshDistortMaterial, Float, Environment } from '@react-three/drei';
+import { MeshDistortMaterial, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
 
@@ -85,7 +85,7 @@ function LiquidEye({ start }) {
 export default function Scene({ start }) {
   return (
     <div className="absolute inset-0 z-10 w-full h-full">
-      <Canvas 
+      <Canvas
         dpr={[1, 1.5]} // Ограничиваем DPI (макс 1.5 для ретины, чтобы не греть телефон)
         camera={{ position: [0, 0, 8], fov: 35 }}
         gl={{ 
@@ -96,9 +96,10 @@ export default function Scene({ start }) {
         }}
       >
         <LiquidEye start={start} />
-        <Environment preset="studio" /> 
-        <pointLight position={[10, 10, 10]} intensity={4} color="#d8b4fe" />
-        <pointLight position={[-10, -10, -10]} intensity={4} color="#6b21a8" />
+        {/* Локальное освещение, чтобы не зависеть от внешних HDRI */}
+        <ambientLight intensity={0.4} color="#ffffff" />
+        <pointLight position={[10, 10, 10]} intensity={3} color="#d8b4fe" />
+        <pointLight position={[-10, -10, -10]} intensity={3} color="#6b21a8" />
       </Canvas>
     </div>
   );
