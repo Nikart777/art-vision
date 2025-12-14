@@ -7,23 +7,21 @@ export default function Preloader({ onComplete }) {
   // 1. entry: Буквы выезжают
   // 2. exit: Шторки открываются
   const [phase, setPhase] = useState('entry');
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    setDimension({ width: window.innerWidth, height: window.innerHeight });
     document.body.style.cursor = 'wait';
 
     // ТАЙМИНГ ШОУ (Фиксированный, чтобы не зависало)
-    // 1. Через 2.0 сек начинаем открывать шторки
+    // 1. Через 1.1 сек начинаем открывать шторки
     const exitTimer = setTimeout(() => {
       setPhase('exit');
-    }, 2000);
+    }, 1100);
 
-    // 2. Через 2.8 сек (когда шторки открылись) удаляем прелоадер из DOM
+    // 2. Через 1.6 сек (когда шторки открылись) удаляем прелоадер из DOM
     const completeTimer = setTimeout(() => {
       document.body.style.cursor = 'auto'; // Возвращаем курсор
       onComplete();
-    }, 2800);
+    }, 1600);
 
     return () => {
       clearTimeout(exitTimer);

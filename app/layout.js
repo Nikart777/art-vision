@@ -1,8 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
-import YandexMetrika from "@/components/YandexMetrika";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 // Подключение локальных шрифтов (как было)
 const geistSans = localFont({
@@ -90,8 +88,6 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
-        <YandexMetrika />
-        <GoogleAnalytics />
         <Header />
         {children}
       </body>
