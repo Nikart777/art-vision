@@ -30,8 +30,9 @@ export default function Home() {
   const [showScene, setShowScene] = useState(false);
   const [calcData, setCalcData] = useState(null);
 
-  const titleRef = useRef(null);
-  const bottomBarRef = useRef(null);
+
+  useEffect(() => {
+
 
   useEffect(() => {
     if (!isReady || showScene) return;
@@ -106,7 +107,7 @@ export default function Home() {
   };
 
   return (
-    <>
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* === ПРЕЛОАДЕР === */}
