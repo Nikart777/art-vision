@@ -7,6 +7,10 @@
   color: #ffffff;
 }
 
+html {
+  scroll-behavior: smooth; /* Плавный скролл для якорей */
+}
+
 body {
   overflow-x: hidden; /* Скрываем скроллбар */
   cursor: crosshair; /* Дизайнерский курсор */

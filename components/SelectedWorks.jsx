@@ -1,127 +1,100 @@
 'use client';
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 
 const projects = [
   {
     id: 1,
-    title: "Sim Racing Club",
-    category: "Immersive Website",
-    description: "Цифровой пит-стоп для фанатов скорости. Мы разработали высокотехнологичную платформу, передающую драйв, адреналин и атмосферу профессиональных гоночных симуляторов прямо с экрана.",
-    image: "/images/cyberx.jpg",
-    link: "https://cyberx.moscow/cyberracing",
-    stat: "Броней: +210%",
-    statDesc: "рост посещаемости"
+    title: "Кухни-Мария (Диллер)",
+    category: "Мебель на заказ",
+    result: "15 замеров/день",
+    link: "/solutions/furniture-kitchens",
+    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 2,
-    title: "Hosta Tea",
-    category: "E-commerce Redesign",
-    description: "Полный редизайн магазина премиального чая. Акцент на атмосферу чайной церемонии через UI, упрощение воронки продаж и 'вкусная' подача товара.",
-    image: "/images/tea.jpg",
-    link: "https://hosta-tea-redesign.vercel.app/",
-    stat: "Заказов: +145%",
-    statDesc: "рост конверсии"
+    title: "Груз-Логистика 24",
+    category: "Аренда спецтехники",
+    result: "Рост парка x2",
+    link: "/solutions/logistics-transport",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 3,
-    title: "Fashion Photographer",
-    category: "Portfolio / Personal Brand",
-    description: "Минималистичный сайт для fashion-фотографа (RU/USA). Чистый 'воздух', адаптивная галерея высокого разрешения и фокус на визуальном контенте для западного рынка.",
-    image: "/images/photo-yaroshevich.jpg",
-    link: "https://photo-yaroshevich.vercel.app/",
-    stat: "Клиентов: +12",
-    statDesc: "новых заявок"
+    title: "Автосервис PRO",
+    category: "СТО и Детейлинг",
+    result: "+200 звонков",
+    link: "/solutions/auto-services",
+    image: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?q=80&w=1978&auto=format&fit=crop"
   }
 ];
 
 export default function SelectedWorks() {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <section ref={containerRef} className="relative w-full py-32 bg-[#050505] overflow-hidden">
-      
-      {/* Заголовок */}
-      <div className="container mx-auto px-4 md:px-12 mb-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col items-start"
-        >
-          <p className="font-mono text-xs text-purple-500 uppercase tracking-widest mb-4">
-            /// Кейсы_и_Результаты
-          </p>
-          <h2 className="text-4xl md:text-7xl font-black uppercase text-white tracking-tighter">
-            Избранные <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">Проекты</span>
+    <section ref={containerRef} className="relative w-full py-24 bg-[#050505] text-white">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8">
+
+        {/* HEADLINE */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+            Наши <span className="text-gray-600">Кейсы</span>
           </h2>
-        </motion.div>
-      </div>
+          <div className="text-right">
+            <p className="text-gray-400 font-mono text-xs max-w-xs mb-2">
+              Мы работаем с реальным сектором. От мебельных цехов до автопарков.
+            </p>
+          </div>
+        </div>
 
-      {/* Список Проектов */}
-      <div className="container mx-auto px-4 md:px-12 flex flex-col gap-32">
-        {projects.map((project, index) => (
-          <motion.div 
-            key={project.id}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
-            className={`flex flex-col md:flex-row gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
-          >
-            
-            {/* Изображение */}
-            <div className="w-full md:w-3/5 relative group">
-              <Link href={project.link} target="_blank" className="block overflow-hidden rounded-2xl border border-white/10 relative">
-                
-                {/* Бейдж со статистикой */}
-                <div className="absolute top-6 right-6 z-20 bg-black/80 backdrop-blur-md border border-purple-500/30 p-4 rounded-xl shadow-[0_0_30px_rgba(168,85,247,0.2)] transform transition-transform group-hover:scale-105">
-                  <div className="text-3xl font-black text-white mb-1">{project.stat}</div>
-                  <div className="text-xs font-mono text-gray-400 uppercase tracking-wider">{project.statDesc}</div>
+        {/* PROJECTS LIST */}
+        <div className="flex flex-col">
+          {projects.map((project, i) => (
+            <Link
+              key={project.id}
+              href={project.link}
+              className="group relative border-b border-white/10 py-12 md:py-16 hover:bg-white/5 transition-colors duration-500 rounded-lg px-4"
+            >
+              <div className="flex flex-col md:flex-row justify-between items-baseline md:items-center relative z-20">
+
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-4">
+                    <span className="font-mono text-gray-600 text-sm">0{i + 1}</span>
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-tight group-hover:text-green-400 transition-colors">
+                      {project.title}
+                    </h3>
+                  </div>
+                  <span className="font-mono text-sm text-gray-400 pl-8">{project.category}</span>
                 </div>
 
-                <div className="relative aspect-[16/9] overflow-hidden">
-                   <div className="absolute inset-0 bg-purple-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                   <Image 
-                     src={project.image} 
-                     alt={project.title}
-                     fill
-                     className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                   />
+                <div className="flex items-center gap-8 mt-4 md:mt-0">
+                  <div className="flex flex-col text-right">
+                    <span className="font-mono text-xs text-gray-500 uppercase tracking-widest mb-1">Результат</span>
+                    <span className="font-bold text-green-400 bg-green-900/20 px-2 py-1 rounded text-sm">{project.result}</span>
+                  </div>
+                  <ArrowUpRight className="w-8 h-8 text-gray-700 group-hover:text-white group-hover:rotate-45 transition-all duration-500" />
                 </div>
-              </Link>
-            </div>
 
-            {/* Текстовый блок */}
-            <div className="w-full md:w-2/5 flex flex-col justify-center">
-              <span className="text-purple-400 font-mono text-sm mb-4 tracking-widest uppercase">
-                {project.category}
-              </span>
-              <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 uppercase leading-tight">
-                {project.title}
-              </h3>
-              <p className="text-gray-400 leading-relaxed mb-8 text-lg">
-                {project.description}
-              </p>
-              
-              <Link href={project.link} target="_blank" className="inline-flex items-center gap-2 text-white font-bold uppercase tracking-wider hover:text-purple-400 transition-colors group">
-                Смотреть Кейс
-                <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-              </Link>
-            </div>
+              </div>
 
-          </motion.div>
-        ))}
+              {/* HOVER IMAGE */}
+              <div className="absolute right-20 top-1/2 -translate-y-1/2 w-48 h-32 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg overflow-hidden border border-white/20 rotate-3 group-hover:rotate-0 transform transition-transform pointer-events-none">
+                <Image
+                  src={project.image}
+                  fill
+                  alt={project.title}
+                  className="object-cover"
+                />
+              </div>
+
+            </Link>
+          ))}
+        </div>
+
       </div>
-
     </section>
   );
 }

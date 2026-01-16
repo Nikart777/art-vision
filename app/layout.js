@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import YandexMetrika from "@/components/YandexMetrika";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import JsonLd from "@/components/JsonLd";
 
 // Подключение локальных шрифтов (как было)
 const geistSans = localFont({
@@ -19,24 +20,24 @@ const geistMono = localFont({
 // --- ПРОФЕССИОНАЛЬНОЕ SEO ---
 export const metadata = {
   // Базовый URL для всех относительных ссылок (важно для OG картинок)
-  metadataBase: new URL('https://art-vision.online'), 
+  metadataBase: new URL('https://art-vision.online'),
 
   // Заголовок: Шаблон позволяет легко менять названия внутренних страниц
   title: {
     default: "Art.Vision | Агентство цифрового развития",
     template: "%s | Art.Vision"
   },
-  
+
   // Описание: Продающий текст, который виден в Google (сниппет)
   description: "Разработка премиальных сайтов и цифровых экосистем. Мы создаем веб-продукты, которые повышают продажи, скорость и доверие к бренду. Москва.",
-  
+
   // Ключевые слова (хотя Google их игнорирует, Яндекс и другие учитывают)
   keywords: ["разработка сайтов", "веб-дизайн", "Next.js", "React", "создание сайтов москва", "digital agency", "3D сайты", "дорогой сайт"],
-  
+
   // Авторы и создатель
   authors: [{ name: 'Art.Vision studio', url: 'https://art-vision.online' }],
   creator: 'Art.Vision',
-  
+
   // Open Graph — как ссылка выглядит в Facebook/LinkedIn/Telegram/WhatsApp
   openGraph: {
     type: 'website',
@@ -52,8 +53,8 @@ export const metadata = {
         width: 1200,
         height: 630,
         alt: 'Art.Vision Cover',
-        },
-      ],
+      },
+    ],
   },
 
   // Twitter Card — для X (Twitter)
@@ -64,7 +65,6 @@ export const metadata = {
     images: ['/opengraph-image.jpg'],
   },
 
-  
   // Инструкции для роботов (индексировать всё)
   robots: {
     index: true,
@@ -77,11 +77,25 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  
-  // Каноническая ссылка (защита от дублей контента)
-  alternates: {
-    canonical: 'https://art-vision.online',
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Art.Vision",
+  "url": "https://art-vision.online",
+  "logo": "https://art-vision.online/logo.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+7-999-000-00-00",
+    "contactType": "sales",
+    "areaServed": "RU",
+    "availableLanguage": "Russian"
   },
+  "sameAs": [
+    "https://t.me/artvision",
+    "https://vk.com/artvision"
+  ]
 };
 
 export default function RootLayout({ children }) {
@@ -90,6 +104,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
+        <JsonLd data={organizationSchema} />
         <YandexMetrika />
         <GoogleAnalytics />
         <Header />
