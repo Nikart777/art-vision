@@ -77,6 +77,11 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+
+  // Подтверждение прав (Google Search Console)
+  verification: {
+    google: 'K9YSOOOASXZ6gbWPZiewqBsAmH8lmzddTRJ9idFTw3I',
+  },
 };
 
 const organizationSchema = {
