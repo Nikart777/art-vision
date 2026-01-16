@@ -1,18 +1,17 @@
-
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
-import { servicesData } from '@/data/services';
+import { services } from '@/data/services';
 
 export async function generateStaticParams() {
-    return Object.keys(servicesData).map((slug) => ({
-        slug,
+    return services.map((service) => ({
+        slug: service.slug,
     }));
 }
 
 export async function generateMetadata({ params }) {
     const { slug } = params;
-    const data = servicesData[slug];
+    const data = services.find(s => s.slug === slug);
 
     if (!data) {
         return {
@@ -37,7 +36,7 @@ export async function generateMetadata({ params }) {
 
 export default function ServicePage({ params }) {
     const { slug } = params;
-    const data = servicesData[slug];
+    const data = services.find(s => s.slug === slug);
 
     if (!data) {
         notFound();
