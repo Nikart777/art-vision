@@ -6,7 +6,8 @@ import {
   ShoppingBag,
   Rocket,
   Wrench,
-  Smartphone
+  Smartphone,
+  Calculator
 } from 'lucide-react';
 
 const services = [
@@ -121,7 +122,7 @@ export default function Services() {
           >
             <div className="text-3xl font-black tracking-tight">Рассчитать<br />Стоимость</div>
             <div className="p-3 rounded-full bg-white/20 backdrop-blur-md">
-              <span className="material-symbols-outlined text-3xl">calculate</span>
+              <Calculator className="w-7 h-7" />
             </div>
             <p className="text-xs font-bold uppercase tracking-widest opacity-80 group-hover:opacity-100 transition-opacity">
               Онлайн Калькулятор →

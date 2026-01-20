@@ -68,7 +68,7 @@ export default function CasePage({ params }) {
     };
 
     return (
-        <main className="min-h-screen bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 pt-32 pb-20">
+        <main className="min-h-screen bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 relative z-10 pt-32 pb-20">
             <JsonLd data={jsonLd} />
 
             <article className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">

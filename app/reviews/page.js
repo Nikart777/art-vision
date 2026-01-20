@@ -13,14 +13,14 @@ export const metadata = {
 
 export default function ReviewsPage() {
     return (
-        <main className="min-h-screen bg-background-light dark:bg-background-dark transition-colors pt-32 pb-20 overflow-hidden">
+        <main className="min-h-screen bg-background-light dark:bg-background-dark transition-colors pt-32 pb-20 overflow-hidden relative z-10">
             <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20 relative">
 
                 {/* DECORATIVE ELEMENTS */}
                 <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-                <Reviews />
+                <Reviews isH1={true} />
 
                 {/* TRUST SECTION */}
                 <div className="py-24 border-t border-gray-100 dark:border-white/5">

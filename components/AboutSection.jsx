@@ -21,7 +21,7 @@ export default function AboutSection() {
                             <span className="text-gradient">Инструментом Роста</span>
                         </h2>
 
-                        <p className="text-lg text-gray-500 dark:text-gray-400 font-medium leading-relaxed max-w-2xl">
+                        <p className="text-lg text-gray-600 dark:text-gray-300 font-medium leading-relaxed max-w-2xl">
                             Art.Vision — это команда экспертов, объединенных страстью к чистому коду и высокому дизайну. Мы ломаем стереотип о том, что премиальная разработка доступна только корпорациям.
                         </p>
 
@@ -32,7 +32,7 @@ export default function AboutSection() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-base mb-1">Надежность</h4>
-                                    <p className="text-xs text-gray-400">Работа по договору и четкое соблюдение сроков.</p>
+                                    <p className="text-xs text-gray-300">Работа по договору и четкое соблюдение сроков.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5">
@@ -41,7 +41,7 @@ export default function AboutSection() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-base mb-1">Скорость</h4>
-                                    <p className="text-xs text-gray-400">Запуск лендинга от 5 рабочих дней.</p>
+                                    <p className="text-xs text-gray-300">Запуск лендинга от 5 рабочих дней.</p>
                                 </div>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { Menu, X, Sparkles } from 'lucide-react';
 
 const navLinks = [
   { title: 'Услуги', href: '/#services' },
@@ -40,18 +41,26 @@ export default function Header() {
     exit: { opacity: 0, y: -20, transition: { duration: 0.2 } }
   };
 
+  const handleHomeClick = (e) => {
+    if (window.location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setIsOpen(false);
+  };
+
   return (
     <>
-      <header className={`fixed top-0 z-50 w-full border-b border-solid transition-all duration-300 px-6 md:px-10 lg:px-40 py-4 ${scrolled
+      <header className={`fixed top-0 z-[10000] w-full border-b border-solid transition-all duration-300 px-6 md:px-10 lg:px-40 py-4 ${scrolled
         ? 'bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-gray-200/20 dark:border-white/10 shadow-sm'
         : 'bg-transparent border-transparent'
         }`}>
         <div className="mx-auto flex max-w-[1200px] items-center justify-between">
 
           {/* LOGO */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" onClick={handleHomeClick} className="flex items-center gap-3 group">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-2xl">auto_awesome</span>
+              <Sparkles className="w-5 h-5" />
             </div>
             <h2 className="text-xl font-extrabold tracking-tight">Art.Vision</h2>
           </Link>
@@ -84,9 +93,10 @@ export default function Header() {
             {/* MOBILE BURGER */}
             <button
               onClick={toggleMenu}
-              className="lg:hidden p-2 text-gray-600 dark:text-gray-300"
+              className="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
+              aria-label="Toggle menu"
             >
-              <span className="material-symbols-outlined text-2xl">{isOpen ? 'close' : 'menu'}</span>
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -100,7 +110,7 @@ export default function Header() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed inset-x-0 top-[72px] z-[49] lg:hidden bg-white/95 dark:bg-background-dark/95 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 p-6 shadow-2xl"
+            className="fixed inset-x-0 top-[72px] z-[9998] lg:hidden bg-white/95 dark:bg-background-dark/95 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 p-6 shadow-2xl"
           >
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (

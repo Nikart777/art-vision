@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight, TrendingUp } from 'lucide-react';
+import { ArrowUpRight, TrendingUp, ExternalLink } from 'lucide-react';
 
 const projects = [
   {
@@ -112,7 +112,7 @@ export default function SelectedWorks() {
             className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl border-2 border-primary/20 hover:bg-primary/5 font-black uppercase text-xs tracking-widest transition-all"
           >
             Смотреть все кейсы
-            <span className="material-symbols-outlined text-[18px]">open_in_new</span>
+            <ExternalLink className="w-4 h-4" />
           </Link>
         </div>
 

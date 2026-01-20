@@ -109,7 +109,13 @@ export default function SmartCalculator({ onUpdate }) {
     if (!onUpdate) return;
     const typeLabel = questions[0].options.find(o => o.id === selections.type)?.label || 'Не выбрано';
     const summaryText = `[РАСЧЕТ]: Тип: ${typeLabel}. ИТОГО: ${total} руб.`;
-    onUpdate({ total: total, summary: summaryText });
+
+    // Use a ref to store previous state and prevent redundant updates
+    const currentData = { total: total, summary: summaryText };
+    if (JSON.stringify(currentData) !== JSON.stringify(onUpdate.lastSent)) {
+      onUpdate(currentData);
+      onUpdate.lastSent = currentData;
+    }
   }, [total, selections, questions, onUpdate]);
 
   const handleSelect = (questionId, optionId, isMulti) => {

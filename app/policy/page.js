@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function PolicyPage() {
     return (
-        <main className="min-h-screen bg-background-light dark:bg-background-dark transition-colors pt-32 pb-20">
+        <main className="min-h-screen bg-background-light dark:bg-background-dark transition-colors pt-32 pb-20 relative z-10">
             <div className="max-w-3xl mx-auto px-6 md:px-10">
                 <header className="mb-12">
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-6">Политика <span className="text-gradient">конфиденциальности</span></h1>

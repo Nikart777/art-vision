@@ -33,4 +33,20 @@ body {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-br from-[#00b9d1] to-[#00d4ff];
   }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Palette, Wallet } from 'lucide-react';
+import { Send, Palette, Wallet, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -23,7 +23,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
-                <span className="material-symbols-outlined text-lg">auto_awesome</span>
+                <Sparkles className="w-4 h-4" />
               </div>
               <h2 className="text-lg font-extrabold tracking-tight">Art.Vision</h2>
             </div>

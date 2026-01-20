@@ -67,7 +67,7 @@ export default function ServicePage({ params }) {
     };
 
     return (
-        <main className="bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300">
+        <main className="bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 relative z-10">
             <JsonLd data={jsonLd} />
 
             {/* HERO SECTION */}

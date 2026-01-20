@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, User, Phone, MessageSquare, Briefcase, CheckCircle2, Loader2 } from 'lucide-react';
+import { Send, User, Phone, MessageSquare, Briefcase, CheckCircle2, Loader2, Headphones, ShieldCheck } from 'lucide-react';
 
 export default function ContactForm({ initialData }) {
     const [formData, setFormData] = useState({
@@ -57,7 +57,7 @@ export default function ContactForm({ initialData }) {
                         <div className="space-y-6 pt-6">
                             <div className="flex items-center gap-4 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-sm">
                                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                                    <span className="material-symbols-outlined">support_agent</span>
+                                    <Headphones className="w-6 h-6" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-sm">Персональный менеджер</h4>
@@ -66,7 +66,7 @@ export default function ContactForm({ initialData }) {
                             </div>
                             <div className="flex items-center gap-4 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-sm">
                                 <div className="h-12 w-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500">
-                                    <span className="material-symbols-outlined">security</span>
+                                    <ShieldCheck className="w-6 h-6" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-sm">NDA & Гарантии</h4>

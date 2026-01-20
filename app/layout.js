@@ -12,7 +12,9 @@ import { Manrope } from 'next/font/google';
 
 const manrope = Manrope({
   subsets: ['latin', 'cyrillic'],
+  weight: ['400', '700', '800'],
   variable: '--font-manrope',
+  display: 'swap',
 });
 
 const geistSans = localFont({
@@ -101,7 +103,7 @@ const organizationSchema = {
   "logo": "https://art-vision.online/logo.png",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+7-999-000-00-00",
+    "telephone": "+7-980-424-30-55",
     "contactType": "sales",
     "areaServed": "RU",
     "availableLanguage": "Russian"
@@ -118,12 +120,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${manrope.variable} ${geistSans.variable} ${geistMono.variable} antialiased font-display bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300`}
       >
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
         <JsonLd data={organizationSchema} />
         <YandexMetrika />
         <GoogleAnalytics />
         <Header />
         {children}
+        {/* NOISE OVERLAY - GLOBAL (Background Layer) */}
+        <div className="fixed inset-0 z-[-1] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
       </body>
     </html>
   );

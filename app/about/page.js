@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function AboutPage() {
     return (
-        <main className="min-h-screen bg-background-light dark:bg-background-dark transition-colors selection:bg-primary/30">
+        <main className="min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-300 pt-32 pb-20 overflow-hidden relative z-10">
             <div className="pt-20">
                 {/* HERO SECTION FOR ABOUT */}
                 <section className="py-24 px-6 md:px-10 lg:px-20 border-b border-gray-100 dark:border-white/5">

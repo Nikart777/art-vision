@@ -3,34 +3,9 @@ import { motion } from 'framer-motion';
 import { Star, Quote, CheckCircle2 } from 'lucide-react';
 import JsonLd from './JsonLd';
 
-const reviews = [
-    {
-        name: "Иван Петров",
-        company: "ООО 'ТехноМир'",
-        text: "Заказывали сайт для привлечения B2B клиентов. За 5 дней получили готовый продукт, который уже через месяц окупил вложения за счет SEO-трафика.",
-        rating: 5,
-        service: "Разработка сайта + SEO",
-        date: "2025-11-12"
-    },
-    {
-        name: "Мария Волкова",
-        company: "Клиника 'Nova'",
-        text: "Art.Vision помогли перенести наш сайт на Next.js. Скорость загрузки выросла в 4 раза, а количество заявок с мобильных устройств — на 40%.",
-        rating: 5,
-        service: "Миграция на Next.js",
-        date: "2025-12-05"
-    },
-    {
-        name: "Сергей Семенов",
-        company: "МебельПлюс",
-        text: "Интегрировали сложный калькулятор стоимости и CRM. Теперь менеджеры тратят на обработку заказа в 2 раза меньше времени.",
-        rating: 5,
-        service: "Кастомная разработка",
-        date: "2026-01-10"
-    }
-];
+import { reviewsData } from '@/data/reviews';
 
-export default function Reviews() {
+export default function Reviews({ isH1 = false }) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "AggregateRating",
@@ -48,7 +23,7 @@ export default function Reviews() {
         "reviewCount": "120",
         "bestRating": "5",
         "worstRating": "1",
-        "review": reviews.map(rev => ({
+        "review": reviewsData.map(rev => ({
             "@type": "Review",
             "author": { "@type": "Person", "name": rev.name },
             "datePublished": rev.date,
@@ -72,16 +47,22 @@ export default function Reviews() {
                         <span className="text-xs font-black uppercase tracking-widest text-primary">Репутация</span>
                         <div className="h-px w-8 bg-primary"></div>
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8">
-                        Нам <span className="text-gradient">Доверяют</span>
-                    </h2>
-                    <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 text-lg font-medium leading-relaxed">
+                    {isH1 ? (
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-8">
+                            Что о нас <span className="text-gradient">Говорят Клиенты</span>
+                        </h1>
+                    ) : (
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8">
+                            Нам <span className="text-gradient">Доверяют</span>
+                        </h2>
+                    )}
+                    <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 text-lg font-medium leading-relaxed">
                         Мы не просто делаем сайты, мы строим фундамент для роста вашего бизнеса. Честные отзывы и реальные результаты.
                     </p>
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {reviews.map((rev, i) => (
+                    {reviewsData.map((rev, i) => (
                         <motion.div
                             key={i}
                             initial={{ opacity: 0, y: 20 }}

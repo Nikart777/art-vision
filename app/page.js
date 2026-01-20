@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -26,6 +26,10 @@ export default function Home() {
   const heroRef = useRef(null);
   const [calcData, setCalcData] = useState(null);
 
+  const handleCalcUpdate = useCallback((data) => {
+    setCalcData(data);
+  }, []);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".animate-fade-in", {
@@ -48,10 +52,8 @@ export default function Home() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden selection:bg-primary/30 selection:text-white">
-      {/* NOISE OVERLAY */}
-      <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.04] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
-      <main ref={heroRef} className="flex-1 pt-32 pb-20">
+      <main ref={heroRef} className="flex-1 pt-32 pb-20 relative z-10">
         <div className="mx-auto max-w-[1200px] px-6 md:px-10 lg:px-20">
 
           {/* Hero Section Grid */}
@@ -176,7 +178,8 @@ export default function Home() {
           <Impact />
           <section id="services"><Services /></section>
           <Reviews />
-          <section id="calculator"><SmartCalculator onUpdate={(data) => setCalcData(data)} /></section>
+          <section id="faq"><FAQ /></section>
+          <section id="calculator"><SmartCalculator onUpdate={handleCalcUpdate} /></section>
           <section id="works"><SelectedWorks /></section>
           <Process />
           <section id="faq"><FAQ /></section>

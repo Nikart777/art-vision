@@ -32,7 +32,7 @@ export const metadata = {
 
 export default function SolutionsListPage() {
     return (
-        <main className="min-h-screen bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 pt-32 pb-20">
+        <main className="min-h-screen bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 pt-32 pb-20 relative z-10">
             <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
                 <header className="mb-20 animate-fade-in">
                     <div className="flex items-center gap-2 mb-4">
