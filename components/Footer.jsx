@@ -77,8 +77,11 @@ export default function Footer() {
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
             © 2026 Art.Vision Digital Agency. Все права защищены.
           </p>
-          <div className="flex items-center gap-6">
-            <span className="text-[10px] text-gray-500 font-mono">ООО "АТИМ" ИНН 504226843290</span>
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <span className="text-[10px] text-gray-500 font-mono uppercase tracking-widest">ООО "АТИМ"</span>
+            <span className="text-[10px] text-gray-500 font-mono">
+              ИНН 504226843290 | КПП 770901001 | ОГРН 1227700259863
+            </span>
           </div>
         </div>
       </div>

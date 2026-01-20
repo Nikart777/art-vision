@@ -71,8 +71,8 @@ export default function Header() {
 
           {/* ACTIONS */}
           <div className="flex items-center gap-4">
-            <a className="hidden sm:block text-sm font-bold hover:text-primary transition-colors" href="tel:+79990000000">
-              +7 (999) 000-00-00
+            <a className="hidden sm:block text-sm font-bold hover:text-primary transition-colors" href="tel:+79804243055">
+              +7 (980) 424-30-55
             </a>
             <button
               onClick={scrollToContact}
@@ -114,7 +114,7 @@ export default function Header() {
                 </Link>
               ))}
               <div className="pt-4 flex flex-col gap-4">
-                <a className="text-lg font-bold text-primary" href="tel:+79990000000">+7 (999) 000-00-00</a>
+                <a className="text-lg font-bold text-primary" href="tel:+79804243055">+7 (980) 424-30-55</a>
                 <button
                   onClick={scrollToContact}
                   className="w-full h-12 rounded-xl bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20"
