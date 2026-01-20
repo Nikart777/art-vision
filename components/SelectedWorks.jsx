@@ -11,7 +11,7 @@ const projects = [
     category: "Мебель на заказ",
     result: "15 замеров/день",
     link: "/solutions/furniture-kitchens/",
-    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop"
+    image: "/images/case_kitchens.png"
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const projects = [
     category: "Аренда спецтехники",
     result: "Рост парка x2",
     link: "/solutions/logistics-transport/",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop"
+    image: "/images/case_logistics.png"
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const projects = [
     category: "СТО и Детейлинг",
     result: "+200 звонков",
     link: "/solutions/auto-services/",
-    image: "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?q=80&w=1978&auto=format&fit=crop"
+    image: "/images/case_autoservice.png"
   }
 ];
 

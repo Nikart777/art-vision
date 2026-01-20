@@ -6,25 +6,25 @@ const team = [
     id: 1,
     name: "Александр",
     role: "Founder / Art Director",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop"
+    image: "/images/team_1.png"
   },
   {
     id: 2,
     name: "Михаил",
     role: "Tech Lead (Next.js)",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop"
+    image: "/images/team_3.png"
   },
   {
     id: 3,
     name: "Елена",
     role: "Head of Design",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop"
+    image: "/images/team_2.png"
   },
   {
     id: 4,
     name: "Дмитрий",
     role: "Backend Architect",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop"
+    image: "/images/team_4.png"
   }
 ];
 
