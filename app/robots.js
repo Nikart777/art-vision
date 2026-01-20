@@ -2,8 +2,8 @@ export default function robots() {
   return {
     rules: {
       userAgent: '*',
-      allow: '/',
-      disallow: ['/api/', '/admin/', '/private/', '/_next/'],
+      allow: ['/', '/_next/static/'],
+      disallow: ['/api/', '/admin/', '/private/'],
     },
     sitemap: 'https://art-vision.online/sitemap.xml',
     host: 'https://art-vision.online'

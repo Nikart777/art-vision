@@ -8,7 +8,7 @@ const impacts = [
     title: "Звонки и Заявки",
     value: "15-20",
     desc: "Среднее количество заявок в день у наших клиентов в нише ремонта и услуг.",
-    icon: <PhoneCall className="w-6 h-6 text-green-500" />,
+    icon: <PhoneCall className="w-6 h-6" />,
     colSpan: "md:col-span-2",
   },
   {
@@ -16,7 +16,7 @@ const impacts = [
     title: "Срок запуска",
     value: "5 дней",
     desc: "От первого звонка до рабочего сайта с рекламой. Не тянем резину.",
-    icon: <CalendarDays className="w-6 h-6 text-blue-500" />,
+    icon: <CalendarDays className="w-6 h-6" />,
     colSpan: "md:col-span-1",
   },
   {
@@ -24,7 +24,7 @@ const impacts = [
     title: "Окупаемость",
     value: "1 мес",
     desc: "Низкая стоимость разработки позволяет отбить вложения с первого заказа.",
-    icon: <Coins className="w-6 h-6 text-yellow-500" />,
+    icon: <Coins className="w-6 h-6" />,
     colSpan: "md:col-span-1",
   },
   {
@@ -32,19 +32,23 @@ const impacts = [
     title: "Договор",
     value: "Белоe",
     desc: "Работаем официально. Предоставляем акты выполненных работ и чеки.",
-    icon: <CheckSquare className="w-6 h-6 text-purple-500" />,
+    icon: <CheckSquare className="w-6 h-6" />,
     colSpan: "md:col-span-2",
   }
 ];
 
 export default function Impact() {
   return (
-    <section className="relative w-full py-24 bg-[#050505] px-4 md:px-12 border-b border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative w-full py-24 bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors border-b border-gray-100 dark:border-white/5">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
 
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white max-w-2xl">
-            Что вы получите <br /> <span className="text-gray-600">на выходе?</span>
+        <div className="mb-16 animate-fade-in text-center md:text-left">
+          <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
+            <div className="h-px w-8 bg-primary"></div>
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Ваши результаты</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
+            Что вы получите <br /> <span className="text-gradient">на выходе?</span>
           </h2>
         </div>
 
@@ -56,19 +60,19 @@ export default function Impact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`p-6 rounded-2xl bg-[#0A0A0A] border border-white/5 hover:border-green-500/20 transition-colors group ${item.colSpan}`}
+              className={`p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 hover:border-primary/20 transition-all group ${item.colSpan} shadow-sm hover:shadow-xl hover:shadow-primary/5`}
             >
-              <div className="flex justify-between items-start mb-6">
-                <div className="p-3 bg-white/5 rounded-xl group-hover:bg-white/10 transition-colors">
+              <div className="flex justify-between items-start mb-10">
+                <div className="p-4 bg-primary/10 rounded-2xl text-primary group-hover:scale-110 transition-transform duration-500">
                   {item.icon}
                 </div>
-                <span className="font-mono text-4xl md:text-5xl font-bold text-white tracking-tighter">
+                <span className="text-5xl md:text-6xl font-black text-primary/20 group-hover:text-primary/100 transition-colors tracking-tighter">
                   {item.value}
                 </span>
               </div>
 
-              <h3 className="text-lg font-bold uppercase mb-2 text-gray-200">{item.title}</h3>
-              <p className="font-mono text-sm text-gray-500 leading-relaxed max-w-sm">
+              <h3 className="text-xl font-bold tracking-tight mb-3 group-hover:text-primary transition-colors">{item.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 font-medium text-sm leading-relaxed max-w-sm">
                 {item.desc}
               </p>
             </motion.div>

@@ -2,6 +2,13 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { services } from '@/data/services';
+import {
+    CheckCircle2,
+    ChevronRight,
+    TrendingUp,
+    ArrowUpRight,
+    HelpCircle
+} from 'lucide-react';
 
 export async function generateStaticParams() {
     return services.map((service) => ({
@@ -26,10 +33,10 @@ export async function generateMetadata({ params }) {
             title: data.title,
             description: data.description,
             type: 'article',
-            url: `https://art-vision.online/services/${slug}`,
+            url: `https://art-vision.online/services/${slug}/`,
         },
         alternates: {
-            canonical: `https://art-vision.online/services/${slug}`,
+            canonical: `https://art-vision.online/services/${slug}/`,
         },
     };
 }
@@ -52,50 +59,74 @@ export default function ServicePage({ params }) {
             url: 'https://art-vision.online'
         },
         description: data.description,
+        offers: {
+            '@type': 'Offer',
+            price: data.basePrice || '40000',
+            priceCurrency: 'RUB'
+        }
     };
 
     return (
-        <>
+        <main className="bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300">
             <JsonLd data={jsonLd} />
 
             {/* HERO SECTION */}
-            <section className="relative w-full min-h-[70vh] flex flex-col justify-center items-center bg-black text-white px-4 py-20 overflow-hidden">
-                {/* Abstract Background */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/40 via-black to-black z-0" />
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 pointer-events-none mix-blend-overlay" />
+            <section className="relative w-full min-h-[60vh] flex flex-col justify-center items-center px-6 py-32 overflow-hidden border-b border-gray-100 dark:border-white/5">
+                {/* Background Decor */}
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-1/2 h-full bg-primary/2 blur-[120px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
-                <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col gap-6">
-                    <span className="text-purple-400 font-mono uppercase tracking-widest text-xs md:text-sm">
-                        Art.Vision Services
-                    </span>
-                    <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">
+                <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="h-px w-8 bg-primary"></div>
+                        <span className="text-xs font-black uppercase tracking-widest text-primary">Сервис Art.Vision</span>
+                        <div className="h-px w-8 bg-primary"></div>
+                    </div>
+
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">
                         {data.h1}
                     </h1>
-                    <p className="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl font-light leading-relaxed">
+
+                    <p className="max-w-2xl mx-auto text-gray-500 dark:text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
                         {data.heroSub}
                     </p>
-                    <div className="mt-8">
+
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
                         <Link
                             href="/#calculator"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold uppercase text-xs tracking-widest rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105"
+                            className="inline-flex h-14 items-center justify-center px-10 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
                         >
                             {data.heroCta}
-                            <span>→</span>
+                        </Link>
+                        <Link
+                            href="/#works"
+                            className="inline-flex h-14 items-center justify-center px-10 border-2 border-primary/20 bg-transparent text-[#101818] dark:text-white font-black uppercase text-xs tracking-widest rounded-2xl hover:bg-primary/5 transition-all"
+                        >
+                            Наши работы
                         </Link>
                     </div>
                 </div>
             </section>
 
             {/* INTRO & VALUE PROP */}
-            <section className="bg-black text-white py-20 px-4 md:px-8">
-                <div className="max-w-4xl mx-auto space-y-12">
-                    <div className="prose prose-invert prose-lg max-w-none">
-                        <p className="text-xl md:text-2xl font-light leading-relaxed text-gray-200 border-l-2 border-purple-500 pl-6">
-                            {data.intro}
-                        </p>
-                        <div className="mt-12 bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10">
-                            <h3 className="text-purple-400 font-mono uppercase mb-4 text-sm">Почему Art.Vision</h3>
-                            <p className="text-gray-300">
+            <section className="py-24 px-6 md:px-10 lg:px-20">
+                <div className="max-w-5xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                        <div className="lg:col-span-7">
+                            <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-8">
+                                Решаем бизнес-задачи <br />
+                                <span className="text-gradient">цифровыми методами</span>
+                            </h2>
+                            <p className="text-lg md:text-xl font-medium leading-relaxed text-gray-600 dark:text-gray-300">
+                                {data.intro}
+                            </p>
+                        </div>
+                        <div className="lg:col-span-5 bg-white dark:bg-white/5 p-10 rounded-[2.5rem] border border-gray-100 dark:border-white/5 shadow-xl shadow-primary/5">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6">
+                                <TrendingUp className="w-6 h-6" />
+                            </div>
+                            <h3 className="text-xs font-black uppercase tracking-widest text-primary mb-4">Почему Art.Vision</h3>
+                            <p className="text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
                                 {data.valueProp}
                             </p>
                         </div>
@@ -104,19 +135,20 @@ export default function ServicePage({ params }) {
             </section>
 
             {/* SCOPE OF WORK */}
-            <section className="bg-[#050505] text-white py-20 px-4">
-                <div className="max-w-6xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-12 uppercase tracking-tight text-center">
-                        Что входит в услугу
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <section className="bg-gray-50/50 dark:bg-white/[0.02] py-24 px-6">
+                <div className="max-w-[1200px] mx-auto">
+                    <div className="text-center mb-16">
+                        <span className="text-xs font-black uppercase tracking-widest text-primary mb-4 block">Что внутри</span>
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tight">Полный комплекс работ</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {data.scope.map((item, idx) => (
-                            <div key={idx} className="p-8 bg-white/5 rounded-xl border border-white/10 hover:border-purple-500/50 transition-colors group">
-                                <div className="h-10 w-10 bg-purple-600/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                    <span className="text-purple-400 font-bold">{idx + 1}</span>
+                            <div key={idx} className="p-10 bg-white dark:bg-white/5 rounded-[2rem] border border-gray-100 dark:border-white/5 hover:border-primary/20 transition-all group shadow-sm hover:shadow-xl hover:shadow-primary/5">
+                                <div className="h-12 w-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                                    <span className="text-primary font-black text-xl">{idx + 1}</span>
                                 </div>
-                                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">{item.text}</p>
+                                <h3 className="text-xl font-bold tracking-tight mb-4 group-hover:text-primary transition-colors">{item.title}</h3>
+                                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-relaxed">{item.text}</p>
                             </div>
                         ))}
                     </div>
@@ -124,24 +156,23 @@ export default function ServicePage({ params }) {
             </section>
 
             {/* PROCESS */}
-            <section className="bg-black text-white py-20 px-4 border-t border-white/5">
+            <section className="py-24 px-6">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-2xl font-mono uppercase text-gray-500 mb-12 text-center">Процесс</h2>
-                    <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                    <div className="text-center mb-16">
+                        <span className="text-xs font-black uppercase tracking-widest text-gray-400 mb-4 block">Дорожная карта</span>
+                        <h2 className="text-3xl md:text-4xl font-black tracking-tight">Как мы создаем продукт</h2>
+                    </div>
+                    <div className="space-y-6">
                         {data.process.map((step, idx) => {
                             const [stepTitle, stepDesc] = step.split(': ');
                             return (
-                                <div key={idx} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                                    {/* Icon */}
-                                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 group-[.is-active]:bg-purple-500 text-slate-500 group-[.is-active]:text-emerald-50 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                            <circle cx="8" cy="8" r="3" />
-                                        </svg>
+                                <div key={idx} className="group relative flex gap-6 p-8 bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-[2rem] hover:border-primary/30 transition-all shadow-sm">
+                                    <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                                        <CheckCircle2 className="w-6 h-6" />
                                     </div>
-                                    {/* Card */}
-                                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 p-4 rounded border border-white/10 shadow hover:border-purple-500/30 transition-colors">
-                                        <h3 className="font-bold text-white mb-1">{stepTitle}</h3>
-                                        <p className="text-gray-400 text-xs sm:text-sm">{stepDesc}</p>
+                                    <div>
+                                        <h3 className="text-lg font-bold tracking-tight mb-2 group-hover:text-primary transition-colors">{stepTitle}</h3>
+                                        <p className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-relaxed">{stepDesc}</p>
                                     </div>
                                 </div>
                             );
@@ -150,42 +181,46 @@ export default function ServicePage({ params }) {
                 </div>
             </section>
 
-            {/* PRICE & TIMELINE (SIMPLE TEXT) */}
-            <section className="bg-[#0A0A0A] text-white py-20 px-4 text-center">
+            {/* PRICE & TIMELINE */}
+            <section className="py-24 px-6 bg-primary/5">
                 <div className="max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold mb-8">Стоимость и Сроки</h2>
-                    <div className="bg-gradient-to-b from-purple-900/20 to-transparent p-1 rounded-2xl">
-                        <div className="bg-black rounded-xl p-8 md:p-12 border border-white/10">
-                            <p className="text-lg text-gray-300 whitespace-pre-wrap leading-relaxed">
-                                {data.priceTime}
-                            </p>
-                            <div className="mt-8">
-                                <Link
-                                    href="/#calculator"
-                                    className="text-purple-400 hover:text-white underline underline-offset-4 transition-colors"
-                                >
-                                    Рассчитать точную смету →
-                                </Link>
-                            </div>
-                        </div>
+                    <div className="bg-white dark:bg-background-dark rounded-[3rem] p-10 md:p-16 border-2 border-primary/10 text-center shadow-2xl shadow-primary/10">
+                        <h2 className="text-3xl font-black tracking-tight mb-8">Стоимость и Сроки</h2>
+                        <p className="text-xl font-medium text-gray-700 dark:text-gray-200 whitespace-pre-wrap leading-relaxed mb-10">
+                            {data.priceTime}
+                        </p>
+                        <Link
+                            href="/#calculator"
+                            className="inline-flex h-14 items-center justify-center px-12 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
+                        >
+                            Рассчитать точную смету →
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* FAQ */}
-            <section className="bg-black text-white py-20 px-4">
+            {/* PAGE FAQ */}
+            <section className="py-24 px-6">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-3xl font-bold mb-12 text-center uppercase">Частые вопросы</h2>
+                    <div className="text-center mb-16">
+                        <span className="text-xs font-black uppercase tracking-widest text-[#00b9d1] mb-4 block">Ответы</span>
+                        <h2 className="text-3xl md:text-4xl font-black tracking-tight">Частые вопросы об этой услуге</h2>
+                    </div>
                     <div className="space-y-4">
                         {data.faq.map((item, idx) => (
-                            <details key={idx} className="group bg-white/5 rounded-lg border border-white/5 open:border-white/10 transition-all">
-                                <summary className="flex cursor-pointer items-center justify-between p-6 list-none text-lg font-medium">
-                                    <span className="group-hover:text-purple-400 transition-colors">{item.q}</span>
-                                    <span className="transition group-open:rotate-180">
-                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                                    </span>
+                            <details key={idx} className="group bg-white dark:bg-white/5 rounded-3xl border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-all">
+                                <summary className="flex cursor-pointer items-center justify-between p-8 list-none text-lg font-bold">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-2 bg-primary/5 rounded-lg text-primary">
+                                            <HelpCircle className="w-5 h-5" />
+                                        </div>
+                                        <span className="group-hover:text-primary transition-colors">{item.q}</span>
+                                    </div>
+                                    <div className="w-8 h-8 rounded-full border-2 border-gray-100 dark:border-white/10 flex items-center justify-center group-open:rotate-180 transition-transform">
+                                        <ArrowUpRight className="w-4 h-4 rotate-90" />
+                                    </div>
                                 </summary>
-                                <div className="p-6 pt-0 text-gray-400 leading-relaxed border-t border-white/5 md:text-base text-sm">
+                                <div className="p-8 pt-0 text-gray-500 dark:text-gray-400 font-medium leading-relaxed border-t border-gray-100 dark:border-white/5 text-base">
                                     {item.a}
                                 </div>
                             </details>
@@ -193,7 +228,6 @@ export default function ServicePage({ params }) {
                     </div>
                 </div>
             </section>
-
-        </>
+        </main>
     );
 }

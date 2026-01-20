@@ -31,21 +31,27 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="relative w-full py-32 bg-[#050505] overflow-hidden">
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8">
+    <section className="relative w-full py-32 bg-background-light dark:bg-background-dark transition-colors overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
 
-        <div className="mb-20 text-center">
-          <span className="font-mono text-purple-500 text-xs tracking-widest uppercase mb-4 block">/// Workflow</span>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white">
-            Как Мы <span className="text-gray-600">Работаем</span>
+        <div className="mb-20 text-center animate-fade-in">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="h-px w-8 bg-primary"></div>
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Workflow</span>
+            <div className="h-px w-8 bg-primary"></div>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
+            Как Мы <span className="text-gradient">Работаем</span>
           </h2>
         </div>
 
         {/* TIMELINE GRID */}
-        <div className="relative grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="relative grid grid-cols-1 md:grid-cols-5 gap-6">
 
           {/* Connecting Line (Mobile Hidden) */}
-          <div className="absolute top-[3.5rem] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent hidden md:block"></div>
+          <div className="absolute top-[3.5rem] left-0 w-full h-[2px] bg-gray-100 dark:bg-white/5 hidden md:block">
+            <div className="h-full bg-gradient-to-r from-primary to-primary/20 w-3/4"></div>
+          </div>
 
           {steps.map((step, i) => (
             <motion.div
@@ -54,17 +60,17 @@ export default function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="relative p-6 pt-16 rounded-2xl border border-white/5 bg-[#0A0A0A] hover:bg-white/5 transition-colors group text-center md:text-left"
+              className="relative p-8 pt-16 rounded-[2rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-all group text-center md:text-left shadow-sm hover:shadow-xl hover:shadow-primary/5"
             >
               {/* Number Badge */}
-              <div className="absolute top-8 left-1/2 md:left-6 -translate-x-1/2 md:translate-x-0 w-12 h-12 rounded-full bg-[#050505] border border-purple-500/30 text-purple-500 flex items-center justify-center font-mono font-bold z-10 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+              <div className="absolute top-8 left-1/2 md:left-8 -translate-x-1/2 md:translate-x-0 w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center font-black text-sm z-10 group-hover:scale-110 transition-transform shadow-lg shadow-primary/30">
                 {step.id}
               </div>
 
-              <h3 className="text-xl font-bold uppercase mb-4 mt-4 text-white group-hover:text-purple-400 transition-colors">
+              <h3 className="text-xl font-bold tracking-tight mb-4 mt-4 group-hover:text-primary transition-colors">
                 {step.title}
               </h3>
-              <p className="font-mono text-sm text-gray-500 leading-relaxed">
+              <p className="text-gray-500 dark:text-gray-400 font-medium text-sm leading-relaxed">
                 {step.desc}
               </p>
             </motion.div>

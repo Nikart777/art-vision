@@ -1,8 +1,17 @@
-
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { casesData } from '@/data/cases';
+import {
+    ArrowLeft,
+    ArrowUpRight,
+    Calendar,
+    Layers,
+    Target,
+    Zap,
+    Briefcase,
+    TrendingUp
+} from 'lucide-react';
 
 export async function generateStaticParams() {
     return Object.keys(casesData).map((slug) => ({
@@ -27,10 +36,10 @@ export async function generateMetadata({ params }) {
             title: data.title,
             description: data.description,
             type: 'article',
-            url: `https://art-vision.online/cases/${slug}`,
+            url: `https://art-vision.online/cases/${slug}/`,
         },
         alternates: {
-            canonical: `https://art-vision.online/cases/${slug}`,
+            canonical: `https://art-vision.online/cases/${slug}/`,
         },
     };
 }
@@ -59,96 +68,115 @@ export default function CasePage({ params }) {
     };
 
     return (
-        <>
+        <main className="min-h-screen bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 pt-32 pb-20">
             <JsonLd data={jsonLd} />
 
-            <main className="min-h-screen bg-[#050505] text-white">
+            <article className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
 
-                {/* HERO */}
-                <section className="relative pt-32 pb-20 px-4 border-b border-white/5">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-                            <div>
-                                <div className="flex items-center gap-3 mb-6">
-                                    <span className="text-purple-500 font-mono text-xs uppercase tracking-widest">{data.industry}</span>
-                                    <span className="w-1 h-1 bg-white/20 rounded-full"></span>
-                                    <span className="text-gray-500 font-mono text-xs uppercase tracking-widest">{data.year}</span>
+                {/* HERO SECTION */}
+                <header className="relative mb-24 animate-fade-in">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-end">
+                        <div className="lg:col-span-8">
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                                    <Briefcase className="w-5 h-5" />
                                 </div>
-                                <h1 className="text-4xl md:text-6xl font-black uppercase leading-none mb-8">
-                                    {data.h1}
-                                </h1>
-                                <p className="text-xl text-gray-400 font-light leading-relaxed">
-                                    {data.description}
-                                </p>
+                                <span className="text-xs font-black uppercase tracking-widest text-primary">
+                                    {data.industry} / {data.year}
+                                </span>
                             </div>
+                            <h1 className="text-4xl md:text-7xl font-black tracking-tight leading-[1.05] mb-10">
+                                {data.h1}
+                            </h1>
+                            <p className="max-w-xl text-xl text-gray-500 dark:text-gray-400 font-medium leading-relaxed">
+                                {data.description}
+                            </p>
+                        </div>
 
-                            <div className="grid grid-cols-2 gap-4 text-sm font-mono uppercase tracking-wider text-gray-500">
-                                <div>
-                                    <span className="block text-white/40 text-xs mb-1">Клиент</span>
-                                    <span className="text-white">{data.client}</span>
-                                </div>
-                                <div>
-                                    <span className="block text-white/40 text-xs mb-1">Услуга</span>
-                                    <span className="text-white">{data.service}</span>
-                                </div>
+                        <div className="lg:col-span-4 grid grid-cols-2 gap-8 border-l border-gray-100 dark:border-white/5 pl-8 hidden lg:grid">
+                            <div className="space-y-2">
+                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Клиент</span>
+                                <span className="text-sm font-bold">{data.client}</span>
                             </div>
+                            <div className="space-y-2">
+                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Индустрия</span>
+                                <span className="text-sm font-bold">{data.industry}</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                {/* KEY RESULT HIGHLIGHT */}
+                <section className="mb-24 p-10 md:p-16 rounded-[3rem] bg-gradient-to-br from-primary to-primary-dark text-white shadow-2xl shadow-primary/20 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform">
+                        <TrendingUp className="w-48 h-48" />
+                    </div>
+                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                        <div className="flex items-center gap-6">
+                            <div className="h-20 w-20 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                <Zap className="w-10 h-10 fill-white" />
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-black tracking-tight uppercase">Результат</h2>
+                        </div>
+                        <p className="text-2xl md:text-4xl font-black tracking-tighter text-right leading-tight">
+                            {data.result}
+                        </p>
+                    </div>
+                </section>
+
+                {/* CASE DETAILS BENTO */}
+                <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+                    <div className="p-10 md:p-12 rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-sm">
+                        <div className="flex items-center gap-4 mb-8 text-primary">
+                            <Target className="w-6 h-6" />
+                            <h3 className="text-xs font-black uppercase tracking-widest">Задача</h3>
+                        </div>
+                        <p className="text-lg md:text-xl font-medium leading-relaxed text-gray-600 dark:text-gray-300">
+                            {data.challenge}
+                        </p>
+                    </div>
+
+                    <div className="p-10 md:p-12 rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-sm">
+                        <div className="flex items-center gap-4 mb-8 text-primary">
+                            <Layers className="w-6 h-6" />
+                            <h3 className="text-xs font-black uppercase tracking-widest">Решение</h3>
+                        </div>
+                        <p className="text-lg md:text-xl font-medium leading-relaxed text-gray-600 dark:text-gray-300">
+                            {data.solution}
+                        </p>
+                    </div>
+
+                    <div className="lg:col-span-2 p-10 rounded-[2.5rem] bg-gray-50/50 dark:bg-white/[0.02] border border-gray-100 dark:border-white/5">
+                        <div className="flex flex-wrap items-center gap-4">
+                            <span className="text-xs font-black uppercase tracking-widest text-gray-400 mr-4">Технологический Стек:</span>
+                            {data.technologies.map(tech => (
+                                <span key={tech} className="px-5 py-2.5 bg-white dark:bg-white/5 rounded-2xl text-xs font-black uppercase tracking-widest border border-gray-100 dark:border-white/10 shadow-sm">
+                                    {tech}
+                                </span>
+                            ))}
                         </div>
                     </div>
                 </section>
 
-                {/* RESULTS METRICS */}
-                <section className="py-12 border-b border-white/5 bg-white/[0.02]">
-                    <div className="max-w-7xl mx-auto px-4">
-                        <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
-                            <h3 className="text-2xl font-bold uppercase">Результат</h3>
-                            <p className="text-lg md:text-xl text-white font-mono border-l-2 border-green-500 pl-6">
-                                {data.result}
-                            </p>
-                        </div>
+                {/* CTA & FOOTER */}
+                <footer className="text-center py-20 border-t border-gray-100 dark:border-white/10">
+                    <h2 className="text-3xl font-black tracking-tight mb-10">Хотите измеримый результат для своего бизнеса?</h2>
+                    <div className="flex flex-col sm:flex-row justify-center gap-6">
+                        <Link
+                            href="/#calculator"
+                            className="h-16 inline-flex items-center justify-center px-10 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
+                        >
+                            Рассчитать стоимость
+                        </Link>
+                        <Link
+                            href="/cases/"
+                            className="h-16 inline-flex items-center justify-center px-10 bg-white dark:bg-white/5 border-2 border-primary/20 text-[#101818] dark:text-white font-black uppercase text-xs tracking-widest rounded-2xl hover:bg-primary/5 transition-all"
+                        >
+                            Все работы
+                        </Link>
                     </div>
-                </section>
-
-                {/* CASE DETAILS */}
-                <section className="py-20 px-4">
-                    <div className="max-w-4xl mx-auto space-y-16">
-
-                        <div className="grid md:grid-cols-[1fr_2fr] gap-8">
-                            <h3 className="text-xl font-bold uppercase text-gray-500">Задача</h3>
-                            <p className="text-lg text-gray-300 leading-relaxed">
-                                {data.challenge}
-                            </p>
-                        </div>
-
-                        <div className="grid md:grid-cols-[1fr_2fr] gap-8">
-                            <h3 className="text-xl font-bold uppercase text-purple-500">Решение</h3>
-                            <p className="text-lg text-gray-300 leading-relaxed">
-                                {data.solution}
-                            </p>
-                        </div>
-
-                        <div className="grid md:grid-cols-[1fr_2fr] gap-8">
-                            <h3 className="text-xl font-bold uppercase text-gray-500">Стек</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {data.technologies.map(tech => (
-                                    <span key={tech} className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                {/* CTA */}
-                <section className="py-20 text-center border-t border-white/10">
-                    <h2 className="text-3xl font-bold uppercase mb-8">Хотите такой же результат?</h2>
-                    <Link href="/#calculator" className="px-8 py-4 bg-white text-black font-bold uppercase tracking-widest rounded-full hover:bg-gray-200 transition-colors">
-                        Обсудить проект
-                    </Link>
-                </section>
-
-            </main>
-        </>
+                </footer>
+            </article>
+        </main>
     );
 }

@@ -1,6 +1,6 @@
 'use client';
-import TextScramble from './TextScramble';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import Link from 'next/link';
 
 export default function Manifesto() {
   const mouseX = useMotionValue(0);
@@ -14,79 +14,75 @@ export default function Manifesto() {
 
   const background = useMotionTemplate`radial-gradient(
     600px circle at ${mouseX}px ${mouseY}px,
-    rgba(126, 34, 206, 0.15),
+    rgba(0, 185, 209, 0.1),
     transparent 80%
   )`;
 
   return (
-    <section className="relative w-full py-32 px-4 md:px-12 bg-[#050505] z-30 overflow-hidden">
-      
-      {/* Фоновый шум */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none"></div>
+    <section className="relative w-full py-32 px-6 md:px-12 bg-background-light dark:bg-background-dark transition-colors overflow-hidden border-b border-gray-100 dark:border-white/5">
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative">
-        
-        {/* --- ЛЕВАЯ ЧАСТЬ --- */}
-        <div className="relative z-10">
-          <h2 className="text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tighter mb-8">
-            <span className="block text-gray-600 text-2xl md:text-3xl mb-4 font-mono">
-              // НОВАЯ_РЕАЛЬНОСТЬ:
+      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative">
+
+        {/* LEFT PART */}
+        <div className="relative z-10 animate-fade-in">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="h-px w-8 bg-primary"></div>
+            <span className="text-xs font-black uppercase tracking-widest text-primary">Манифест</span>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-[0.95]">
+            <span className="block text-gray-300 dark:text-gray-700 text-3xl mb-4">
+              Premium is not
             </span>
-            <span className="block text-white opacity-90">
-              ПРЕМИУМ
-            </span>
-            <span className="block text-white opacity-90">
-              БОЛЬШЕ НЕ
-            </span>
-            {/* Глитч-слово */}
-            <TextScramble className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-              РОСКОШЬ
-            </TextScramble>
+            <span className="text-gradient">Luxury anymore</span>
           </h2>
+          <p className="max-w-md text-lg text-gray-500 font-medium leading-relaxed">
+            Мы пересматриваем стандарты. Качество мирового уровня теперь доступно каждому бизнесу, готовому к росту.
+          </p>
         </div>
 
-        {/* --- ПРАВАЯ ЧАСТЬ --- */}
-        <div 
-          className="group relative rounded-xl border border-white/10 bg-white/5 p-8 md:p-12 overflow-hidden"
+        {/* RIGHT PART */}
+        <div
+          className="group relative rounded-[2.5rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 p-10 md:p-16 overflow-hidden shadow-2xl shadow-primary/5"
           onMouseMove={handleMouseMove}
         >
           <motion.div
-            className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+            className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 transition duration-300 group-hover:opacity-100"
             style={{ background }}
           />
 
-          <div className="relative z-10 font-mono text-lg text-gray-400 space-y-6 leading-relaxed">
-            {/* Бейджи на русском */}
-            <div className="flex flex-wrap items-center gap-4 mb-6">
-              <span className="px-3 py-1 bg-green-500/10 text-green-400 text-xs font-bold uppercase tracking-widest border border-green-500/20 rounded-full">
+          <div className="relative z-10 space-y-8">
+            <div className="flex flex-wrap items-center gap-4 mb-4">
+              <span className="px-4 py-1.5 bg-green-500/10 text-green-500 text-[10px] font-black uppercase tracking-widest border border-green-500/20 rounded-full">
                 Доступ: Открыт
               </span>
-              <span className="text-xs uppercase text-gray-600 line-through decoration-red-500 decoration-2">
+              <span className="text-[10px] font-black uppercase text-gray-400 line-through decoration-primary/40 decoration-2">
                 Раздутые Сметы
               </span>
             </div>
 
-            <p>
-              Раньше сайты мирового уровня стоили миллионы и делались полгода. 
-              <span className="text-white font-bold"> В 2025 году правила изменились.</span>
-            </p>
-            
-            <p>
-              Мы используем нейросети и готовые движки (Next.js), чтобы убрать рутину и снизить стоимость. 
-              Вы платите за <span className="text-white">результат</span>, а не за часы работы программистов.
-            </p>
-            
-            <p className="text-sm border-l-2 border-purple-500 pl-4 italic text-gray-500">
-              "Бюджет больше не оправдание для скучного дизайна."
-            </p>
-            
+            <div className="space-y-6 text-gray-600 dark:text-gray-400 font-medium leading-relaxed text-lg">
+              <p>
+                Раньше сайты мирового уровня стоили миллионы и делались полгода.
+                <span className="text-primary font-black"> В 2026 году правила изменились.</span>
+              </p>
+
+              <p>
+                Мы объединили мощь Next.js и нашу экспертизу, чтобы исключить лишние затраты.
+                Вы платите за <span className="text-[#101818] dark:text-white font-black">результат</span>, а не за часы разработки.
+              </p>
+
+              <div className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border-l-4 border-primary italic text-sm text-gray-500">
+                "Бюджет больше не оправдание для скучного и медленного дизайна."
+              </div>
+            </div>
+
             <div className="pt-6">
-              <button 
-                 onClick={() => document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' })}
-                 className="relative px-6 py-3 bg-white text-black font-bold uppercase text-xs tracking-widest hover:bg-purple-500 hover:text-white transition-all duration-300 clip-path-slant"
+              <Link
+                href="/#calculator"
+                className="inline-flex h-14 items-center justify-center px-10 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
               >
-                Узнать Стоимость
-              </button>
+                Обсудить Проект
+              </Link>
             </div>
           </div>
         </div>

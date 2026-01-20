@@ -3,15 +3,34 @@
 @tailwind utilities;
 
 :root {
-  background: #000000;
-  color: #ffffff;
+  --background: #f5f7fa;
+  --foreground: #101818;
+}
+
+[class~="dark"] {
+  --background: #181c20;
+  --foreground: #ffffff;
 }
 
 html {
-  scroll-behavior: smooth; /* Плавный скролл для якорей */
+  scroll-behavior: smooth;
 }
 
 body {
-  overflow-x: hidden; /* Скрываем скроллбар */
-  cursor: crosshair; /* Дизайнерский курсор */
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .dark .glass-effect {
+    @apply bg-black/20 border-white/5 transition-all;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-[#00b9d1] to-[#00d4ff];
+  }
 }
