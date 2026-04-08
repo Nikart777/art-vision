@@ -4,7 +4,7 @@ import Image from 'next/image';
 const team = [
   {
     id: 1,
-    name: "Александр",
+    name: "Владимир Новоятлов",
     role: "Founder / Art Director",
     image: "/images/team_1.png"
   },
