@@ -6,7 +6,7 @@ const team = [
     id: 1,
     name: "Владимир Новоятлов",
     role: "Founder / Art Director",
-    image: "/images/team_1.png"
+    image: "/images/team_1.jpeg"
   },
   {
     id: 2,
