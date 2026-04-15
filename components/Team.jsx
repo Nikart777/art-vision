@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+
 
 const team = [
   {
@@ -50,26 +50,14 @@ export default function Team() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {team.map((member) => (
-            <div key={member.id} className="group relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-
-              {/* IMAGE */}
-              <div className="absolute inset-0 grayscale group-hover:grayscale-0 transition-all duration-700 ease-out">
-                <Image
-                  src={member.image}
-                  fill
-                  alt={member.name}
-                  className="object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700"
-                />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#101818]/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
-              </div>
-
+            <div key={member.id} className="group relative p-8 flex flex-col justify-end aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
+              
               {/* INFO */}
-              <div className="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                 <div className="text-[10px] font-black text-primary uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                   {member.role}
                 </div>
-                <h3 className="text-2xl font-black text-white tracking-tight uppercase">
+                <h3 className="text-2xl font-black text-[#101818] dark:text-white tracking-tight uppercase">
                   {member.name}
                 </h3>
               </div>
