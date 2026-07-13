@@ -115,8 +115,9 @@ export default function ContactForm({ initialData }) {
                                         <div className="w-20 h-20 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mb-6">
                                             <CheckCircle2 className="w-8 h-8 text-white" />
                                         </div>
-                                        <h3 className="text-2xl font-light uppercase tracking-tight mb-2 text-white">Заявка принята!</h3>
-                                        <p className="text-white/40 font-light text-sm tracking-wide">Мы перезвоним вам в ближайшее время.</p>
+                                        <h3 className="text-2xl font-light uppercase tracking-tight mb-2 text-white">Заявка успешно отправлена!</h3>
+                                        <p className="text-white/40 font-light text-sm tracking-wide mb-2">Наши контакты: project@art-vision.online, +79804243055</p>
+                                        <p className="text-white/40 font-light text-sm tracking-wide">Мы свяжемся с вами в ближайшее время.</p>
                                         <button
                                             onClick={() => setStatus('idle')}
                                             className="mt-8 text-white/60 font-medium uppercase text-[10px] tracking-[0.2em] hover:text-white transition-colors"
