@@ -7,9 +7,13 @@ export async function POST(request) {
     const body = await request.json();
     const { name, contact, projectType, budget, message } = body;
 
-    // Hardcoded credentials for Telegram from user request
-    const botToken = "8897950752:AAED7hKCBHjt2vsghqXGkP0kY9JNOJroi20";
-    const chatId = "395454973";
+    const botToken = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+
+    if (!botToken || !chatId) {
+      console.warn("TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID не настроены в .env");
+      return NextResponse.json({ error: 'Telegram credentials missing' }, { status: 500 });
+    }
 
     const text = `🔥 Новая заявка с сайта Art.Vision!
     
@@ -23,13 +27,10 @@ ${message || 'Нет сообщения'}`;
 
     const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
     
-    // We use the Tinyproxy running on the VPN server to bypass any blocking in RF
-    // This connects via the VPN proxy, guaranteeing connection to Telegram
-    const proxyAgent = new HttpsProxyAgent('http://cyberx:2751872bd5db148f22c3126f@72.56.108.26:8888');
-    
+    // В локальной разработке обращаемся напрямую (прокси на VPN блокирует домашние IP)
+    // На сервере тоже сработает, если Роскомнадзор не блочит api.telegram.org на этом хостинге
     const tgResponse = await fetch(tgUrl, {
       method: 'POST',
-      agent: proxyAgent,
       headers: {
         'Content-Type': 'application/json',
       },
