@@ -107,20 +107,54 @@ export default function ContactForm({ initialData }) {
                                 {status === 'success' ? (
                                     <motion.div
                                         key="success"
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        className="flex flex-col items-center justify-center text-center py-20"
+                                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                                        className="flex flex-col items-center justify-center text-center py-16 relative"
                                     >
-                                        <div className="w-20 h-20 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mb-6">
-                                            <CheckCircle2 className="w-8 h-8 text-white" />
+                                        {/* Glowing Background Effect */}
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-violet-600/20 blur-[80px] rounded-full pointer-events-none"></div>
+
+                                        <div className="relative mb-8">
+                                            <div className="absolute inset-0 bg-violet-500/30 blur-xl rounded-full"></div>
+                                            <div className="relative w-24 h-24 bg-gradient-to-br from-violet-600 to-fuchsia-600 border border-violet-400/30 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(139,92,246,0.3)]">
+                                                <CheckCircle2 className="w-10 h-10 text-white" />
+                                            </div>
                                         </div>
-                                        <h3 className="text-2xl font-light uppercase tracking-tight mb-2 text-white">Заявка успешно отправлена!</h3>
-                                        <p className="text-white/40 font-light text-sm tracking-wide mb-2">Наши контакты: project@art-vision.online, +79804243055</p>
-                                        <p className="text-white/40 font-light text-sm tracking-wide">Мы свяжемся с вами в ближайшее время.</p>
+
+                                        <h3 className="text-3xl font-light uppercase tracking-tight mb-6 text-white drop-shadow-md">
+                                            Заявка успешно отправлена!
+                                        </h3>
+                                        
+                                        <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl p-6 w-full max-w-sm relative overflow-hidden group">
+                                            <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                            
+                                            <p className="text-white/60 font-light text-xs tracking-[0.15em] uppercase mb-2">
+                                                Ваш персональный менеджер:
+                                            </p>
+                                            <p className="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-300 mb-6">
+                                                Владимир
+                                            </p>
+
+                                            <div className="space-y-4">
+                                                <a href="mailto:project@art-vision.online" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link">
+                                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
+                                                        <MessageSquare className="w-4 h-4" />
+                                                    </div>
+                                                    <span className="font-light tracking-wide">project@art-vision.online</span>
+                                                </a>
+                                                <a href="tel:+79804243055" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link">
+                                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
+                                                        <Phone className="w-4 h-4" />
+                                                    </div>
+                                                    <span className="font-light tracking-wide">+7 (980) 424-30-55</span>
+                                                </a>
+                                            </div>
+                                        </div>
+
                                         <button
                                             onClick={() => setStatus('idle')}
-                                            className="mt-8 text-white/60 font-medium uppercase text-[10px] tracking-[0.2em] hover:text-white transition-colors"
+                                            className="mt-10 text-white/40 hover:text-white font-medium uppercase text-[10px] tracking-[0.2em] transition-all hover:tracking-[0.25em]"
                                         >
                                             Отправить еще раз
                                         </button>
