@@ -17,18 +17,27 @@ export async function POST(request) {
 ${message || 'Нет сообщения'}`;
 
     // Настраиваем почтовый транспорт
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'localhost',
-      port: process.env.SMTP_PORT || 25,
-      secure: process.env.SMTP_SECURE === 'true', 
-      auth: process.env.SMTP_USER ? {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      } : undefined,
-      tls: {
-        rejectUnauthorized: false
-      }
-    });
+    let transportConfig;
+    if (process.env.SMTP_HOST) {
+      transportConfig = {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT || 465,
+        secure: process.env.SMTP_SECURE === 'true' || process.env.SMTP_PORT === '465', 
+        auth: process.env.SMTP_USER ? {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        } : undefined,
+        tls: { rejectUnauthorized: false }
+      };
+    } else {
+      // На виртуальном хостинге локальный SMTP часто закрыт, используем sendmail напрямую
+      transportConfig = {
+        sendmail: true,
+        newline: 'unix',
+        path: '/usr/sbin/sendmail'
+      };
+    }
+    const transporter = nodemailer.createTransport(transportConfig);
 
     const mailOptions = {
       from: process.env.SMTP_FROM || 'project@art-vision.online',
