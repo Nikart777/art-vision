@@ -1,6 +1,5 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@/components/Header";
 import YandexMetrika from "@/components/YandexMetrika";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import JsonLd from "@/components/JsonLd";
@@ -100,7 +99,7 @@ const organizationSchema = {
   "@type": "Organization",
   "name": "Art.Vision",
   "url": "https://art-vision.online",
-  "logo": "https://art-vision.online/logo.png",
+  "logo": "https://art-vision.online/icon.png",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+7-980-424-30-55",
@@ -123,7 +122,6 @@ export default function RootLayout({ children }) {
         <JsonLd data={organizationSchema} />
         <YandexMetrika />
         <GoogleAnalytics />
-        <Header />
         {children}
         {/* NOISE OVERLAY - GLOBAL (Background Layer) */}
         <div className="fixed inset-0 z-[-1] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>

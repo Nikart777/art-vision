@@ -148,7 +148,7 @@ export default function SolutionPage({ params }) {
 
             {/* KEY FEATURES BENTO */}
             <section className="bg-gray-50/50 dark:bg-white/[0.02] py-24 px-6">
-                <div className="max-w-[1200px] mx-auto">
+                <div className="max-w-[1400px] mx-auto">
                     <div className="text-center mb-16">
                         <span className="text-xs font-black uppercase tracking-widest text-primary mb-4 block">Экосистема</span>
                         <h2 className="text-4xl md:text-5xl font-black tracking-tight">Ключевой функционал</h2>

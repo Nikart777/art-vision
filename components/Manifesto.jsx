@@ -14,35 +14,35 @@ export default function Manifesto() {
 
   const background = useMotionTemplate`radial-gradient(
     600px circle at ${mouseX}px ${mouseY}px,
-    rgba(0, 185, 209, 0.1),
+    rgba(255, 255, 255, 0.05),
     transparent 80%
   )`;
 
   return (
-    <section className="relative w-full py-32 px-6 md:px-12 bg-background-light dark:bg-background-dark transition-colors overflow-hidden border-b border-gray-100 dark:border-white/5">
+    <section className="relative w-full py-32 px-6 md:px-12 bg-black transition-colors overflow-hidden border-b border-white/10 font-sans">
 
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative">
 
         {/* LEFT PART */}
         <div className="relative z-10 animate-fade-in">
           <div className="flex items-center gap-2 mb-6">
-            <div className="h-px w-8 bg-primary"></div>
-            <span className="text-xs font-black uppercase tracking-widest text-primary">Манифест</span>
+            <div className="h-px w-8 bg-white/40"></div>
+            <span className="text-xs font-bold uppercase tracking-widest text-white/60">Манифест</span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-[0.95]">
-            <span className="block text-gray-300 dark:text-gray-700 text-3xl mb-4">
+          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[0.95] uppercase">
+            <span className="block text-white/40 text-3xl mb-4">
               Premium is not
             </span>
-            <span className="text-gradient">Luxury anymore</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white">Luxury anymore</span>
           </h2>
-          <p className="max-w-md text-lg text-gray-500 font-medium leading-relaxed">
+          <p className="max-w-md text-lg text-white/50 font-light leading-relaxed">
             Мы пересматриваем стандарты. Качество мирового уровня теперь доступно каждому бизнесу, готовому к росту.
           </p>
         </div>
 
         {/* RIGHT PART */}
         <div
-          className="group relative rounded-[2.5rem] border border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 p-10 md:p-16 overflow-hidden shadow-2xl shadow-primary/5"
+          className="group relative rounded-[2.5rem] border border-white/10 bg-white/[0.02] p-10 md:p-16 overflow-hidden shadow-2xl backdrop-blur-xl"
           onMouseMove={handleMouseMove}
         >
           <motion.div
@@ -52,34 +52,34 @@ export default function Manifesto() {
 
           <div className="relative z-10 space-y-8">
             <div className="flex flex-wrap items-center gap-4 mb-4">
-              <span className="px-4 py-1.5 bg-green-500/10 text-green-500 text-[10px] font-black uppercase tracking-widest border border-green-500/20 rounded-full">
+              <span className="px-4 py-1.5 bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-widest border border-green-500/20 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.1)]">
                 Доступ: Открыт
               </span>
-              <span className="text-[10px] font-black uppercase text-gray-400 line-through decoration-primary/40 decoration-2">
+              <span className="text-[10px] font-bold uppercase text-white/30 line-through decoration-white/20 decoration-2">
                 Раздутые Сметы
               </span>
             </div>
 
-            <div className="space-y-6 text-gray-600 dark:text-gray-400 font-medium leading-relaxed text-lg">
+            <div className="space-y-6 text-white/60 font-light leading-relaxed text-lg">
               <p>
                 Раньше сайты мирового уровня стоили миллионы и делались полгода.
-                <span className="text-primary font-black"> В 2026 году правила изменились.</span>
+                <span className="text-white font-bold"> В 2026 году правила изменились.</span>
               </p>
 
               <p>
                 Мы объединили мощь Next.js и нашу экспертизу, чтобы исключить лишние затраты.
-                Вы платите за <span className="text-[#101818] dark:text-white font-black">результат</span>, а не за часы разработки.
+                Вы платите за <span className="text-white font-bold">результат</span>, а не за часы разработки.
               </p>
 
-              <div className="p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border-l-4 border-primary italic text-sm text-gray-500">
+              <div className="p-6 rounded-2xl bg-white/5 border-l-4 border-white/20 italic text-sm text-white/40">
                 "Бюджет больше не оправдание для скучного и медленного дизайна."
               </div>
             </div>
 
             <div className="pt-6">
               <Link
-                href="/#calculator"
-                className="inline-flex h-14 items-center justify-center px-10 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
+                href="/#contact-form"
+                className="inline-flex h-14 items-center justify-center px-10 bg-white text-black font-bold uppercase text-xs tracking-widest rounded-2xl hover:bg-gray-200 active:scale-95 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]"
               >
                 Обсудить Проект
               </Link>

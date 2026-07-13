@@ -8,7 +8,7 @@ const brands = [
 export default function Clients() {
   return (
     <section className="w-full py-24 bg-background-light dark:bg-background-dark/50 border-y border-gray-100 dark:border-white/5 overflow-hidden transition-colors">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20 mb-12">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-20 mb-12">
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="h-px w-8 bg-primary"></div>

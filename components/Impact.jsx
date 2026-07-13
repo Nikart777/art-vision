@@ -40,7 +40,7 @@ const impacts = [
 export default function Impact() {
   return (
     <section className="relative w-full py-24 bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors border-b border-gray-100 dark:border-white/5">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-20">
 
         <div className="mb-16 animate-fade-in text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 mb-4">

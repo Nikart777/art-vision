@@ -12,7 +12,7 @@ export default function Reviews({ isH1 = false }) {
         "itemReviewed": {
             "@type": "Organization",
             "name": "Art.Vision Digital Agency",
-            "image": "https://art-vision.online/logo.png",
+            "image": "https://art-vision.online/icon.png",
             "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Moscow",
@@ -36,61 +36,65 @@ export default function Reviews({ isH1 = false }) {
     };
 
     return (
-        <section id="reviews" className="relative w-full py-24 bg-background-light dark:bg-background-dark/30 transition-colors overflow-hidden">
+        <section id="reviews" className="relative w-full py-24 bg-black text-white font-sans transition-colors overflow-hidden">
             <JsonLd data={jsonLd} />
 
-            <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20 relative z-10">
+            <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-20 relative z-10">
 
-                <header className="mb-20 text-center animate-fade-in">
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                        <div className="h-px w-8 bg-primary"></div>
-                        <span className="text-xs font-black uppercase tracking-widest text-primary">Репутация</span>
-                        <div className="h-px w-8 bg-primary"></div>
-                    </div>
+                <motion.header 
+                  initial={{ y: 30, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 1.0 }}
+                  className="mb-20 text-center"
+                >
+                    <p className="text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-8">
+                        Репутация
+                    </p>
                     {isH1 ? (
-                        <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-8">
-                            Что о нас <span className="text-gradient">Говорят Клиенты</span>
+                        <h1 className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase">
+                            Что о нас Говорят Клиенты
                         </h1>
                     ) : (
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8">
-                            Нам <span className="text-gradient">Доверяют</span>
+                        <h2 className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase">
+                            Нам Доверяют
                         </h2>
                     )}
-                    <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 text-lg font-medium leading-relaxed">
+                    <p className="text-white/45 text-[15px] sm:text-[17px] leading-relaxed max-w-2xl mx-auto">
                         Мы не просто делаем сайты, мы строим фундамент для роста вашего бизнеса. Честные отзывы и реальные результаты.
                     </p>
-                </header>
+                </motion.header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {reviewsData.map((rev, i) => (
                         <motion.div
                             key={i}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="p-10 bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-[2.5rem] shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col group"
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.8, delay: i * 0.1 }}
+                            className="p-8 bg-white/[0.02] border border-white/10 rounded-lg hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 flex flex-col group"
                         >
                             <div className="flex items-center gap-1 mb-6">
                                 {[...Array(rev.rating)].map((_, idx) => (
-                                    <Star key={idx} className="w-4 h-4 text-primary fill-primary" />
+                                    <Star key={idx} className="w-3 h-3 text-white/50 fill-white/50" />
                                 ))}
                             </div>
 
                             <div className="relative mb-8">
-                                <Quote className="absolute -top-4 -left-4 w-12 h-12 text-primary/5 -z-10 group-hover:text-primary/10 transition-colors" />
-                                <p className="text-gray-600 dark:text-gray-300 font-medium leading-relaxed italic text-base">
+                                <Quote className="absolute -top-4 -left-4 w-10 h-10 text-white/5 -z-10 group-hover:text-white/10 transition-colors" />
+                                <p className="text-white/70 font-light leading-relaxed italic text-sm tracking-wide">
                                     "{rev.text}"
                                 </p>
                             </div>
 
-                            <div className="mt-auto pt-6 border-t border-gray-100 dark:border-white/5 flex items-center justify-between">
+                            <div className="mt-auto pt-6 border-t border-white/10 flex items-center justify-between">
                                 <div>
-                                    <span className="block font-black text-sm uppercase tracking-tight">{rev.name}</span>
-                                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{rev.company}</span>
+                                    <span className="block font-light text-sm uppercase tracking-tight text-white/90">{rev.name}</span>
+                                    <span className="text-[10px] font-light text-white/40 uppercase tracking-widest">{rev.company}</span>
                                 </div>
-                                <div className="p-2 bg-primary/10 rounded-xl text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                                    <CheckCircle2 className="w-5 h-5" />
+                                <div className="p-2 bg-white/5 rounded-full text-white/50 group-hover:bg-white/10 group-hover:text-white transition-all">
+                                    <CheckCircle2 className="w-4 h-4" />
                                 </div>
                             </div>
                         </motion.div>
@@ -98,10 +102,10 @@ export default function Reviews({ isH1 = false }) {
                 </div>
 
                 {/* Floating Trust Symbols */}
-                <div className="mt-20 flex flex-wrap justify-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
-                    <div className="flex items-center gap-2 font-black text-xl tracking-tighter uppercase">99% Satisfaction</div>
-                    <div className="flex items-center gap-2 font-black text-xl tracking-tighter uppercase">5.0 Google Rating</div>
-                    <div className="flex items-center gap-2 font-black text-xl tracking-tighter uppercase">120+ Success Stories</div>
+                <div className="mt-20 flex flex-wrap justify-center gap-12 opacity-30 transition-all duration-700">
+                    <div className="flex items-center gap-2 font-light text-sm tracking-[0.2em] uppercase text-white/60">99% Satisfaction</div>
+                    <div className="flex items-center gap-2 font-light text-sm tracking-[0.2em] uppercase text-white/60">5.0 Google Rating</div>
+                    <div className="flex items-center gap-2 font-light text-sm tracking-[0.2em] uppercase text-white/60">120+ Success Stories</div>
                 </div>
 
             </div>

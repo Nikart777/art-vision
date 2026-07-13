@@ -32,7 +32,7 @@ const steps = [
 export default function Process() {
   return (
     <section className="relative w-full py-32 bg-background-light dark:bg-background-dark transition-colors overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-20">
 
         <div className="mb-20 text-center animate-fade-in">
           <div className="flex items-center justify-center gap-2 mb-4">

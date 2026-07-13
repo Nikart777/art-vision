@@ -15,6 +15,16 @@ const nextConfig = {
       { protocol: 'https', hostname: 'media.giphy.com' },
     ],
   },
+  // 301 со старого нерелевантного URL на новый (контент — мобильная адаптация)
+  async redirects() {
+    return [
+      {
+        source: '/services/nextjs-development',
+        destination: '/services/mobile-adaptation',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,43 +1,58 @@
 'use client';
-import { motion } from 'framer-motion';
-
-const tech = [
-  "Next.js 14", "React", "TypeScript", "Tailwind CSS", "Three.js", "WebGL",
-  "Node.js", "PostgreSQL", "Supabase", "Strapi", "Docker", "Figma",
-  "Framer Motion", "GSAP", "Vercel", "AWS"
-];
 
 export default function TechStack() {
+  const stack = [
+    {
+      category: "Frontend",
+      techs: ["React", "Next.js", "TypeScript", "TailwindCSS", "Framer Motion", "GSAP"]
+    },
+    {
+      category: "Backend & DB",
+      techs: ["Node.js", "Express", "Supabase", "PostgreSQL", "Prisma", "Redis"]
+    },
+    {
+      category: "Infra & CMS",
+      techs: ["Vercel", "Docker", "AWS", "Sanity", "Strapi", "WordPress"]
+    }
+  ];
+
   return (
-    <section className="w-full py-20 bg-[#050505] border-y border-white/5 overflow-hidden">
+    <div className="w-full bg-black font-sans">
+      <div className="relative rounded-[2.5rem] border border-white/10 bg-white/[0.02] p-8 md:p-12 shadow-2xl backdrop-blur-xl overflow-hidden">
+        
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-64 bg-white/5 rounded-full blur-[80px] pointer-events-none"></div>
 
-      <div className="mb-10 text-center px-4">
-        <span className="font-mono text-xs text-gray-500 uppercase tracking-widest">
-          Technologies that scale
-        </span>
-      </div>
+        <div className="flex flex-col gap-12 relative z-10">
+          {stack.map((group, index) => (
+            <div key={index} className="space-y-6">
+              
+              <div className="flex items-center gap-4">
+                <div className="text-xs font-bold uppercase tracking-widest text-white/50">
+                  {String(index + 1).padStart(2, '0')} //
+                </div>
+                <h3 className="text-xl font-bold tracking-tight text-white uppercase">
+                  {group.category}
+                </h3>
+                <div className="flex-1 h-px bg-gradient-to-r from-white/10 to-transparent"></div>
+              </div>
 
-      <div className="relative flex w-full overflow-hidden">
-        {/* Gradients to fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
+              <div className="flex flex-wrap gap-3">
+                {group.techs.map((tech, i) => (
+                  <div 
+                    key={i}
+                    className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all cursor-default backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.2)]"
+                  >
+                    {tech}
+                  </div>
+                ))}
+              </div>
 
-        <motion.div
-          className="flex whitespace-nowrap"
-          animate={{ x: [0, -1000] }}
-          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-        >
-          {[...tech, ...tech, ...tech].map((item, i) => ( // Repeat 3 times for smooth loop
-            <div key={i} className="inline-flex items-center mx-8 md:mx-12">
-              <span className="text-2xl md:text-5xl font-black uppercase text-transparent bg-clip-text bg-gradient-to-b from-gray-700 to-gray-900 opacity-50 hover:opacity-100 hover:text-white transition-all cursor-default select-none">
-                {item}
-              </span>
-              <span className="ml-8 md:ml-12 w-2 h-2 rounded-full bg-purple-500/20"></span>
             </div>
           ))}
-        </motion.div>
+        </div>
+        
       </div>
-
-    </section>
+    </div>
   );
 }

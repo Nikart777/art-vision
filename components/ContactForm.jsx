@@ -36,71 +36,85 @@ export default function ContactForm({ initialData }) {
     };
 
     return (
-        <section id="contact-form" className="relative w-full py-24 bg-background-light dark:bg-background-dark/50 transition-colors">
-            <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
+        <section id="contact-form" className="relative w-full py-24 bg-black text-white font-sans transition-colors overflow-hidden">
+            <div className="max-w-5xl mx-auto px-6 md:px-10 lg:px-20 relative z-10">
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
                     {/* Left Side: Copy */}
-                    <div className="lg:col-span-5 space-y-8 animate-fade-in">
-                        <div className="flex items-center gap-2">
-                            <div className="h-px w-8 bg-primary"></div>
-                            <span className="text-xs font-black uppercase tracking-widest text-primary">Обратная связь</span>
-                        </div>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-                            Готовы <br /> <span className="text-gradient">Начать Проект?</span>
+                    <motion.div 
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8 }}
+                        className="lg:col-span-5 space-y-8"
+                    >
+                        <p className="text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-4">
+                            Обратная связь
+                        </p>
+                        <h2 className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase">
+                            Готовы Начать Проект?
                         </h2>
-                        <p className="text-lg text-gray-500 dark:text-gray-400 font-medium leading-relaxed">
+                        <p className="text-white/45 text-[15px] sm:text-[17px] leading-relaxed">
                             Оставьте заявку, и мы свяжемся с вами в течение 30 минут для детального обсуждения вашей задачи.
                         </p>
 
                         <div className="space-y-6 pt-6">
-                            <div className="flex items-center gap-4 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-sm">
-                                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                                    <Headphones className="w-6 h-6" />
+                            <div className="flex items-center gap-4 p-6 rounded-lg bg-white/[0.02] border border-white/10">
+                                <div className="h-12 w-12 rounded bg-white/5 flex items-center justify-center text-white/80">
+                                    <Headphones className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-sm">Персональный менеджер</h4>
-                                    <p className="text-xs text-gray-400">Сопровождение на всех этапах</p>
+                                    <h4 className="font-light text-sm uppercase tracking-tight text-white/90">Персональный менеджер</h4>
+                                    <p className="text-[11px] text-white/40 uppercase tracking-widest mt-1">Сопровождение на всех этапах</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-4 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-sm">
-                                <div className="h-12 w-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500">
-                                    <ShieldCheck className="w-6 h-6" />
+                            <div className="flex items-center gap-4 p-6 rounded-lg bg-white/[0.02] border border-white/10">
+                                <div className="h-12 w-12 rounded bg-white/5 flex items-center justify-center text-white/80">
+                                    <ShieldCheck className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-sm">NDA & Гарантии</h4>
-                                    <p className="text-xs text-gray-400">Полная безопасность данных</p>
+                                    <h4 className="font-light text-sm uppercase tracking-tight text-white/90">NDA & Гарантии</h4>
+                                    <p className="text-[11px] text-white/40 uppercase tracking-widest mt-1">Полная безопасность данных</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Right Side: Form */}
-                    <div className="lg:col-span-7">
-                        <div className="p-8 md:p-12 bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
+                    <motion.div 
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8 }}
+                        className="lg:col-span-7"
+                    >
+                        <div className="p-8 md:p-12 bg-white/[0.02] border border-white/10 rounded-lg relative overflow-hidden">
 
                             <AnimatePresence mode="wait">
                                 {status === 'success' ? (
                                     <motion.div
+                                        key="success"
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
                                         className="flex flex-col items-center justify-center text-center py-20"
                                     >
-                                        <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-2xl shadow-green-500/30">
-                                            <CheckCircle2 className="w-10 h-10 text-white" />
+                                        <div className="w-20 h-20 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mb-6">
+                                            <CheckCircle2 className="w-8 h-8 text-white" />
                                         </div>
-                                        <h3 className="text-2xl font-black tracking-tight mb-2">Заявка принята!</h3>
-                                        <p className="text-gray-500 dark:text-gray-400 font-medium">Мы перезвоним вам в ближайшее время.</p>
+                                        <h3 className="text-2xl font-light uppercase tracking-tight mb-2 text-white">Заявка принята!</h3>
+                                        <p className="text-white/40 font-light text-sm tracking-wide">Мы перезвоним вам в ближайшее время.</p>
                                         <button
                                             onClick={() => setStatus('idle')}
-                                            className="mt-8 text-primary font-black uppercase text-[10px] tracking-widest hover:underline"
+                                            className="mt-8 text-white/60 font-medium uppercase text-[10px] tracking-[0.2em] hover:text-white transition-colors"
                                         >
                                             Отправить еще раз
                                         </button>
                                     </motion.div>
                                 ) : (
                                     <motion.form
+                                        key="form"
                                         onSubmit={handleSubmit}
                                         initial={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
@@ -109,31 +123,31 @@ export default function ContactForm({ initialData }) {
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {/* Name */}
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Ваше имя</label>
+                                                <label className="text-[10px] font-light uppercase tracking-[0.15em] text-white/40 ml-4">Ваше имя</label>
                                                 <div className="relative">
-                                                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                                                     <input
                                                         required
                                                         type="text"
                                                         placeholder="Александр"
                                                         value={formData.name}
                                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                        className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:border-primary outline-none transition-all font-medium"
+                                                        className="w-full bg-black border border-white/10 rounded-lg py-4 pl-12 pr-4 text-white placeholder-white/20 focus:border-white/40 outline-none transition-all font-light text-sm"
                                                     />
                                                 </div>
                                             </div>
                                             {/* Contact */}
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Телефон / Telegram</label>
+                                                <label className="text-[10px] font-light uppercase tracking-[0.15em] text-white/40 ml-4">Телефон / Telegram</label>
                                                 <div className="relative">
-                                                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                                                     <input
                                                         required
                                                         type="text"
                                                         placeholder="+7 (___) ___-__-__"
                                                         value={formData.contact}
                                                         onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-                                                        className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:border-primary outline-none transition-all font-medium"
+                                                        className="w-full bg-black border border-white/10 rounded-lg py-4 pl-12 pr-4 text-white placeholder-white/20 focus:border-white/40 outline-none transition-all font-light text-sm"
                                                     />
                                                 </div>
                                             </div>
@@ -142,29 +156,29 @@ export default function ContactForm({ initialData }) {
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {/* Project Type */}
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Тип проекта</label>
+                                                <label className="text-[10px] font-light uppercase tracking-[0.15em] text-white/40 ml-4">Тип проекта</label>
                                                 <div className="relative">
-                                                    <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                                    <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                                                     <input
                                                         type="text"
                                                         placeholder="Лендинг / Магазин / Сервис"
                                                         value={formData.projectType}
                                                         onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                                                        className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:border-primary outline-none transition-all font-medium"
+                                                        className="w-full bg-black border border-white/10 rounded-lg py-4 pl-12 pr-4 text-white placeholder-white/20 focus:border-white/40 outline-none transition-all font-light text-sm"
                                                     />
                                                 </div>
                                             </div>
                                             {/* Budget */}
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Примерный бюджет</label>
+                                                <label className="text-[10px] font-light uppercase tracking-[0.15em] text-white/40 ml-4">Примерный бюджет</label>
                                                 <div className="relative">
-                                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 font-black text-xs text-gray-400">₽</div>
+                                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 font-light text-xs text-white/40">₽</div>
                                                     <input
                                                         type="text"
                                                         placeholder="от 50 000"
                                                         value={formData.budget}
                                                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                                                        className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:border-primary outline-none transition-all font-medium"
+                                                        className="w-full bg-black border border-white/10 rounded-lg py-4 pl-12 pr-4 text-white placeholder-white/20 focus:border-white/40 outline-none transition-all font-light text-sm"
                                                     />
                                                 </div>
                                             </div>
@@ -172,15 +186,15 @@ export default function ContactForm({ initialData }) {
 
                                         {/* Message */}
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Ваше сообщение</label>
+                                            <label className="text-[10px] font-light uppercase tracking-[0.15em] text-white/40 ml-4">Ваше сообщение</label>
                                             <div className="relative">
-                                                <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
+                                                <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-white/40" />
                                                 <textarea
                                                     rows="4"
                                                     placeholder="Расскажите немного о ваших целях..."
                                                     value={formData.message}
                                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:border-primary outline-none transition-all font-medium resize-none"
+                                                    className="w-full bg-black border border-white/10 rounded-lg py-4 pl-12 pr-4 text-white placeholder-white/20 focus:border-white/40 outline-none transition-all font-light text-sm resize-none"
                                                 ></textarea>
                                             </div>
                                         </div>
@@ -188,7 +202,7 @@ export default function ContactForm({ initialData }) {
                                         <button
                                             type="submit"
                                             disabled={status === 'loading'}
-                                            className="w-full h-16 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                            className="w-full h-16 bg-white text-black font-medium uppercase text-[11px] tracking-widest rounded-lg hover:bg-[#e2e2e6] transition-colors flex items-center justify-center gap-3 disabled:opacity-50 mt-4"
                                         >
                                             {status === 'loading' ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -200,7 +214,7 @@ export default function ContactForm({ initialData }) {
                                             )}
                                         </button>
 
-                                        <p className="text-[10px] text-center text-gray-400 font-medium">
+                                        <p className="text-[10px] text-center text-white/30 font-light tracking-wide mt-6">
                                             Нажимая кнопку, вы соглашаетесь с Политикой обработки персональных данных.
                                         </p>
                                     </motion.form>
@@ -208,7 +222,7 @@ export default function ContactForm({ initialData }) {
                             </AnimatePresence>
 
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
 

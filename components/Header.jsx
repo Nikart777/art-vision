@@ -55,7 +55,7 @@ export default function Header() {
         ? 'bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-gray-200/20 dark:border-white/10 shadow-sm'
         : 'bg-transparent border-transparent'
         }`}>
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between">
 
           {/* LOGO */}
           <Link href="/" onClick={handleHomeClick} className="flex items-center gap-3 group">

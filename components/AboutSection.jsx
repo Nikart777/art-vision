@@ -5,7 +5,7 @@ import { ArrowRight, ShieldCheck, Zap, Heart } from 'lucide-react';
 export default function AboutSection() {
     return (
         <section id="about" className="relative w-full py-24 bg-background-light dark:bg-background-dark transition-colors overflow-hidden">
-            <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20 relative z-10">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-20 relative z-10">
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 

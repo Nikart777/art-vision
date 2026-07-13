@@ -1,9 +1,12 @@
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Footer from '@/components/synapsex/Footer';
 
 export const metadata = {
-    title: 'Политика конфиденциальности | Art.Vision',
+    title: 'Политика конфиденциальности',
     description: 'Политика в отношении обработки персональных данных компании Art.Vision (ООО "АТИМ").',
+    alternates: {
+        canonical: 'https://art-vision.online/policy/',
+    },
 };
 
 export default function PolicyPage() {

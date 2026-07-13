@@ -15,7 +15,10 @@ module.exports = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        "display": ["Manrope", "sans-serif"]
+        "display": ["Space Mono", "monospace"],
+        "sans": ["Space Mono", "monospace"],
+        "serif": ["Space Mono", "monospace"],
+        "mono": ["Space Mono", "monospace"]
       },
       borderRadius: {
         "DEFAULT": "0.25rem",

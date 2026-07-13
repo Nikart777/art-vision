@@ -23,7 +23,7 @@ const iconMap = {
 };
 
 export const metadata = {
-    title: 'Готовые решения для бизнеса | Art.Vision',
+    title: 'Готовые решения для бизнеса',
     description: 'Отраслевые решения по разработке сайтов. Сайт для автосервиса, застройщика, стоматологии и мебельного производства. Запуск за 5 дней с гарантией результата.',
     alternates: {
         canonical: 'https://art-vision.online/solutions/',
@@ -33,7 +33,7 @@ export const metadata = {
 export default function SolutionsListPage() {
     return (
         <main className="min-h-screen bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 pt-32 pb-20 relative z-10">
-            <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-20">
                 <header className="mb-20 animate-fade-in">
                     <div className="flex items-center gap-2 mb-4">
                         <div className="h-px w-8 bg-primary"></div>

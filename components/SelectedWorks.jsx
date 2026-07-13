@@ -2,7 +2,8 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight, TrendingUp, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, TrendingUp } from 'lucide-react';
 
 const projects = [
   {
@@ -35,85 +36,68 @@ export default function SelectedWorks() {
   const containerRef = useRef(null);
 
   return (
-    <section id="works" ref={containerRef} className="relative w-full py-24 bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors">
-      <div className="mx-auto max-w-[1200px] px-6 md:px-10 lg:px-20">
+    <section id="works" ref={containerRef} className="relative w-full py-24 bg-black text-white font-sans transition-colors overflow-hidden">
+      <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-20 relative z-10">
 
         {/* HEADLINE */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-200 dark:border-white/10 pb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="h-px w-8 bg-primary"></div>
-              <span className="text-xs font-bold uppercase tracking-widest text-primary">Портфолио</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight">
-              Наши <span className="text-gradient">Кейсы</span>
-            </h2>
-          </div>
-          <div className="hidden md:block text-right">
-            <p className="text-gray-500 dark:text-gray-400 font-medium text-sm max-w-xs uppercase tracking-tight">
-              Мы работаем с реальным сектором. От мебельных цехов до логистических хабов.
-            </p>
-          </div>
-        </div>
+        <motion.div 
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 1.0 }}
+          className="flex flex-col mb-16"
+        >
+          <p className="text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-8">
+            Портфолио
+          </p>
+          <h2 className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase">
+            Наши Кейсы
+          </h2>
+          <p className="text-white/45 text-[15px] sm:text-[17px] leading-relaxed max-w-xl">
+            Мы работаем с реальным сектором. От мебельных цехов до логистических хабов.
+          </p>
+        </motion.div>
 
         {/* PROJECTS LIST */}
         <div className="flex flex-col gap-4">
           {projects.map((project, i) => (
-            <Link
+            <motion.div
               key={project.id}
-              href={project.link}
-              className="group relative bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 py-8 md:py-12 rounded-3xl px-8 hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl hover:shadow-primary/5"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: i * 0.15 }}
             >
-              <div className="flex flex-col md:flex-row justify-between items-baseline md:items-center relative z-20">
-
-                <div className="flex flex-col gap-2">
+              <Link
+                href={project.link}
+                className="group relative flex flex-col md:flex-row justify-between items-start md:items-center p-6 sm:p-8 bg-white/[0.02] border border-white/10 rounded-lg hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 overflow-hidden"
+              >
+                <div className="flex flex-col gap-2 relative z-20">
                   <div className="flex items-center gap-4">
-                    <span className="text-xs font-black text-primary/40 group-hover:text-primary transition-colors">0{i + 1}</span>
-                    <h3 className="text-2xl md:text-3xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                    <span className="text-[12px] font-light text-white/30 group-hover:text-white/70 transition-colors uppercase tracking-[0.15em]">0{i + 1}</span>
+                    <h3 className="text-xl md:text-2xl font-light tracking-tight text-white/90 group-hover:text-white transition-colors uppercase">
                       {project.title}
                     </h3>
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-gray-400 pl-8">{project.category}</span>
+                  <span className="text-[12px] font-light uppercase tracking-widest text-white/40 pl-8">{project.category}</span>
                 </div>
 
-                <div className="flex items-center gap-8 mt-6 md:mt-0 w-full md:w-auto">
-                  <div className="flex items-center gap-3 bg-gray-50 dark:bg-white/5 px-4 py-2 rounded-2xl group-hover:bg-primary group-hover:text-white transition-all">
-                    <TrendingUp className="w-4 h-4 text-primary group-hover:text-white" />
+                <div className="flex items-center gap-6 mt-6 md:mt-0 w-full md:w-auto relative z-20 pl-8 md:pl-0">
+                  <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-full group-hover:bg-white/10 transition-all">
+                    <TrendingUp className="w-4 h-4 text-white/70" />
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Результат</span>
-                      <span className="font-bold text-sm tracking-tight">{project.result}</span>
+                      <span className="text-[9px] font-light uppercase tracking-widest text-white/40">Результат</span>
+                      <span className="font-light text-sm tracking-tight text-white/90">{project.result}</span>
                     </div>
                   </div>
-                  <div className="h-12 w-12 rounded-full border border-gray-200 dark:border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all transform group-hover:rotate-45">
-                    <ArrowUpRight className="w-6 h-6" />
+                  <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 group-hover:bg-white group-hover:text-black transition-all transform group-hover:rotate-45">
+                    <ArrowUpRight className="w-5 h-5" />
                   </div>
                 </div>
 
-              </div>
-
-              {/* FLOATING PREVIEW IMAGE (Desktop only) */}
-              <div className="absolute right-40 top-1/2 -translate-y-1/2 w-64 h-40 hidden lg:block opacity-0 group-hover:opacity-100 group-hover:translate-x-12 transition-all duration-500 rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-white/10 pointer-events-none z-30">
-                <Image
-                  src={project.image}
-                  fill
-                  alt={`${project.category}: ${project.title} - пример работы Art.Vision`}
-                  className="object-cover scale-110 group-hover:scale-100 transition-transform duration-700"
-                />
-              </div>
-
-            </Link>
+              </Link>
+            </motion.div>
           ))}
-        </div>
-
-        {/* VIEW ALL CTA */}
-        <div className="mt-16 text-center">
-          <Link
-            href="/cases/"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl border-2 border-primary/20 hover:bg-primary/5 font-black uppercase text-xs tracking-widest transition-all"
-          >
-            Смотреть все кейсы
-            <ExternalLink className="w-4 h-4" />
-          </Link>
         </div>
 
       </div>
