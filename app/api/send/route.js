@@ -53,6 +53,6 @@ ${message || 'Нет сообщения'}`;
 
   } catch (error) {
     console.error('Error in /api/send:', error);
-    return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to send', details: error.message, stack: String(error.stack) }, { status: 500 });
   }
 }
