@@ -226,6 +226,12 @@ export default function ContactForm({ initialData }) {
                                                 </>
                                             )}
                                         </button>
+                                        
+                                        {status === 'error' && (
+                                            <div className="p-4 rounded border border-red-500/30 bg-red-500/10 text-red-200 text-sm font-light text-center mt-4">
+                                                Произошла ошибка при отправке! Попробуйте позже или напишите на project@art-vision.online.
+                                            </div>
+                                        )}
 
                                         <p className="text-[10px] text-center text-white/30 font-light tracking-wide mt-6">
                                             Нажимая кнопку, вы соглашаетесь с Политикой обработки персональных данных.
