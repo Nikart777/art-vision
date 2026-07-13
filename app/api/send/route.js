@@ -27,10 +27,12 @@ ${message || 'Нет сообщения'}`;
 
     const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
     
-    // В локальной разработке обращаемся напрямую (прокси на VPN блокирует домашние IP)
-    // На сервере тоже сработает, если Роскомнадзор не блочит api.telegram.org на этом хостинге
+    // Подключаемся через VPN прокси для обхода блокировок в РФ
+    const proxyAgent = new HttpsProxyAgent('http://cyberx:2751872bd5db148f22c3126f@72.56.108.26:8888');
+    
     const tgResponse = await fetch(tgUrl, {
       method: 'POST',
+      agent: proxyAgent,
       headers: {
         'Content-Type': 'application/json',
       },
