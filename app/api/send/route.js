@@ -1,45 +1,55 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import fetch from 'node-fetch';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    // 1. Добавляем phone в деструктуризацию
-    const { name, email, phone, message, references, calculator_details } = body;
+    const { name, contact, projectType, budget, message } = body;
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: true,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
+    // Hardcoded credentials for Telegram from user request
+    const botToken = "8897950752:AAED7hKCBHjt2vsghqXGkP0kY9JNOJroi20";
+    const chatId = "395454973";
+
+    const text = `🔥 Новая заявка с сайта Art.Vision!
+    
+👤 <b>Имя:</b> ${name}
+📞 <b>Контакт:</b> ${contact}
+💼 <b>Тип проекта:</b> ${projectType || 'Не указан'}
+💰 <b>Бюджет:</b> ${budget || 'Не указан'}
+
+💬 <b>Сообщение:</b>
+${message || 'Нет сообщения'}`;
+
+    const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    
+    // We use the Tinyproxy running on the VPN server to bypass any blocking in RF
+    // This connects via the VPN proxy, guaranteeing connection to Telegram
+    const proxyAgent = new HttpsProxyAgent('http://cyberx:2751872bd5db148f22c3126f@72.56.108.26:8888');
+    
+    const tgResponse = await fetch(tgUrl, {
+      method: 'POST',
+      agent: proxyAgent,
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: text,
+        parse_mode: 'HTML'
+      }),
     });
 
-    const mailOptions = {
-      from: `"Сайт Art.Vision" <${process.env.SMTP_USER}>`,
-      to: process.env.EMAIL_TO,
-      subject: `🔥 Заявка от: ${name}`,
-      // 2. Добавляем телефон в HTML письма
-      html: `
-        <h1>Новая заявка с сайта</h1>
-        <p><strong>Имя/Компания:</strong> ${name}</p>
-        <p><strong>Телефон:</strong> <a href="tel:${phone}">${phone}</a></p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Сообщение:</strong> ${message}</p>
-        <p><strong>Референсы:</strong> ${references || 'Нет'}</p>
-        <hr />
-        <h3>Расчет калькулятора:</h3>
-        <p>${calculator_details || 'Калькулятор не использовался'}</p>
-      `,
-    };
+    if (!tgResponse.ok) {
+      const errorData = await tgResponse.text();
+      console.error("Telegram Error:", errorData);
+      throw new Error('Telegram API error');
+    }
 
-    await transporter.sendMail(mailOptions);
-    return NextResponse.json({ message: 'Email sent' }, { status: 200 });
+    return NextResponse.json({ message: 'Sent successfully' }, { status: 200 });
 
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json({ error: 'Failed' }, { status: 500 });
+    console.error('Error in /api/send:', error);
+    return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
   }
 }

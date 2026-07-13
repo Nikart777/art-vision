@@ -28,11 +28,23 @@ export default function ContactForm({ initialData }) {
         e.preventDefault();
         setStatus('loading');
 
-        // Simulate API call
-        setTimeout(() => {
-            setStatus('success');
-            setFormData({ name: '', contact: '', projectType: '', budget: '', message: '' });
-        }, 2000);
+        try {
+            const response = await fetch('/api/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', contact: '', projectType: '', budget: '', message: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error(error);
+            setStatus('error');
+        }
     };
 
     return (
