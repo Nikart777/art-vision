@@ -126,29 +126,31 @@ export default function ContactForm({ initialData }) {
                                             Заявка успешно отправлена!
                                         </h3>
                                         
-                                        <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl p-6 w-full max-w-sm relative overflow-hidden group">
-                                            <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl p-6 w-full max-w-sm relative overflow-hidden group z-10">
+                                            <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                                             
-                                            <p className="text-white/60 font-light text-xs tracking-[0.15em] uppercase mb-2">
-                                                Ваш персональный менеджер:
-                                            </p>
-                                            <p className="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-300 mb-6">
-                                                Владимир
-                                            </p>
+                                            <div className="relative z-10">
+                                                <p className="text-white/60 font-light text-xs tracking-[0.15em] uppercase mb-2">
+                                                    Ваш персональный менеджер:
+                                                </p>
+                                                <p className="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-300 mb-6">
+                                                    Владимир
+                                                </p>
 
-                                            <div className="space-y-4">
-                                                <a href="mailto:project@art-vision.online" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link">
-                                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
-                                                        <MessageSquare className="w-4 h-4" />
-                                                    </div>
-                                                    <span className="font-light tracking-wide">project@art-vision.online</span>
-                                                </a>
-                                                <a href="tel:+79804243055" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link">
-                                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
-                                                        <Phone className="w-4 h-4" />
-                                                    </div>
-                                                    <span className="font-light tracking-wide">+7 (980) 424-30-55</span>
-                                                </a>
+                                                <div className="space-y-4">
+                                                    <a href="mailto:project@art-vision.online" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link cursor-pointer">
+                                                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
+                                                            <MessageSquare className="w-4 h-4" />
+                                                        </div>
+                                                        <span className="font-light tracking-wide">project@art-vision.online</span>
+                                                    </a>
+                                                    <a href="tel:+79804243055" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link cursor-pointer">
+                                                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
+                                                            <Phone className="w-4 h-4" />
+                                                        </div>
+                                                        <span className="font-light tracking-wide">+7 (980) 424-30-55</span>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
 
