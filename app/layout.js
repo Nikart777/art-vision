@@ -11,12 +11,23 @@ import CtaTracker from "@/components/CtaTracker";
 // Теперь грузим ровно те два, что реально используются, и self-hosted.
 import { Space_Mono, Anton } from 'next/font/google';
 
+// ВАЖНО про adjustFontFallback: false.
+// В Space Mono и Anton нет кириллицы — их @font-face покрывают только латиницу.
+// Весь русский текст на сайте рисуется запасным шрифтом, а не этими двумя.
+// По умолчанию next/font подставляет в запасные локальный Arial и подгоняет его
+// метрики под основной шрифт: size-adjust 137%, ascent 81.58%, descent 26.3%.
+// Для кириллицы это давало растянутый Arial, у которого ascent+descent (108%)
+// больше межстрочного интервала заголовков (0.95) — строки налезали друг на друга.
+// С отключённой подгонкой кириллица уходит в обычный моноширинный шрифт
+// с его собственными метриками, как было до перевода шрифтов на self-hosting.
 const spaceMono = Space_Mono({
   subsets: ['latin'],
   weight: ['400', '700'],
   style: ['normal', 'italic'],
   variable: '--font-space-mono',
   display: 'swap',
+  adjustFontFallback: false,
+  fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
 });
 
 // Используется только в декоративном водяном знаке на главной
@@ -28,6 +39,8 @@ const anton = Anton({
   weight: ['400'],
   variable: '--font-anton',
   display: 'swap',
+  adjustFontFallback: false,
+  fallback: ['Impact', 'Haettenschweiler', 'sans-serif'],
 });
 
 // --- ПРОФЕССИОНАЛЬНОЕ SEO ---
