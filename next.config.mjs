@@ -15,16 +15,9 @@ const nextConfig = {
       { protocol: 'https', hostname: 'media.giphy.com' },
     ],
   },
-  // 301 со старого нерелевантного URL на новый (контент — мобильная адаптация)
-  async redirects() {
-    return [
-      {
-        source: '/services/nextjs-development',
-        destination: '/services/mobile-adaptation',
-        permanent: true,
-      },
-    ];
-  },
+  // 301-редиректы легаси-URL вынесены в middleware.js: там адрес назначения
+  // не нормализуется и переход получается ровно один, без цепочки
+  // (см. комментарий в middleware.js).
 };
 
 export default nextConfig;

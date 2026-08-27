@@ -96,7 +96,7 @@ export default function HeroSection({ setEntranceComplete }) {
         <h2 
           className="uppercase select-none opacity-10"
           style={{
-            fontFamily: '"Anton SC", sans-serif',
+            fontFamily: 'var(--font-anton), "Anton SC", sans-serif',
             fontSize: 'clamp(120px, 30vw, 521px)',
             letterSpacing: '-4px',
             background: 'radial-gradient(circle, rgba(142,127,148,0) 0%, #8E7F94 70%)',
@@ -122,10 +122,14 @@ export default function HeroSection({ setEntranceComplete }) {
           
           {/* Left Column */}
           <div className="flex flex-col gap-4">
+            {/* Единственный H1 страницы. Правый блок «Под / Ключ» — визуальное
+                продолжение той же фразы, поэтому он скрыт от семантики,
+                а его текст добавлен сюда для поисковика и скринридера. */}
             <h1 className="text-white font-light leading-[0.95] tracking-[-0.03em] text-[clamp(40px,10vw,100px)] uppercase">
               <ScrambleIn text="Сайты" delay={200} triggered={contentVisible} />
               <br />
               <ScrambleIn text="Для Бизнеса" delay={500} triggered={contentVisible} />
+              <span className="sr-only"> под ключ</span>
             </h1>
             
             <motion.p 
@@ -138,12 +142,12 @@ export default function HeroSection({ setEntranceComplete }) {
             </motion.p>
           </div>
 
-          {/* Right H1 */}
-          <h1 className="text-white font-light leading-[0.95] tracking-[-0.03em] text-[clamp(40px,10vw,100px)] text-left md:text-right uppercase">
+          {/* Визуальное продолжение H1 (см. комментарий выше) */}
+          <div aria-hidden="true" className="text-white font-light leading-[0.95] tracking-[-0.03em] text-[clamp(40px,10vw,100px)] text-left md:text-right uppercase">
             <ScrambleIn text="Под" delay={700} triggered={contentVisible} />
             <br />
             <ScrambleIn text="Ключ" delay={1000} triggered={contentVisible} />
-          </h1>
+          </div>
           
         </div>
       </motion.div>

@@ -39,21 +39,26 @@ export default function Footer() {
             {/* Links */}
             <div className="flex gap-12 md:gap-20">
               <div className="space-y-4">
+                {/* Сквозные ссылки — самый весомый источник внутреннего PageRank,
+                    поэтому первыми идут коммерческие разделы (goal.md §6).
+                    Раньше «Услуги» вели на якорь /#services, а не на раздел. */}
                 <h4 className="text-xs font-black uppercase tracking-widest text-white/20">Навигация</h4>
                 <ul className="space-y-3">
-                  <li><Link href="/#services" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Услуги</Link></li>
+                  <li><Link href="/services/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Услуги и цены</Link></li>
+                  <li><Link href="/solutions/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Решения для отраслей</Link></li>
                   <li><Link href="/cases/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Портфолио</Link></li>
                   <li><Link href="/reviews/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Отзывы</Link></li>
-                  <li><Link href="/about/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">О компании</Link></li>
-                  <li><Link href="/blog/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Блог</Link></li>
                   <li><Link href="/faq/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Вопросы (FAQ)</Link></li>
+                  <li><Link href="/blog/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Блог</Link></li>
+                  <li><Link href="/about/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">О компании</Link></li>
                 </ul>
               </div>
               <div className="space-y-4">
                 <h4 className="text-xs font-black uppercase tracking-widest text-white/20">Документы</h4>
                 <ul className="space-y-3">
-                  <li><Link href="/policy/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Политика</Link></li>
-                  <li><Link href="/terms/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Оферта</Link></li>
+                  {/* Ссылка на /terms/ убрана: страницы не существует, она отдавала
+                      404 со всех страниц сайта. Вернуть, когда оферта будет написана. */}
+                  <li><Link href="/policy/" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">Политика конфиденциальности</Link></li>
                 </ul>
               </div>
             </div>

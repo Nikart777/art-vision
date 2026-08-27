@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, User, Phone, MessageSquare, Briefcase, CheckCircle2, Loader2, Headphones, ShieldCheck } from 'lucide-react';
+import { trackLead } from '@/lib/analytics';
 
 export default function ContactForm({ initialData }) {
     const [formData, setFormData] = useState({
@@ -37,6 +38,12 @@ export default function ContactForm({ initialData }) {
 
             if (response.ok) {
                 setStatus('success');
+                // Цель засчитывается только после успешного ответа сервера,
+                // и один раз на страницу — см. lib/analytics.js
+                trackLead({
+                    project_type: formData.projectType || 'не указан',
+                    budget: formData.budget || 'не указан',
+                });
                 setFormData({ name: '', contact: '', projectType: '', budget: '', message: '' });
             } else {
                 setStatus('error');

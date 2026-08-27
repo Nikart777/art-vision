@@ -1,7 +1,8 @@
 export const casesData = {
     'dental-clinic-msk': {
-        title: 'Разработка сайта стоматологической клиники | Кейс Art.Vision',
-        description: 'Как мы увеличили запись пациентов на 45% за счет внедрения онлайн-расписания и SEO-структуры. Кейс разработки сайта стоматологии.',
+        relatedServices: ['corporate-website', 'razrabotka-crm'],
+        title: 'Кейс: сайт стоматологии — +45% записей пациентов',
+        description: 'Кейс разработки сайта стоматологии на Next.js: онлайн-запись, страницы под каждую услугу, SEO-структура. Запись пациентов выросла на 45% за квартал.',
         h1: 'Сайт Стоматологической Клиники "SmilePremium"',
         client: 'SmilePremium',
         industry: 'Медицина',
@@ -13,8 +14,9 @@ export const casesData = {
         year: '2024'
     },
     'crypto-exchange-app': {
-        title: 'Разработка P2P Криптобиржи | Кейс Финтех',
-        description: 'Создание безопасной платформы для обмена криптовалют. Real-time графики, KYC верификация, защищенный кошелек.',
+        relatedServices: ['mobile-app-development', 'web-service-development'],
+        title: 'Кейс: разработка P2P-криптобиржи для финтеха',
+        description: 'Кейс разработки P2P-платформы обмена криптовалют: биржевые графики в реальном времени, KYC-верификация, защищённый кошелёк и собственный антифрод-контур.',
         h1: 'P2P Платформа Обмена Криптовалют',
         client: 'NDA Fintech',
         industry: 'Fintech',

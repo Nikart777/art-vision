@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Зернистая текстура-оверлей. Раньше подтягивалась с grainy-gradients.vercel.app,
+       но тот деплой отдаёт 404: эффект не работал, а запрос уходил с каждой страницы. -->
+  <filter id="noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>

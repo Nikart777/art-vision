@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import RelatedLinks from '@/components/RelatedLinks';
 import { services } from '@/data/services';
+import { solutions } from '@/data/solutions';
 import {
     CheckCircle2,
     ChevronRight,
@@ -49,26 +52,76 @@ export default function ServicePage({ params }) {
         notFound();
     }
 
+    const pageUrl = `https://art-vision.online/services/${slug}/`;
+
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Service',
+        '@id': `${pageUrl}#service`,
         name: data.h1,
+        serviceType: data.title,
         provider: {
             '@type': 'Organization',
             name: 'Art.Vision',
             url: 'https://art-vision.online'
         },
+        // Регион работы — вся Россия, а не только Москва
+        areaServed: {
+            '@type': 'Country',
+            name: 'Россия'
+        },
         description: data.description,
+        url: pageUrl,
         offers: {
             '@type': 'Offer',
             price: data.basePrice || '40000',
-            priceCurrency: 'RUB'
+            priceCurrency: 'RUB',
+            availability: 'https://schema.org/InStock',
+            url: pageUrl
         }
     };
+
+    // FAQPage даёт раскрывающиеся вопросы прямо в выдаче — сниппет занимает
+    // больше места и забирает клики у соседей (goal.md §4).
+    const faqJsonLd = data.faq?.length
+        ? {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: data.faq.map((item) => ({
+                '@type': 'Question',
+                name: item.q,
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: item.a
+                }
+            }))
+        }
+        : null;
+
+    // Перелинковка: с услуги ведём на отраслевые решения и смежные услуги
+    const relatedItems = [
+        ...(data.relatedServices || [])
+            .map((s) => services.find((x) => x.slug === s))
+            .filter(Boolean)
+            .map((s) => ({
+                href: `/services/${s.slug}/`,
+                title: s.h1,
+                subtitle: s.price
+            })),
+        ...(data.relatedSolutions || [])
+            .map((s) => solutions.find((x) => x.slug === s))
+            .filter(Boolean)
+            .map((s) => ({
+                href: `/solutions/${s.slug}/`,
+                title: s.h1,
+                subtitle: s.heroSub
+            })),
+    ];
 
     return (
         <main className="bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 relative z-10">
             <JsonLd data={jsonLd} />
+            {faqJsonLd && <JsonLd data={faqJsonLd} />}
 
             {/* HERO SECTION */}
             <section className="relative w-full min-h-[60vh] flex flex-col justify-center items-center px-6 py-32 overflow-hidden border-b border-gray-100 dark:border-white/5">
@@ -77,6 +130,14 @@ export default function ServicePage({ params }) {
                 <div className="absolute bottom-0 left-0 w-1/2 h-full bg-primary/2 blur-[120px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
                 <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
+                    <Breadcrumbs
+                        className="flex justify-center"
+                        items={[
+                            { name: 'Услуги', href: '/services/' },
+                            { name: data.h1 },
+                        ]}
+                    />
+
                     <div className="flex items-center gap-2 mb-2">
                         <div className="h-px w-8 bg-primary"></div>
                         <span className="text-xs font-black uppercase tracking-widest text-primary">Сервис Art.Vision</span>
@@ -94,6 +155,7 @@ export default function ServicePage({ params }) {
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
                         <Link
                             href="/#calculator"
+                            data-cta={`service_hero_${slug}`}
                             className="inline-flex h-14 items-center justify-center px-10 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
                         >
                             {data.heroCta}
@@ -191,6 +253,7 @@ export default function ServicePage({ params }) {
                         </p>
                         <Link
                             href="/#calculator"
+                            data-cta={`service_estimate_${slug}`}
                             className="inline-flex h-14 items-center justify-center px-12 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
                         >
                             Рассчитать точную смету →
@@ -228,6 +291,12 @@ export default function ServicePage({ params }) {
                     </div>
                 </div>
             </section>
+
+            <RelatedLinks
+                title="Смежные услуги и отраслевые решения"
+                subtitle="Если вы ещё выбираете формат — посмотрите, как та же задача решается в вашей нише."
+                items={relatedItems}
+            />
         </main>
     );
 }

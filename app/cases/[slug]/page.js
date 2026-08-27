@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import RelatedLinks from '@/components/RelatedLinks';
 import { casesData } from '@/data/cases';
+import { services } from '@/data/services';
 import {
     ArrowLeft,
     ArrowUpRight,
@@ -67,6 +70,16 @@ export default function CasePage({ params }) {
         }
     };
 
+    // Кейс доказывает экспертизу — и сразу отдаёт вес коммерческим услугам
+    const relatedItems = (data.relatedServices || ['corporate-website', 'ecommerce-development'])
+        .map((slugName) => services.find((x) => x.slug === slugName))
+        .filter(Boolean)
+        .map((service) => ({
+            href: `/services/${service.slug}/`,
+            title: service.h1,
+            subtitle: service.price,
+        }));
+
     return (
         <main className="min-h-screen bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300 relative z-10 pt-32 pb-20">
             <JsonLd data={jsonLd} />
@@ -77,6 +90,14 @@ export default function CasePage({ params }) {
                 <header className="relative mb-24 animate-fade-in">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-end">
                         <div className="lg:col-span-8">
+                            <Breadcrumbs
+                                className="mb-8"
+                                items={[
+                                    { name: 'Кейсы', href: '/cases/' },
+                                    { name: data.h1 },
+                                ]}
+                            />
+
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="p-2 bg-primary/10 rounded-lg text-primary">
                                     <Briefcase className="w-5 h-5" />
@@ -158,12 +179,19 @@ export default function CasePage({ params }) {
                     </div>
                 </section>
 
+                <RelatedLinks
+                    title="Услуги, из которых собран этот проект"
+                    subtitle="Тот же подход можно применить к вашей задаче — посмотрите состав работ и цену."
+                    items={relatedItems}
+                />
+
                 {/* CTA & FOOTER */}
                 <footer className="text-center py-20 border-t border-gray-100 dark:border-white/10">
                     <h2 className="text-3xl font-black tracking-tight mb-10">Хотите измеримый результат для своего бизнеса?</h2>
                     <div className="flex flex-col sm:flex-row justify-center gap-6">
                         <Link
                             href="/#calculator"
+                            data-cta={`case_cta_${slug}`}
                             className="h-16 inline-flex items-center justify-center px-10 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
                         >
                             Рассчитать стоимость

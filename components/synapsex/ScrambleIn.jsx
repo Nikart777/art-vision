@@ -3,55 +3,67 @@ import { useState, useEffect } from 'react';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~|}{[]:;?><';
 
+const PLACEHOLDER = ' '; // неразрывный пробел — держит высоту строки
+
+/**
+ * Анимация «набора» текста со скремблом.
+ *
+ * SEO-нюанс: раньше начальным состоянием был неразрывный пробел, поэтому
+ * в серверном HTML главной страницы H1 приходил пустым — слов «Сайты Для
+ * Бизнеса» в разметке просто не было, они появлялись только после JS.
+ *
+ * Теперь первый рендер (и на сервере, и на клиенте — иначе была бы ошибка
+ * гидратации) отдаёт настоящий текст, а на пустой плейсхолдер компонент
+ * переключается уже в эффекте, перед самой анимацией. Вспышки текста не
+ * видно: родительский контейнер до старта анимации имеет opacity: 0.
+ *
+ * Текст в разметке ровно один раз — дублировать его скрытым слоем нельзя,
+ * иначе заголовок читается как «Сайты Сайты Для Бизнеса Для Бизнеса».
+ */
 export default function ScrambleIn({ text, delay = 0, triggered = false, className = "" }) {
-  const [displayText, setDisplayText] = useState('\u00A0'); // initially non-breaking space
-  
+  const [displayText, setDisplayText] = useState(text);
+
   useEffect(() => {
     if (!triggered) {
-      setDisplayText('\u00A0');
+      setDisplayText(PLACEHOLDER);
       return;
     }
-    
+
     let timeoutId;
     let intervalId;
-    
+
+    setDisplayText(PLACEHOLDER);
+
     timeoutId = setTimeout(() => {
       let frame = 0;
       const length = text.length;
-      
+
       intervalId = setInterval(() => {
-        // We reveal 0.5 chars per frame
+        // Раскрываем по половине символа за кадр
         const revealIdx = Math.floor(frame / 2);
-        
+
         if (revealIdx >= length) {
           setDisplayText(text);
           clearInterval(intervalId);
           return;
         }
-        
+
         let scrambled = '';
         for (let i = 0; i < length; i++) {
           if (i < revealIdx) {
             scrambled += text[i];
           } else if (i < revealIdx + 3) {
-            if (text[i] === ' ') {
-              scrambled += ' ';
-            } else {
-              scrambled += CHARS[Math.floor(Math.random() * CHARS.length)];
-            }
-          } else {
-            // Beyond window, don't show anything (to match empty spec)
-            // Wait, if we use empty string, the element size might change. 
-            // We use \u00A0 to keep spacing? Spec says "characters beyond that are empty".
-            // Since it's a typing effect, it grows from left to right.
+            // Окно «шума» из трёх символов бежит впереди раскрытой части
+            scrambled += text[i] === ' ' ? ' ' : CHARS[Math.floor(Math.random() * CHARS.length)];
           }
+          // Дальше окна ничего не рисуем: эффект печати растёт слева направо
         }
-        // If scrambled is completely empty initially, make sure it has at least non-breaking space
-        setDisplayText(scrambled || '\u00A0');
+
+        setDisplayText(scrambled || PLACEHOLDER);
         frame++;
       }, 25);
     }, delay);
-    
+
     return () => {
       clearTimeout(timeoutId);
       clearInterval(intervalId);

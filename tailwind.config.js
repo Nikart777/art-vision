@@ -15,10 +15,12 @@ module.exports = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        "display": ["Space Mono", "monospace"],
-        "sans": ["Space Mono", "monospace"],
-        "serif": ["Space Mono", "monospace"],
-        "mono": ["Space Mono", "monospace"]
+        // var(--font-space-mono) задаётся next/font в app/layout.js.
+        // Строковый "Space Mono" оставлен запасным вариантом.
+        "display": ["var(--font-space-mono)", "Space Mono", "monospace"],
+        "sans": ["var(--font-space-mono)", "Space Mono", "monospace"],
+        "serif": ["var(--font-space-mono)", "Space Mono", "monospace"],
+        "mono": ["var(--font-space-mono)", "Space Mono", "monospace"]
       },
       borderRadius: {
         "DEFAULT": "0.25rem",

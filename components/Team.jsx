@@ -46,7 +46,8 @@ export default function Team() {
               <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-white/5 border border-white/10 mb-6 shadow-xl backdrop-blur-sm">
                 <Image
                   src={member.image}
-                  alt={member.name}
+                  alt={`${member.name} — ${member.role}, команда Art.Vision`}
+                  title={`${member.name}, ${member.role}`}
                   fill
                   className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />

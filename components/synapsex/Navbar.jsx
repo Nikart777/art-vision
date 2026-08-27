@@ -6,13 +6,15 @@ import ScrambleText from './ScrambleText';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
+// Шапка — самый весомый сквозной блок ссылок. По регламенту (goal.md §6)
+// он отдан коммерческим разделам: «Блог» и «О компании» остаются доступны
+// из футера, так что свой вес они не теряют, но и не забирают его у услуг.
 const navLinks = [
   { title: 'Услуги', href: '/services/' },
+  { title: 'Решения', href: '/solutions/' },
   { title: 'Портфолио', href: '/cases/' },
   { title: 'Отзывы', href: '/reviews/' },
-  { title: 'Блог', href: '/blog/' },
   { title: 'FAQ', href: '/faq/' },
-  { title: 'О компании', href: '/about/' },
 ];
 
 export default function Navbar({ entranceComplete = true }) {

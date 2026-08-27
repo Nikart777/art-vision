@@ -2,10 +2,12 @@ import Navbar from '@/components/synapsex/Navbar';
 import Footer from '@/components/synapsex/Footer';
 import ContactForm from '@/components/ContactForm';
 import { HelpCircle, ChevronDown } from 'lucide-react';
+import JsonLd from '@/components/JsonLd';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata = {
-    title: 'Часто задаваемые вопросы (FAQ) | Разработка сайтов и SEO',
-    description: 'Ответы на популярные вопросы о создании сайтов на Next.js, сроках разработки, стоимости продвижения (SEO) и гарантиях Art.Vision.',
+    title: 'Частые вопросы о разработке сайтов и SEO',
+    description: 'Отвечаем на частые вопросы о создании сайтов на Next.js: сроки и цена разработки, интеграция с CRM, SEO-база, поддержка после запуска. ✔ 6 честных ответов.',
     alternates: {
         canonical: 'https://art-vision.online/faq/',
     },
@@ -38,12 +40,26 @@ const faqs = [
   }
 ];
 
+const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+        },
+    })),
+};
+
 export default function FAQPage() {
     return (
         <main className="min-h-screen bg-black font-sans text-white selection:bg-white/20">
             {/* Dark gradient overlay */}
             <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.8)_100%)] pointer-events-none z-0" />
 
+            <JsonLd data={faqJsonLd} />
             <Navbar entranceComplete={true} />
 
             <div className="relative z-10 pt-32 pb-20">
@@ -51,6 +67,8 @@ export default function FAQPage() {
                     
                     {/* Header Section */}
                     <header className="max-w-4xl mx-auto mb-24 text-center animate-fade-in pt-10">
+                        <Breadcrumbs className="flex justify-center mb-8" items={[{ name: 'Вопросы и ответы' }]} />
+
                         <div className="flex justify-center flex-wrap gap-2 mb-8">
                             <span className="text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 bg-white/5 border border-white/10 text-white/50 rounded-full">
                                 #Вопросы-ответы

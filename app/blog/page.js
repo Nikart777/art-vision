@@ -6,7 +6,7 @@ import Footer from '@/components/synapsex/Footer';
 
 export const metadata = {
     title: 'Блог о веб-разработке и SEO',
-    description: 'Статьи о современной веб-разработке на Next.js, стратегиях продвижения бизнеса и техническом SEO. Только практический опыт и реальные цифры.',
+    description: 'Статьи о веб-разработке на Next.js, продвижении бизнеса в Яндексе и Google и техническом SEO. Только практический опыт агентства и реальные цифры по проектам.',
     alternates: {
         canonical: 'https://art-vision.online/blog/',
     },

@@ -7,7 +7,7 @@ export default function NotFound() {
     <div className="relative w-full h-screen bg-black flex flex-col items-center justify-center text-white overflow-hidden">
       
       {/* Background Noise */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
 
       <div className="relative z-10 text-center px-4">
         <motion.div

@@ -1,0 +1,40 @@
+# art-vision.online — robots.txt
+# Цель: не тратить краулинговый бюджет на технические URL и дубли с метками.
+# Метки НЕ закрываем через Disallow (это лишило бы рекламные посадочные индексации),
+# а склеиваем: для Яндекса — Clean-param, для Google — rel=canonical в <head>.
+
+User-agent: *
+Allow: /
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*/thank-you/
+Disallow: /search
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&utm_referrer
+Clean-param: yclid&ysclid&gclid&fbclid&_openstat&roistat&from&erid
+
+User-agent: Yandex
+Allow: /
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*/thank-you/
+Disallow: /search
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&utm_referrer
+Clean-param: yclid&ysclid&gclid&fbclid&_openstat&roistat&from&erid
+
+User-agent: Googlebot
+Allow: /
+Allow: /_next/static/
+Allow: /_next/image
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*/thank-you/
+Disallow: /search
+
+Sitemap: https://art-vision.online/sitemap.xml

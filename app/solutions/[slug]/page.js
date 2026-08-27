@@ -9,8 +9,11 @@ import {
     Users
 } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import RelatedLinks from '@/components/RelatedLinks';
 import { solutions } from '@/data/solutions';
 import { casesData } from '@/data/cases';
+import { services } from '@/data/services';
 
 export async function generateStaticParams() {
     return solutions.map((solution) => ({
@@ -74,6 +77,17 @@ export default function SolutionPage({ params }) {
         }
     };
 
+    // Отраслевая страница — точка входа НЧ-трафика. Отсюда вес уходит
+    // на «денежные» услуги, а не размазывается по нецелевым разделам (goal.md §6).
+    const relatedItems = (data.relatedServices || ['corporate-website', 'ecommerce-development'])
+        .map((s) => services.find((x) => x.slug === s))
+        .filter(Boolean)
+        .map((s) => ({
+            href: `/services/${s.slug}/`,
+            title: s.h1,
+            subtitle: s.price,
+        }));
+
     return (
         <main className="bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300">
             <JsonLd data={jsonLd} />
@@ -85,6 +99,14 @@ export default function SolutionPage({ params }) {
                 <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-50" />
 
                 <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
+                    <Breadcrumbs
+                        className="flex justify-center"
+                        items={[
+                            { name: 'Решения', href: '/solutions/' },
+                            { name: data.h1 },
+                        ]}
+                    />
+
                     <div className="flex items-center gap-2 mb-2">
                         <div className="h-px w-8 bg-primary"></div>
                         <span className="text-xs font-black uppercase tracking-widest text-primary">Отраслевое Решение</span>
@@ -102,6 +124,7 @@ export default function SolutionPage({ params }) {
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
                         <Link
                             href="/#contact-form"
+                            data-cta={`solution_cta_${slug}`}
                             className="inline-flex h-14 items-center justify-center px-10 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
                         >
                             {data.heroCta}
@@ -217,6 +240,12 @@ export default function SolutionPage({ params }) {
                 </div>
             </section>
 
+            <RelatedLinks
+                title="С чего начать в вашей нише"
+                subtitle="Выберите формат проекта — на странице услуги есть состав работ, сроки и цена."
+                items={relatedItems}
+            />
+
             {/* CTA SECTION */}
             <section className="py-24 px-6 bg-primary/5 border-t border-primary/10">
                 <div className="max-w-xl mx-auto text-center">
@@ -226,6 +255,7 @@ export default function SolutionPage({ params }) {
                     </p>
                     <Link
                         href="/#contact-form"
+                        data-cta={`solution_footer_${slug}`}
                         className="inline-flex h-16 items-center justify-center px-12 bg-primary text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-2xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
                     >
                         Связаться с экспертом

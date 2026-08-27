@@ -57,6 +57,8 @@ const sectors = [
 
 export default function Sectors() {
   const [activeImg, setActiveImg] = useState(sectors[0].image);
+  // Alt/title подписывают фон активной ниши — по регламенту подписываем все фото
+  const activeSector = sectors.find((s) => s.image === activeImg) ?? sectors[0];
 
   return (
     <section className="relative w-full py-24 bg-black overflow-hidden font-sans">
@@ -71,7 +73,14 @@ export default function Sectors() {
           transition={{ duration: 1.2 }}
           className="absolute inset-0 w-full h-full"
         >
-          <img src={activeImg} className="w-full h-full object-cover grayscale" alt="" />
+          <img
+            src={activeImg}
+            className="w-full h-full object-cover grayscale"
+            alt={`Разработка сайтов для ниши «${activeSector.name}» — ${activeSector.sub}`}
+            title={`Сайт для сферы «${activeSector.name}»`}
+            loading="lazy"
+            decoding="async"
+          />
         </motion.div>
       </div>
 

@@ -7,7 +7,7 @@ import ContactForm from '@/components/ContactForm';
 
 export const metadata = {
     title: 'О компании — премиальная веб-разработка',
-    description: 'Узнайте о нашей философии, команде и технологическом стеке. Мы создаем эффективные диджитал-решения для бизнеса с 2018 года.',
+    description: 'Команда Art.Vision работает с 2018 года: более 100 запущенных проектов, разработка на Next.js, дизайн и маркетинг. Рассказываем, как мы ведём проекты.',
     alternates: {
         canonical: 'https://art-vision.online/about/',
     },

@@ -7,13 +7,17 @@ import {
   Rocket,
   Wrench,
   Smartphone,
+  Database,
+  AppWindow,
   Calculator
 } from 'lucide-react';
 
+// Порядок карточек = порядок распределения внутреннего веса (см. goal.md §6):
+// первыми идут маржинальные кластеры — сайты, CRM, мобильные приложения.
 const services = [
   {
     id: "01",
-    title: "Сайт-Визитка / Лендинг",
+    title: "Лендинг под ключ",
     href: "/services/corporate-website/",
     description: "Идеально для автосервиса, ремонта или услуг. Одна страница, которая просто продает.",
     icon: <Monitor className="w-8 h-8 text-white" />,
@@ -22,7 +26,7 @@ const services = [
   },
   {
     id: "02",
-    title: "Интернет-Магазин",
+    title: "Интернет-магазин",
     href: "/services/ecommerce-development/",
     description: "Каталог товаров с корзиной. Для запчастей, одежды или доставки еды.",
     icon: <ShoppingBag className="w-8 h-8 text-white" />,
@@ -31,6 +35,24 @@ const services = [
   },
   {
     id: "03",
+    title: "CRM-система",
+    href: "/services/razrabotka-crm/",
+    description: "Своя CRM под ваши процессы: воронки, задачи, интеграции с сайтом и телефонией.",
+    icon: <Database className="w-8 h-8 text-white" />,
+    colSpan: "md:col-span-1",
+    price: "от 180 000 ₽"
+  },
+  {
+    id: "04",
+    title: "Мобильное приложение",
+    href: "/services/mobile-app-development/",
+    description: "Одно приложение сразу на iOS и Android. Проектирование, разработка и публикация в сторах.",
+    icon: <AppWindow className="w-8 h-8 text-white" />,
+    colSpan: "md:col-span-2",
+    price: "от 250 000 ₽"
+  },
+  {
+    id: "05",
     title: "Бизнес под ключ",
     href: "/services/web-service-development/",
     description: "Сайт + Реклама + CRM. Полная упаковка вашего бизнеса в интернете.",
@@ -39,16 +61,16 @@ const services = [
     price: "Индивидуально"
   },
   {
-    id: "04",
+    id: "06",
     title: "Техподдержка",
-    href: "/services/ux-ui-design/",
+    href: "/services/tech-support/",
     description: "Обновим старый сайт, починим ошибки, добавим новые фото и цены.",
     icon: <Wrench className="w-8 h-8 text-white" />,
     colSpan: "md:col-span-1",
     price: "от 5 000 ₽"
   },
   {
-    id: "05",
+    id: "07",
     title: "Мобильная версия",
     href: "/services/mobile-adaptation/",
     description: "Адаптируем ваш текущий сайт под смартфоны. Это критично для Яндекс.Карт.",
