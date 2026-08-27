@@ -38,9 +38,10 @@ export default function Breadcrumbs({ items = [], className = '' }) {
                         return (
                             <li key={item.name} className="flex items-center gap-2">
                                 {item.href && !isLast ? (
+                                    /* py-1.5 поднимает высоту ссылки до комфортной зоны тапа */
                                     <Link
                                         href={item.href}
-                                        className="hover:text-primary transition-colors"
+                                        className="inline-block py-1.5 hover:text-primary transition-colors"
                                     >
                                         {item.name}
                                     </Link>
