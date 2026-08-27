@@ -71,7 +71,7 @@ export default function CasePage({ params }) {
     };
 
     // Кейс доказывает экспертизу — и сразу отдаёт вес коммерческим услугам
-    const relatedItems = (data.relatedServices || ['corporate-website', 'ecommerce-development'])
+    const relatedItems = (data.relatedServices || ['razrabotka-lendinga', 'ecommerce-development'])
         .map((slugName) => services.find((x) => x.slug === slugName))
         .filter(Boolean)
         .map((service) => ({

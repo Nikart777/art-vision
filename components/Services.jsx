@@ -9,6 +9,7 @@ import {
   Smartphone,
   Database,
   AppWindow,
+  Building2,
   Calculator
 } from 'lucide-react';
 
@@ -18,7 +19,7 @@ const services = [
   {
     id: "01",
     title: "Лендинг под ключ",
-    href: "/services/corporate-website/",
+    href: "/services/razrabotka-lendinga/",
     description: "Идеально для автосервиса, ремонта или услуг. Одна страница, которая просто продает.",
     icon: <Monitor className="w-8 h-8 text-white" />,
     colSpan: "md:col-span-2",
@@ -26,6 +27,15 @@ const services = [
   },
   {
     id: "02",
+    title: "Корпоративный сайт",
+    href: "/services/korporativnyy-sayt/",
+    description: "Многостраничный сайт компании: разделы, страница на каждую услугу, админка.",
+    icon: <Building2 className="w-8 h-8 text-white" />,
+    colSpan: "md:col-span-1",
+    price: "от 70 000 ₽"
+  },
+  {
+    id: "03",
     title: "Интернет-магазин",
     href: "/services/ecommerce-development/",
     description: "Каталог товаров с корзиной. Для запчастей, одежды или доставки еды.",
@@ -34,7 +44,7 @@ const services = [
     price: "от 90 000 ₽"
   },
   {
-    id: "03",
+    id: "04",
     title: "CRM-система",
     href: "/services/razrabotka-crm/",
     description: "Своя CRM под ваши процессы: воронки, задачи, интеграции с сайтом и телефонией.",
@@ -43,7 +53,7 @@ const services = [
     price: "от 180 000 ₽"
   },
   {
-    id: "04",
+    id: "05",
     title: "Мобильное приложение",
     href: "/services/mobile-app-development/",
     description: "Одно приложение сразу на iOS и Android. Проектирование, разработка и публикация в сторах.",
@@ -52,7 +62,7 @@ const services = [
     price: "от 250 000 ₽"
   },
   {
-    id: "05",
+    id: "06",
     title: "Бизнес под ключ",
     href: "/services/web-service-development/",
     description: "Сайт + Реклама + CRM. Полная упаковка вашего бизнеса в интернете.",
@@ -61,7 +71,7 @@ const services = [
     price: "Индивидуально"
   },
   {
-    id: "06",
+    id: "07",
     title: "Техподдержка",
     href: "/services/tech-support/",
     description: "Обновим старый сайт, починим ошибки, добавим новые фото и цены.",
@@ -70,7 +80,7 @@ const services = [
     price: "от 5 000 ₽"
   },
   {
-    id: "07",
+    id: "08",
     title: "Мобильная версия",
     href: "/services/mobile-adaptation/",
     description: "Адаптируем ваш текущий сайт под смартфоны. Это критично для Яндекс.Карт.",

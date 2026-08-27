@@ -1,7 +1,7 @@
 export const solutions = [
     {
         slug: 'windows-construction',
-        relatedServices: ['corporate-website','web-service-development'],
+        relatedServices: ['razrabotka-lendinga','web-service-development'],
         title: 'Сайт для строительной компании и ремонта квартир под ключ',
         description: 'Разработка сайтов для окон, натяжных потолков и ремонта квартир. Калькулятор цены, галерея работ, квиз для заявок. Цена от 40 000 ₽, готово за 5 дней.',
         h1: 'Сайты для Строительных Компаний и Ремонта',
@@ -23,7 +23,7 @@ export const solutions = [
     },
     {
         slug: 'auto-services',
-        relatedServices: ['corporate-website','mobile-adaptation'],
+        relatedServices: ['razrabotka-lendinga','mobile-adaptation'],
         title: 'Создание сайта для Автосервиса и СТО под ключ',
         description: 'Сайт для автосервиса, детейлинга и шиномонтажа: онлайн-запись на ремонт, прайс-лист, карта проезда и вызов эвакуатора. Продвижение на Яндекс.Картах.',
         h1: 'Сайты для Автосервисов и Эвакуаторов',
@@ -45,7 +45,7 @@ export const solutions = [
     },
     {
         slug: 'furniture-kitchens',
-        relatedServices: ['ecommerce-development','corporate-website'],
+        relatedServices: ['ecommerce-development','razrabotka-lendinga'],
         title: 'Сайт для кухонь на заказ и мебельного производства',
         description: 'Разработка сайта для кухонь на заказ, мебели и шкафов-купе: 3D-каталог, квиз на расчёт цены, запись на замер. ✔ Увеличиваем количество заявок в два раза.',
         h1: 'Сайты для Кухонь на Заказ и Производителей Мебели',
@@ -67,7 +67,7 @@ export const solutions = [
     },
     {
         slug: 'beauty-health',
-        relatedServices: ['corporate-website','mobile-app-development'],
+        relatedServices: ['razrabotka-lendinga','mobile-app-development'],
         title: 'Сайт для салона красоты и косметологии',
         description: 'Сайт для салона красоты, косметологии и барбершопа: онлайн-запись через YClients или Dikidi, портфолио мастеров, продажа сертификатов и абонементов.',
         h1: 'Сайты для Салонов Красоты и Клиник',
@@ -111,7 +111,7 @@ export const solutions = [
     },
     {
         slug: 'services-training',
-        relatedServices: ['corporate-website','ecommerce-development'],
+        relatedServices: ['razrabotka-lendinga','ecommerce-development'],
         title: 'Сайт для эксперта, юриста и онлайн-курсов',
         description: 'Сайт для эксперта, юриста и онлайн-школы: упаковка личного бренда, продажа курсов и консультаций, приём платежей и автоворонка. ✔ Запуск сайта за 5 дней.',
         h1: 'Сайты для Экспертов, Юристов и Курсов',
@@ -155,7 +155,7 @@ export const solutions = [
     },
     {
         slug: 'medical-clinic',
-        relatedServices: ['corporate-website','razrabotka-crm'],
+        relatedServices: ['razrabotka-lendinga','razrabotka-crm'],
         title: 'Сайт для клиники и медицинского центра',
         description: 'Разработка сайта для клиники и медицинского центра под ключ. Онлайн-запись к врачу, расписание, лицензии. Соблюдаем 152-ФЗ и требования к медрекламе.',
         h1: 'Сайты для Клиник и Медицинских Центров',
@@ -177,7 +177,7 @@ export const solutions = [
     },
     {
         slug: 'legal',
-        relatedServices: ['corporate-website','web-service-development'],
+        relatedServices: ['razrabotka-lendinga','web-service-development'],
         title: 'Сайт для юридической компании и адвоката',
         description: 'Разработка сайта для юридической компании, адвоката и юриста под ключ. Услуги, выигранные дела, онлайн-запись на консультацию. Дизайн, вызывающий доверие.',
         h1: 'Сайты для Юридических Компаний и Адвокатов',

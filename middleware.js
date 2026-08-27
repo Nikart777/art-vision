@@ -17,6 +17,10 @@ const LEGACY_REDIRECTS = new Map([
     ['/services/nextjs-development', '/services/mobile-adaptation/'],
     // URL обещал UX/UI-дизайн, а контент — техподдержка и редизайн
     ['/services/ux-ui-design', '/services/tech-support/'],
+    // URL обещал корпоративный сайт, а страница была про лендинг.
+    // Само понятие «корпоративный сайт» отдано новой странице
+    // /services/korporativnyy-sayt/ под свой кластер запросов.
+    ['/services/corporate-website', '/services/razrabotka-lendinga/'],
 ]);
 
 export function middleware(request) {
@@ -33,5 +37,9 @@ export function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/services/nextjs-development/:path*', '/services/ux-ui-design/:path*'],
+    matcher: [
+        '/services/nextjs-development/:path*',
+        '/services/ux-ui-design/:path*',
+        '/services/corporate-website/:path*',
+    ],
 };

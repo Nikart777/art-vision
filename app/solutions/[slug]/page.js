@@ -79,7 +79,7 @@ export default function SolutionPage({ params }) {
 
     // Отраслевая страница — точка входа НЧ-трафика. Отсюда вес уходит
     // на «денежные» услуги, а не размазывается по нецелевым разделам (goal.md §6).
-    const relatedItems = (data.relatedServices || ['corporate-website', 'ecommerce-development'])
+    const relatedItems = (data.relatedServices || ['razrabotka-lendinga', 'ecommerce-development'])
         .map((s) => services.find((x) => x.slug === s))
         .filter(Boolean)
         .map((s) => ({

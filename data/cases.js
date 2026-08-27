@@ -1,6 +1,6 @@
 export const casesData = {
     'dental-clinic-msk': {
-        relatedServices: ['corporate-website', 'razrabotka-crm'],
+        relatedServices: ['razrabotka-lendinga', 'razrabotka-crm'],
         title: 'Кейс: сайт стоматологии — +45% записей пациентов',
         description: 'Кейс разработки сайта стоматологии на Next.js: онлайн-запись, страницы под каждую услугу, SEO-структура. Запись пациентов выросла на 45% за квартал.',
         h1: 'Сайт Стоматологической Клиники "SmilePremium"',
