@@ -15,12 +15,15 @@ module.exports = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        // var(--font-space-mono) задаётся next/font в app/layout.js.
+        // var(--font-space-mono) и var(--font-mono-cyr) задаются next/font
+        // в app/layout.js: латиница — Space Mono, кириллица — JetBrains Mono.
         // Строковый "Space Mono" оставлен запасным вариантом.
-        "display": ["var(--font-space-mono)", "Space Mono", "monospace"],
-        "sans": ["var(--font-space-mono)", "Space Mono", "monospace"],
-        "serif": ["var(--font-space-mono)", "Space Mono", "monospace"],
-        "mono": ["var(--font-space-mono)", "Space Mono", "monospace"]
+        "display": ["var(--font-space-mono)", "var(--font-mono-cyr)", "Space Mono", "monospace"],
+        "sans": ["var(--font-space-mono)", "var(--font-mono-cyr)", "Space Mono", "monospace"],
+        "serif": ["var(--font-space-mono)", "var(--font-mono-cyr)", "Space Mono", "monospace"],
+        "mono": ["var(--font-space-mono)", "var(--font-mono-cyr)", "Space Mono", "monospace"],
+        // Акцентный курсив для отдельных слов в заголовках главной
+        "accent": ["var(--font-accent)", "Georgia", "serif"]
       },
       borderRadius: {
         "DEFAULT": "0.25rem",

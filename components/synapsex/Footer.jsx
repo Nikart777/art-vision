@@ -28,11 +28,11 @@ export default function Footer() {
                 <span className="text-[15px] font-medium text-white/70 tracking-tight">Art.Vision</span>
               </div>
               <p className="text-white/40 text-[14px] sm:text-[15px] leading-relaxed mb-6">
-                Цифровые решения, которые приносят результат. Создаем премиальные сайты под ключ.
+                Цифровые продукты, которые приносят результат: платформы, SaaS, e-commerce, сайты и GEO-сопровождение.
               </p>
               <div className="text-white/40 text-sm space-y-1">
                 <span className="block font-bold text-white/80">Москва, Тверская 12</span>
-                <a href="mailto:project@art-vision.online" className="hover:text-white transition-colors">project@art-vision.online</a>
+                <a href="mailto:project@24art-vision.ru" className="hover:text-white transition-colors">project@24art-vision.ru</a>
               </div>
             </div>
 

@@ -2,17 +2,19 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, HelpCircle } from 'lucide-react';
+import MaskReveal from './premium/MaskReveal';
+import { onSpotlightMove } from './premium/spotlight';
 
 const questions = [
   {
     id: "01",
-    question: "Сколько стоит сайт?",
-    answer: "Мы не продаем шаблоны, но современные технологии позволяют нам не завышать цены. Стоимость разработки начинается от 40 000 ₽. Это инвестиция в актив, который будет приносить прибыль годами."
+    question: "Как формируется стоимость?",
+    answer: "Каждый проект оцениваем индивидуально: объём страниц, глубина арт-дирекшна, анимация, интеграции. После брифа вы получаете смету по этапам — с понятным составом работ и ценой до старта. Это инвестиция в актив, который работает на компанию годами."
   },
   {
     id: "02",
     question: "Сроки разработки?",
-    answer: "Средний цикл — от 5 до 14 рабочих дней. Мы работаем спринтами, чтобы вы получили работающий инструмент как можно скорее."
+    answer: "Зависят от масштаба: промо-страницу запускаем быстрее, флагманский корпоративный сайт — за несколько недель. Календарный план с датами каждого этапа согласуем до старта работ."
   },
   {
     id: "03",
@@ -22,7 +24,7 @@ const questions = [
   {
     id: "04",
     question: "Сложные проекты?",
-    answer: "Да. E-commerce, Личные кабинеты, Сложные калькуляторы. Если это современный веб — мы можем это закодить."
+    answer: "Да. E-commerce, личные кабинеты, интеграции с CRM и 1С, WebGL и 3D. Если это современный веб — мы спроектируем и реализуем его на уровне продуктовой компании."
   },
   {
     id: "05",
@@ -55,9 +57,10 @@ export default function FAQ() {
           <p className="text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-8">
             База знаний
           </p>
-          <h2 className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase">
-            Вопросы и Ответы
-          </h2>
+          <MaskReveal
+            className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase"
+            lines={['Вопросы', <span key="a" className="accent-serif">и ответы</span>]}
+          />
           <p className="text-white/45 text-[15px] sm:text-[17px] leading-relaxed max-w-2xl mx-auto">
             Отвечаем на самые популярные вопросы о нашей работе и технологиях.
           </p>
@@ -74,10 +77,11 @@ export default function FAQ() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, delay: i * 0.1 }}
               onClick={() => setActiveId(activeId === item.id ? null : item.id)}
-              className={`group relative overflow-hidden rounded-lg border cursor-pointer transition-all duration-500
+              onPointerMove={onSpotlightMove}
+              className={`spotlight group relative overflow-hidden rounded-xl border cursor-pointer transition-all duration-500
                 ${activeId === item.id
-                  ? 'bg-white/10 border-white/40'
-                  : 'bg-white/[0.02] border-white/10 hover:border-white/20 hover:bg-white/[0.05]'
+                  ? 'bg-white/[0.08] border-white/40'
+                  : 'bg-white/[0.02] border-white/10 hover:bg-white/[0.04]'
                 }
               `}
             >

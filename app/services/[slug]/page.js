@@ -3,6 +3,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import RelatedLinks from '@/components/RelatedLinks';
+import GeoSection from '@/components/GeoSection';
 import { services } from '@/data/services';
 import { solutions } from '@/data/solutions';
 import {
@@ -36,10 +37,10 @@ export async function generateMetadata({ params }) {
             title: data.title,
             description: data.description,
             type: 'article',
-            url: `https://art-vision.online/services/${slug}/`,
+            url: `https://24art-vision.ru/services/${slug}/`,
         },
         alternates: {
-            canonical: `https://art-vision.online/services/${slug}/`,
+            canonical: `https://24art-vision.ru/services/${slug}/`,
         },
     };
 }
@@ -52,7 +53,7 @@ export default function ServicePage({ params }) {
         notFound();
     }
 
-    const pageUrl = `https://art-vision.online/services/${slug}/`;
+    const pageUrl = `https://24art-vision.ru/services/${slug}/`;
 
     const jsonLd = {
         '@context': 'https://schema.org',
@@ -63,7 +64,7 @@ export default function ServicePage({ params }) {
         provider: {
             '@type': 'Organization',
             name: 'Art.Vision',
-            url: 'https://art-vision.online'
+            url: 'https://24art-vision.ru'
         },
         // Регион работы — вся Россия, а не только Москва
         areaServed: {
@@ -72,13 +73,17 @@ export default function ServicePage({ params }) {
         },
         description: data.description,
         url: pageUrl,
-        offers: {
-            '@type': 'Offer',
-            price: data.basePrice || '40000',
-            priceCurrency: 'RUB',
-            availability: 'https://schema.org/InStock',
-            url: pageUrl
-        }
+        // Offer только там, где у услуги есть цена: подставлять чужие
+        // «40 000 ₽» услуге с индивидуальной оценкой — значит врать в разметке
+        ...(data.basePrice && {
+            offers: {
+                '@type': 'Offer',
+                price: data.basePrice,
+                priceCurrency: 'RUB',
+                availability: 'https://schema.org/InStock',
+                url: pageUrl
+            }
+        })
     };
 
     // FAQPage даёт раскрывающиеся вопросы прямо в выдаче — сниппет занимает
@@ -171,6 +176,9 @@ export default function ServicePage({ params }) {
             </section>
 
             {/* INTRO & VALUE PROP */}
+            {/* Интерактивная витрина услуги, если она есть (сейчас — только GEO) */}
+            {data.showcase === 'geo' && <GeoSection standalone />}
+
             <section className="py-24 px-6 md:px-10 lg:px-20">
                 <div className="max-w-5xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
