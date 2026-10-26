@@ -3,7 +3,7 @@ import { casesData } from '@/data/cases';
 import { blogData } from '@/data/blog';
 import { services } from '@/data/services';
 
-const baseUrl = 'https://art-vision.online';
+const baseUrl = 'https://24art-vision.ru';
 
 // Приоритеты отражают маржинальность разделов (goal.md §1):
 // коммерческие услуги и отраслевые решения — выше, инфо-контент — ниже.

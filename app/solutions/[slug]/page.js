@@ -38,10 +38,10 @@ export async function generateMetadata({ params }) {
             title: data.title,
             description: data.description,
             type: 'article',
-            url: `https://art-vision.online/solutions/${slug}/`,
+            url: `https://24art-vision.ru/solutions/${slug}/`,
         },
         alternates: {
-            canonical: `https://art-vision.online/solutions/${slug}/`,
+            canonical: `https://24art-vision.ru/solutions/${slug}/`,
         },
     };
 }
@@ -65,7 +65,7 @@ export default function SolutionPage({ params }) {
         provider: {
             '@type': 'Organization',
             name: 'Art.Vision',
-            url: 'https://art-vision.online'
+            url: 'https://24art-vision.ru'
         },
         description: data.description,
         offers: {
@@ -73,7 +73,7 @@ export default function SolutionPage({ params }) {
             price: data.price || '40000',
             priceCurrency: 'RUB',
             availability: 'https://schema.org/InStock',
-            url: `https://art-vision.online/solutions/${slug}/`
+            url: `https://24art-vision.ru/solutions/${slug}/`
         }
     };
 

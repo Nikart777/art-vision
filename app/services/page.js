@@ -11,10 +11,10 @@ export const metadata = {
     title: 'Разработка сайтов на заказ: услуги и цены',
     description: 'Услуги веб-разработки под ключ: лендинги, интернет-магазины, CRM-системы и мобильные приложения. Цены от 15 000 ₽, запуск от 5 дней. ✔ Смотреть прайс.',
     alternates: {
-        canonical: 'https://art-vision.online/services/',
+        canonical: 'https://24art-vision.ru/services/',
     },
     openGraph: {
-        url: 'https://art-vision.online/services/',
+        url: 'https://24art-vision.ru/services/',
     },
 };
 
@@ -28,7 +28,7 @@ const itemListJsonLd = {
         '@type': 'ListItem',
         position: index + 1,
         name: service.h1,
-        url: `https://art-vision.online/services/${service.slug}/`,
+        url: `https://24art-vision.ru/services/${service.slug}/`,
     })),
 };
 

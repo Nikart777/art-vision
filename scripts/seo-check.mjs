@@ -14,7 +14,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
 const BUILD_DIR = join(process.cwd(), '.next', 'server', 'app');
-const SITE_HOST = 'art-vision.online';
+const SITE_HOST = '24art-vision.ru';
 
 // Границы из регламента: title до 70 символов, description 148–160.
 const LIMITS = {

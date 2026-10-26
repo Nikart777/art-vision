@@ -29,12 +29,12 @@ export async function generateMetadata({ params }) {
             title: data.title,
             description: data.description,
             type: 'article',
-            url: `https://art-vision.online/blog/${slug}/`,
+            url: `https://24art-vision.ru/blog/${slug}/`,
             publishedTime: data.date,
             authors: [data.author],
         },
         alternates: {
-            canonical: `https://art-vision.online/blog/${slug}/`,
+            canonical: `https://24art-vision.ru/blog/${slug}/`,
         },
     };
 }
@@ -59,7 +59,7 @@ export default function BlogPage({ params }) {
         description: data.description,
         mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `https://art-vision.online/blog/${slug}/`
+            '@id': `https://24art-vision.ru/blog/${slug}/`
         }
     };
 

@@ -1,4 +1,4 @@
-# art-vision.online — robots.txt
+# 24art-vision.ru — robots.txt
 # Цель: не тратить краулинговый бюджет на технические URL и дубли с метками.
 # Метки НЕ закрываем через Disallow (это лишило бы рекламные посадочные индексации),
 # а склеиваем: для Яндекса — Clean-param, для Google — rel=canonical в <head>.
@@ -37,4 +37,4 @@ Disallow: /private/
 Disallow: /*/thank-you/
 Disallow: /search
 
-Sitemap: https://art-vision.online/sitemap.xml
+Sitemap: https://24art-vision.ru/sitemap.xml

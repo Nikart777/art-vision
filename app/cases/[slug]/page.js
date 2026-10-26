@@ -39,10 +39,10 @@ export async function generateMetadata({ params }) {
             title: data.title,
             description: data.description,
             type: 'article',
-            url: `https://art-vision.online/cases/${slug}/`,
+            url: `https://24art-vision.ru/cases/${slug}/`,
         },
         alternates: {
-            canonical: `https://art-vision.online/cases/${slug}/`,
+            canonical: `https://24art-vision.ru/cases/${slug}/`,
         },
     };
 }

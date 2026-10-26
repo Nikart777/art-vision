@@ -12,6 +12,8 @@ import { NextResponse } from 'next/server';
  * Правило регламента: страницы не удаляем, а склеиваем, чтобы ссылочный
  * вес старого URL перешёл на новый.
  */
+const SITE_ORIGIN = 'https://24art-vision.ru';
+
 const LEGACY_REDIRECTS = new Map([
     // URL не соответствовал контенту (страница про мобильную адаптацию)
     ['/services/nextjs-development', '/services/mobile-adaptation/'],
@@ -31,7 +33,9 @@ export function middleware(request) {
 
     if (!target) return NextResponse.next();
 
-    const destination = new URL(target, request.url);
+    // Абсолютный адрес строим от публичного домена, а не от request.url:
+    // за nginx request.url = http://127.0.0.1:3109/..., и редирект уходил бы на localhost.
+    const destination = new URL(target, SITE_ORIGIN);
     destination.search = request.nextUrl.search; // метки из рекламы не теряем
     return NextResponse.redirect(destination, 301);
 }

@@ -9,7 +9,7 @@ export const metadata = {
     title: 'Частые вопросы о разработке сайтов и SEO',
     description: 'Отвечаем на частые вопросы о создании сайтов на Next.js: сроки и цена разработки, интеграция с CRM, SEO-база, поддержка после запуска. ✔ 6 честных ответов.',
     alternates: {
-        canonical: 'https://art-vision.online/faq/',
+        canonical: 'https://24art-vision.ru/faq/',
     },
 };
 

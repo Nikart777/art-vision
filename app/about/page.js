@@ -9,7 +9,7 @@ export const metadata = {
     title: 'О компании — премиальная веб-разработка',
     description: 'Команда Art.Vision работает с 2018 года: более 100 запущенных проектов, разработка на Next.js, дизайн и маркетинг. Рассказываем, как мы ведём проекты.',
     alternates: {
-        canonical: 'https://art-vision.online/about/',
+        canonical: 'https://24art-vision.ru/about/',
     },
 };
 
