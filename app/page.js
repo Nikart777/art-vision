@@ -5,13 +5,13 @@ import HomePage from '@/components/HomePage';
 export const metadata = {
   // Шаблон "%s | Art.Vision" из layout не применяется к корневой странице,
   // поэтому бренд указываем в title главной явно.
-  title: 'Разработка сайтов под ключ: цена от 40 000 ₽ | Art.Vision',
-  description: 'Разработка сайтов под ключ за 5 дней: премиальный дизайн на Next.js, фокус на заявках и окупаемости рекламы. Более 100 проектов. ✔ Цена от 40 000 ₽.',
+  title: 'Разработка цифровых продуктов, платформ и сайтов | Art.Vision',
+  description: 'Цифровые продукты под ключ: платформы и SaaS, e-commerce, корпоративные сайты и GEO-сопровождение в нейросетях. Для бизнеса и организаций. 100+ проектов.',
   alternates: {
-    canonical: 'https://art-vision.online/',
+    canonical: 'https://24art-vision.ru/',
   },
   openGraph: {
-    url: 'https://art-vision.online/',
+    url: 'https://24art-vision.ru/',
   },
 };
 

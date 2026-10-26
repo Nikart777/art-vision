@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Автономная сборка: на сервере запускается .next/standalone/server.js под systemd
+  output: 'standalone',
   trailingSlash: true,
   // Игнорируем ошибки eslint/ts при билде (чтобы деплой прошел, даже если где-то забыли запятую)
   eslint: {

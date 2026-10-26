@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, User, Phone, MessageSquare, Briefcase, CheckCircle2, Loader2, Headphones, ShieldCheck } from 'lucide-react';
 import { trackLead } from '@/lib/analytics';
+import MaskReveal from './premium/MaskReveal';
 
 export default function ContactForm({ initialData }) {
     const [formData, setFormData] = useState({
@@ -71,11 +72,12 @@ export default function ContactForm({ initialData }) {
                         <p className="text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-4">
                             Обратная связь
                         </p>
-                        <h2 className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase">
-                            Готовы Начать Проект?
-                        </h2>
+                        <MaskReveal
+                            className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase"
+                            lines={['Обсудим', <span key="a" className="accent-serif">ваш проект</span>]}
+                        />
                         <p className="text-white/45 text-[15px] sm:text-[17px] leading-relaxed">
-                            Оставьте заявку, и мы свяжемся с вами в течение 30 минут для детального обсуждения вашей задачи.
+                            Оставьте заявку — свяжемся в течение 30 минут, обсудим задачу и предложим формат работы под уровень вашей компании.
                         </p>
 
                         <div className="space-y-6 pt-6">
@@ -120,39 +122,39 @@ export default function ContactForm({ initialData }) {
                                         className="flex flex-col items-center justify-center text-center py-16 relative"
                                     >
                                         {/* Glowing Background Effect */}
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-violet-600/20 blur-[80px] rounded-full pointer-events-none"></div>
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/10 blur-[90px] rounded-full pointer-events-none"></div>
 
                                         <div className="relative mb-8">
-                                            <div className="absolute inset-0 bg-violet-500/30 blur-xl rounded-full"></div>
-                                            <div className="relative w-24 h-24 bg-gradient-to-br from-violet-600 to-fuchsia-600 border border-violet-400/30 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(139,92,246,0.3)]">
+                                            <span aria-hidden="true" className="absolute inset-0 rounded-full border border-white/30 animate-ping [animation-duration:2.4s]" />
+                                            <div className="relative w-24 h-24 bg-white/[0.06] border border-white/25 rounded-full flex items-center justify-center shadow-[0_0_50px_-10px_rgba(255,255,255,0.45)]">
                                                 <CheckCircle2 className="w-10 h-10 text-white" />
                                             </div>
                                         </div>
 
                                         <h3 className="text-3xl font-light uppercase tracking-tight mb-6 text-white drop-shadow-md">
-                                            Заявка успешно отправлена!
+                                            Заявка отправлена
                                         </h3>
-                                        
+
                                         <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl p-6 w-full max-w-sm relative overflow-hidden group z-10">
-                                            <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                                            
+                                            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.06] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
                                             <div className="relative z-10">
                                                 <p className="text-white/60 font-light text-xs tracking-[0.15em] uppercase mb-2">
                                                     Ваш персональный менеджер:
                                                 </p>
-                                                <p className="text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-300 mb-6">
+                                                <p className="accent-serif text-3xl mb-6">
                                                     Владимир
                                                 </p>
 
                                                 <div className="space-y-4">
-                                                    <a href="mailto:project@art-vision.online" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link cursor-pointer">
-                                                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
+                                                    <a href="mailto:project@24art-vision.ru" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link cursor-pointer">
+                                                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-white/15 transition-colors">
                                                             <MessageSquare className="w-4 h-4" />
                                                         </div>
-                                                        <span className="font-light tracking-wide">project@art-vision.online</span>
+                                                        <span className="font-light tracking-wide">project@24art-vision.ru</span>
                                                     </a>
                                                     <a href="tel:+79804243055" className="flex items-center justify-center gap-3 text-white/80 hover:text-white transition-colors group/link cursor-pointer">
-                                                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-violet-500/20 transition-colors">
+                                                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-white/15 transition-colors">
                                                             <Phone className="w-4 h-4" />
                                                         </div>
                                                         <span className="font-light tracking-wide">+7 (980) 424-30-55</span>
@@ -217,7 +219,7 @@ export default function ContactForm({ initialData }) {
                                                     <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                                                     <input
                                                         type="text"
-                                                        placeholder="Лендинг / Магазин / Сервис"
+                                                        placeholder="Платформа / E-commerce / Сайт / GEO"
                                                         value={formData.projectType}
                                                         onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                                                         className="w-full bg-black border border-white/10 rounded-lg py-4 pl-12 pr-4 text-white placeholder-white/20 focus:border-white/40 outline-none transition-all font-light text-sm"
@@ -231,7 +233,7 @@ export default function ContactForm({ initialData }) {
                                                     <div className="absolute left-4 top-1/2 -translate-y-1/2 font-light text-xs text-white/40">₽</div>
                                                     <input
                                                         type="text"
-                                                        placeholder="от 50 000"
+                                                        placeholder="Ориентир, если есть"
                                                         value={formData.budget}
                                                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                                                         className="w-full bg-black border border-white/10 rounded-lg py-4 pl-12 pr-4 text-white placeholder-white/20 focus:border-white/40 outline-none transition-all font-light text-sm"
@@ -258,7 +260,7 @@ export default function ContactForm({ initialData }) {
                                         <button
                                             type="submit"
                                             disabled={status === 'loading'}
-                                            className="w-full h-16 bg-white text-black font-medium uppercase text-[11px] tracking-widest rounded-lg hover:bg-[#e2e2e6] transition-colors flex items-center justify-center gap-3 disabled:opacity-50 mt-4"
+                                            className="btn-shine w-full h-16 bg-white text-black font-medium uppercase text-[11px] tracking-widest rounded-lg hover:bg-[#e2e2e6] active:scale-[0.99] transition-all flex items-center justify-center gap-3 disabled:opacity-50 mt-4"
                                         >
                                             {status === 'loading' ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -272,7 +274,7 @@ export default function ContactForm({ initialData }) {
                                         
                                         {status === 'error' && (
                                             <div className="p-4 rounded border border-red-500/30 bg-red-500/10 text-red-200 text-sm font-light text-center mt-4">
-                                                Произошла ошибка при отправке! Попробуйте позже или напишите на project@art-vision.online.
+                                                Произошла ошибка при отправке! Попробуйте позже или напишите на project@24art-vision.ru.
                                             </div>
                                         )}
 

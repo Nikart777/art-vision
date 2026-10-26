@@ -9,7 +9,7 @@ import CtaTracker from "@/components/CtaTracker";
 // отдаёт весь текст Space Mono, поэтому три шрифта скачивались вхолостую,
 // а два нужных — блокирующим запросом к fonts.googleapis.com.
 // Теперь грузим ровно те два, что реально используются, и self-hosted.
-import { Space_Mono, Anton } from 'next/font/google';
+import { Space_Mono, Anton, JetBrains_Mono, Cormorant_Garamond } from 'next/font/google';
 
 // ВАЖНО про adjustFontFallback: false.
 // В Space Mono и Anton нет кириллицы — их @font-face покрывают только латиницу.
@@ -20,6 +20,10 @@ import { Space_Mono, Anton } from 'next/font/google';
 // больше межстрочного интервала заголовков (0.95) — строки налезали друг на друга.
 // С отключённой подгонкой кириллица уходит в обычный моноширинный шрифт
 // с его собственными метриками, как было до перевода шрифтов на self-hosting.
+//
+// Системные моноширинные шрифты здесь больше не указаны: они стояли бы
+// в стеке раньше JetBrains Mono и перехватывали кириллицу. Запасной
+// список теперь живёт у jetbrainsMono ниже.
 const spaceMono = Space_Mono({
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -27,7 +31,31 @@ const spaceMono = Space_Mono({
   variable: '--font-space-mono',
   display: 'swap',
   adjustFontFallback: false,
+});
+
+// Кириллица для всего текста сайта. Раньше она рисовалась тем моноширинным,
+// что найдётся в системе (Consolas, Menlo, Droid Sans Mono на Android),
+// и на каждом устройстве выглядела по-разному. Берём только кириллический
+// набор: латиницу по-прежнему рисует Space Mono, он стоит в стеке первым.
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['cyrillic'],
+  weight: ['400', '500', '700'],
+  variable: '--font-mono-cyr',
+  display: 'swap',
+  adjustFontFallback: false,
   fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+});
+
+// Акцентный курсив в заголовках главной (класс .accent-serif в globals.css):
+// одно-два слова антиквой рядом с моноширинным капсом.
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500'],
+  style: ['italic'],
+  variable: '--font-accent',
+  display: 'swap',
+  adjustFontFallback: false,
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
 });
 
 // Используется только в декоративном водяном знаке на главной
@@ -46,7 +74,7 @@ const anton = Anton({
 // --- ПРОФЕССИОНАЛЬНОЕ SEO ---
 export const metadata = {
   // Базовый URL для всех относительных ссылок (важно для OG картинок)
-  metadataBase: new URL('https://art-vision.online'),
+  metadataBase: new URL('https://24art-vision.ru'),
 
   // Заголовок: Шаблон позволяет легко менять названия внутренних страниц
   title: {
@@ -62,14 +90,14 @@ export const metadata = {
   keywords: ["разработка сайтов", "создание сайта под ключ", "разработка интернет-магазина", "разработка CRM-системы", "разработка мобильных приложений", "заказать сайт", "веб-студия"],
 
   // Авторы и создатель
-  authors: [{ name: 'Art.Vision studio', url: 'https://art-vision.online' }],
+  authors: [{ name: 'Art.Vision studio', url: 'https://24art-vision.ru' }],
   creator: 'Art.Vision',
 
   // Open Graph — как ссылка выглядит в Facebook/LinkedIn/Telegram/WhatsApp
   openGraph: {
     type: 'website',
     locale: 'ru_RU',
-    url: 'https://art-vision.online',
+    url: 'https://24art-vision.ru',
     siteName: 'Art.Vision Digital Agency',
     title: 'Art.Vision | Цифровое превосходство',
     description: 'Мы не просто кодим. Мы строим цифровые активы. Узнайте стоимость разработки сайта нового поколения.',
@@ -117,15 +145,15 @@ export const metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": "https://art-vision.online/#organization",
+  "@id": "https://24art-vision.ru/#organization",
   "name": "Art.Vision",
   "legalName": "ООО «АТИМ»",
   "taxID": "504226843290",
-  "url": "https://art-vision.online",
-  "logo": "https://art-vision.online/icon.png",
-  "image": "https://art-vision.online/opengraph-image.jpg",
+  "url": "https://24art-vision.ru",
+  "logo": "https://24art-vision.ru/icon.png",
+  "image": "https://24art-vision.ru/opengraph-image.jpg",
   "description": "Разработка сайтов, интернет-магазинов, CRM-систем и мобильных приложений под ключ.",
-  "email": "project@art-vision.online",
+  "email": "project@24art-vision.ru",
   "telephone": "+7-980-424-30-55",
   "priceRange": "от 5 000 ₽",
   "address": {
@@ -142,7 +170,7 @@ const organizationSchema = {
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+7-980-424-30-55",
-    "email": "project@art-vision.online",
+    "email": "project@24art-vision.ru",
     "contactType": "sales",
     "areaServed": "RU",
     "availableLanguage": "Russian"
@@ -157,7 +185,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ru">
       <body
-        className={`${spaceMono.variable} ${anton.variable} antialiased font-display bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300`}
+        className={`${spaceMono.variable} ${jetbrainsMono.variable} ${cormorant.variable} ${anton.variable} antialiased font-display bg-background-light dark:bg-background-dark text-[#101818] dark:text-white transition-colors duration-300`}
       >
         <JsonLd data={organizationSchema} />
         <YandexMetrika />

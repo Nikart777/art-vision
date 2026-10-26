@@ -4,12 +4,20 @@ import { ArrowUpRight, Folder, LayoutGrid, Target, TrendingUp, ChevronRight } fr
 import Navbar from '@/components/synapsex/Navbar';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/synapsex/Footer';
+import FeaturedProjects from '@/components/FeaturedProjects';
+import CountUp from '@/components/premium/CountUp';
+
+// Сколько ещё проектов в портфолио помимо избранных (цифра от владельца студии)
+const MORE_PROJECTS = 46;
+
+// Отрасли, в которых студия уже работала, — по избранным проектам и разборам ниже
+const INDUSTRIES = ['Медицина', 'Фармацевтика', 'E-commerce', 'EdTech', 'SaaS', 'Игровая индустрия', 'Fintech', 'Фотография и медиа', 'Ассоциации и НКО', 'Сфера услуг'];
 
 export const metadata = {
     title: 'Кейсы — наши работы и результаты клиентов',
-    description: 'Портфолио digital-агентства Art.Vision. Примеры разработки сайтов для бизнеса, медицинских клиник, финтеха и сферы услуг с реальными показателями роста.',
+    description: 'Портфолио Art.Vision: платформа трансляций MEDPROG, e-commerce 28BIT, SaaS re-post.pro, МААГЭ, Флюдитек, CYBERX Community и ещё 46 проектов для бизнеса.',
     alternates: {
-        canonical: 'https://art-vision.online/cases/',
+        canonical: 'https://24art-vision.ru/cases/',
     },
 };
 
@@ -42,9 +50,63 @@ export default function CasesListPage() {
                             Наши <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white">Кейсы</span>
                         </h1>
                         <p className="max-w-2xl text-white/70 font-light text-lg md:text-xl leading-relaxed">
-                            Мы не просто делаем сайты, мы решаем проблемы бизнеса. Каждый кейс — это история трансформации в эффективный инструмент продаж.
+                            Платформы, сервисы, e-commerce и сайты флагманского уровня — для компаний и организаций, которым важен результат и уровень исполнения.
                         </p>
                     </header>
+
+                    {/* Избранные проекты — та же витрина, что на главной */}
+                    <section className="mb-32">
+                        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-12">
+                            <h2 className="text-white font-light text-[clamp(28px,5vw,48px)] leading-[1.1] tracking-[-0.02em] uppercase">
+                                Избранные <span className="accent-serif">проекты</span>
+                            </h2>
+                            <p className="max-w-md text-white/45 text-[15px] leading-relaxed md:text-right">
+                                Платформы, продукты и сайты, которыми мы гордимся больше всего.
+                            </p>
+                        </div>
+                        <FeaturedProjects />
+                    </section>
+
+                    {/* Остальное портфолио: без поимённого списка, кейсы подбираем под отрасль клиента */}
+                    <section className="relative mb-32 overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] px-6 py-14 sm:px-12 md:px-16 md:py-20">
+                        <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-white/[0.06] blur-[120px]" />
+                        <div className="relative z-10 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+                            <div className="lg:col-span-5">
+                                <p className="text-white/40 text-[13px] tracking-[0.2em] uppercase mb-6">И это не всё</p>
+                                <h2 className="flex flex-col items-start gap-1 text-white font-light leading-none tracking-[-0.04em]">
+                                    <span className="text-[clamp(88px,14vw,180px)]">
+                                        <CountUp to={MORE_PROJECTS} prefix="+" />
+                                    </span>
+                                    {/* Кегль на обёртке: .accent-serif считает размер в em от родителя */}
+                                    <span className="text-[clamp(32px,4.5vw,56px)]">
+                                        <span className="accent-serif">проектов</span>
+                                    </span>
+                                </h2>
+                            </div>
+                            <div className="lg:col-span-7">
+                                <p className="text-white/70 text-[16px] sm:text-[19px] font-light leading-relaxed mb-8">
+                                    Корпоративные сайты, интернет-магазины, личные кабинеты, Telegram-боты и промо-проекты для компаний из разных отраслей. Подберём кейсы из вашей сферы и разберём их на встрече — с решениями, сроками и результатами.
+                                </p>
+                                <ul className="flex flex-wrap gap-2 mb-10">
+                                    {INDUSTRIES.map((industry) => (
+                                        <li key={industry} className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-[12px] font-light text-white/75">
+                                            {industry}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a
+                                    href="#contact-form"
+                                    className="btn-shine inline-flex h-14 items-center rounded-full bg-white px-9 text-[12px] font-bold uppercase tracking-[0.2em] text-black transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"
+                                >
+                                    Запросить кейсы из вашей отрасли
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <h2 className="text-white font-light text-[clamp(28px,5vw,48px)] leading-[1.1] tracking-[-0.02em] uppercase mb-12">
+                        Разборы <span className="accent-serif">проектов</span>
+                    </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
                         {cases.map((item) => (
@@ -75,9 +137,9 @@ export default function CasesListPage() {
                                     </span>
                                 </div>
 
-                                <h2 className="relative z-10 text-2xl md:text-3xl font-bold tracking-tight mb-4 leading-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
+                                <h3 className="relative z-10 text-2xl md:text-3xl font-bold tracking-tight mb-4 leading-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
                                     {item.h1 || item.title}
-                                </h2>
+                                </h3>
 
                                 <p className="relative z-10 text-white/50 text-sm font-light leading-relaxed mb-8 line-clamp-2">
                                     {item.challenge}
@@ -111,7 +173,7 @@ export default function CasesListPage() {
                             </div>
                             <div className="prose prose-invert prose-lg max-w-none text-white/60 font-light">
                                 <p className="leading-relaxed">
-                                    Портфолио Art.Vision включает проекты разной сложности: от быстрых лендингов для локальных автосервисов до высоконагруженных финтех-платформ и медицинских порталов. Мы специализируемся на разработке сайтов, которые не просто висят в сети, а активно привлекают клиентов из поиска.
+                                    Портфолио Art.Vision — это платформы онлайн-трансляций, SaaS-продукты, e-commerce с конфигураторами, порталы медицинских ассоциаций и сайты флагманского уровня. Мы проектируем и разрабатываем цифровые продукты, которые работают на рост компании и находятся в поиске и в ответах нейросетей.
                                 </p>
                                 <h3 className="text-xl font-bold tracking-tight text-white mt-12 mb-4 uppercase">Как мы работаем над кейсами?</h3>
                                 <p className="leading-relaxed">
@@ -124,8 +186,8 @@ export default function CasesListPage() {
                                     <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Средний рост лидов</div>
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <div className="font-bold text-4xl text-white tracking-tighter">5 Дней</div>
-                                    <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Минимальный срок запуска</div>
+                                    <div className="font-bold text-4xl text-white tracking-tighter">GEO</div>
+                                    <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Видимость в ответах нейросетей</div>
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <div className="font-bold text-4xl text-white tracking-tighter">100%</div>

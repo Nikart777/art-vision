@@ -5,7 +5,7 @@ export const metadata = {
     title: 'Политика конфиденциальности',
     description: 'Политика в отношении обработки персональных данных компании Art.Vision (ООО "АТИМ").',
     alternates: {
-        canonical: 'https://art-vision.online/policy/',
+        canonical: 'https://24art-vision.ru/policy/',
     },
 };
 
@@ -20,7 +20,7 @@ export default function PolicyPage() {
 
                 <section className="prose prose-sm md:prose-base dark:prose-invert max-w-none space-y-8 text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
                     <p>
-                        Настоящая Политика конфиденциальности описывает, как ООО "АТИМ" (далее — «Компания», «мы») собирает, использует и защищает вашу информацию при использовании веб-сайта art-vision.online.
+                        Настоящая Политика конфиденциальности описывает, как ООО "АТИМ" (далее — «Компания», «мы») собирает, использует и защищает вашу информацию при использовании веб-сайта 24art-vision.ru.
                     </p>
 
                     <div>
@@ -54,7 +54,7 @@ export default function PolicyPage() {
                     </div>
 
                     <p className="pt-8 border-t border-gray-100 dark:border-white/5 text-xs">
-                        Если у вас есть вопросы по поводу настоящей политики, пожалуйста, свяжитесь с нами по электронной почте: project@art-vision.online
+                        Если у вас есть вопросы по поводу настоящей политики, пожалуйста, свяжитесь с нами по электронной почте: project@24art-vision.ru
                     </p>
                 </section>
             </div>

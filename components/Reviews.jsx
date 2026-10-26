@@ -2,6 +2,8 @@
 import { motion } from 'framer-motion';
 import { Star, Quote, CheckCircle2 } from 'lucide-react';
 import JsonLd from './JsonLd';
+import MaskReveal from './premium/MaskReveal';
+import { onSpotlightMove } from './premium/spotlight';
 
 import { reviewsData } from '@/data/reviews';
 
@@ -12,7 +14,7 @@ export default function Reviews({ isH1 = false }) {
         "itemReviewed": {
             "@type": "Organization",
             "name": "Art.Vision Digital Agency",
-            "image": "https://art-vision.online/icon.png",
+            "image": "https://24art-vision.ru/icon.png",
             "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Moscow",
@@ -56,12 +58,13 @@ export default function Reviews({ isH1 = false }) {
                             Что о нас Говорят Клиенты
                         </h1>
                     ) : (
-                        <h2 className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase">
-                            Нам Доверяют
-                        </h2>
+                        <MaskReveal
+                            className="text-white font-light text-[clamp(28px,6vw,56px)] leading-[1.15] tracking-[-0.02em] mb-4 uppercase"
+                            lines={['Нам', <span key="a" className="accent-serif">доверяют</span>]}
+                        />
                     )}
                     <p className="text-white/45 text-[15px] sm:text-[17px] leading-relaxed max-w-2xl mx-auto">
-                        Мы не просто делаем сайты, мы строим фундамент для роста вашего бизнеса. Честные отзывы и реальные результаты.
+                        Компании, которые доверили нам свой главный digital-актив. Честные отзывы и измеримые результаты.
                     </p>
                 </motion.header>
 
@@ -69,11 +72,12 @@ export default function Reviews({ isH1 = false }) {
                     {reviewsData.map((rev, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.8, delay: i * 0.1 }}
-                            className="p-8 bg-white/[0.02] border border-white/10 rounded-lg hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 flex flex-col group"
+                            transition={{ duration: 1, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            onPointerMove={onSpotlightMove}
+                            className="spotlight p-8 bg-white/[0.02] border border-white/10 rounded-xl hover:bg-white/[0.04] transition-all duration-500 flex flex-col group"
                         >
                             <div className="flex items-center gap-1 mb-6">
                                 {[...Array(rev.rating)].map((_, idx) => (

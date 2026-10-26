@@ -9,7 +9,7 @@ export const metadata = {
     title: 'Отзывы клиентов — репутация и результаты',
     description: 'Честные отзывы клиентов о разработке сайтов на Next.js, SEO-продвижении и внедрении IT-решений. Реальные проекты, цифры результата и контакты компаний.',
     alternates: {
-        canonical: 'https://art-vision.online/reviews/',
+        canonical: 'https://24art-vision.ru/reviews/',
     },
 };
 

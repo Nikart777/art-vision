@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 
-const BASE_URL = 'https://art-vision.online';
+const BASE_URL = 'https://24art-vision.ru';
 
 /**
  * Хлебные крошки: видимая навигация + BreadcrumbList для расширенного сниппета.

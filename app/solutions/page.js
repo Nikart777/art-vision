@@ -26,7 +26,7 @@ export const metadata = {
     title: 'Готовые решения для бизнеса',
     description: 'Отраслевые решения по разработке сайтов. Сайт для автосервиса, застройщика, стоматологии и мебельного производства. Запуск за 5 дней с гарантией результата.',
     alternates: {
-        canonical: 'https://art-vision.online/solutions/',
+        canonical: 'https://24art-vision.ru/solutions/',
     },
 };
 

@@ -8,7 +8,7 @@ export const metadata = {
     title: 'Блог о веб-разработке и SEO',
     description: 'Статьи о веб-разработке на Next.js, продвижении бизнеса в Яндексе и Google и техническом SEO. Только практический опыт агентства и реальные цифры по проектам.',
     alternates: {
-        canonical: 'https://art-vision.online/blog/',
+        canonical: 'https://24art-vision.ru/blog/',
     },
 };
 

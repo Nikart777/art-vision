@@ -90,7 +90,7 @@ export default function Navbar({ entranceComplete = true }) {
             onMouseLeave={() => setIsHoveredDownload(false)}
             whileHover={{ scale: 1.03, backgroundColor: "#e2e2e6" }}
             whileTap={{ scale: 0.97 }}
-            className="h-10 md:h-12 px-5 md:px-6 bg-white rounded-full flex items-center justify-center gap-2 text-black transition-colors"
+            className="btn-shine h-10 md:h-12 px-5 md:px-6 bg-white rounded-full flex items-center justify-center gap-2 text-black transition-colors"
           >
             <span className="text-[12px] md:text-[14px] font-bold uppercase tracking-widest hidden sm:block">
               <ScrambleText text="Обсудить проект" isHovered={isHoveredDownload} />
